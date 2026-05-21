@@ -1,11 +1,13 @@
-# Dev Log — Day 1 (2026-05-19)
+# Dev Log — Day 1 (2026-05-19 -> 2025-05-20)
 
 ## Goal
+
 1. Stand up the entire Quest 3 development toolchain from scratch.
 2. Get a hello-world build running on the headset — prove the full pipeline end to end.
 3. Initialise version control and push the working baseline to GitHub.
 
 ## What I actually did
+
 - **Toolchain:** Installed Android Platform Tools (standalone ADB), Meta Quest Developer Hub
   (MQDH), Unity Hub, Unity, VS Code (+ C# Dev Kit + Unity extensions), Git, Git LFS. Added ADB
   to PATH. Confirmed `adb devices` shows the Quest as `device`.
@@ -21,19 +23,19 @@
 
 - **Symptom:** Plugging the Quest into USB only showed an "Enable Link" popup in the headset —
   never the "Allow USB debugging from this computer" prompt. ADB couldn't authorise the device.
-  - **Cause:** I was logged into the Quest under a *non-owner* profile. Developer features
+  - **Cause:** I was logged into the Quest under a _non-owner_ profile. Developer features
     (debugging, sideload) only work on the owner profile.
   - **Fix:** Switched to the owner profile. The USB debugging prompt then appeared.
 
 - **Symptom:** `adb` not recognised in PowerShell.
   - **Cause:** Platform Tools extracted but not on PATH.
-  - **Fix:** Extracted to `C:\platform-tools`, added it to the User PATH env var, opened a *fresh*
+  - **Fix:** Extracted to `C:\platform-tools`, added it to the User PATH env var, opened a _fresh_
     PowerShell (PATH changes don't apply to already-open terminals).
 
 - **Symptom:** OpenXR showed a performance warning that wouldn't clear even after I removed the
   SSAO render feature from the renderer.
   - **Cause:** Unity buffers asset changes in memory; removing the feature in the Inspector wasn't
-    written to disk. Also the warning checks *all* UniversalRenderer assets, not just the active one.
+    written to disk. Also the warning checks _all_ UniversalRenderer assets, not just the active one.
   - **Fix:** Removed SSAO from every renderer (Mobile_Renderer, PC_Renderer), then **Ctrl+S** to
     save the project. Warning cleared. (Lesson: Ctrl+S after Renderer/Project Settings changes.)
 
@@ -43,7 +45,7 @@
     about duplicate namespaces. The latest Meta SDK (200-series) declares the same namespace across
     several modules — a known bleeding-edge incompatibility.
   - **Fix attempt that failed:** Tried forcing Gradle 8.9 — rejected, because Unity 6.4's Android
-    plugin *requires* Gradle 9.1.0+. Dead end.
+    plugin _requires_ Gradle 9.1.0+. Dead end.
   - **Real fix (decision below):** Dropped Unity 6.4 entirely and moved to Unity 2022.3 LTS +
     Meta Core SDK v74.0.0, the battle-tested combo. Build succeeded.
 
@@ -63,6 +65,7 @@
   - **Fix:** `git config --global user.email/user.name`, then re-committed.
 
 ## Decisions made
+
 - **Dropped Unity 6.4 → Unity 2022.3.62f3 (standard LTS).** The single most important call of the
   day. Fighting bleeding-edge Gradle/SDK bugs would have cost days; the LTS combo is what the whole
   ecosystem and every tutorial targets. Made the switch on Day 1 when nothing was invested yet.
@@ -75,11 +78,13 @@
   `.asset` as normal Git files so they stay diffable/mergeable.
 
 ## Open questions / next
+
 - **#1 next move:** confirm the Floex CAD format and sizing with the team (→ became Day 2 Block 1).
 - Get the OR environment and Floex mesh into the scene once the CAD lands.
 - CLAUDE.md to be fleshed out with the full version pins and gotchas before next session.
 
 ## Time spent
+
 Full session. The Unity 6 → 2022 LTS migration (discovering the Gradle bug, the failed Gradle
 downgrade, the Extended-LTS license trap, then a clean reinstall) ate the majority of the day. The
 toolchain install and the actual hello-world build were comparatively quick. The detour wasn't
