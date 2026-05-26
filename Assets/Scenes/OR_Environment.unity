@@ -122,12 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &22980103 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5853806554400836293, guid: 869924c4e3ee09d43a4e9f9640d8c4b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 322078263}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &136160716
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,10 +571,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5853806554400836293, guid: 869924c4e3ee09d43a4e9f9640d8c4b5,
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 869924c4e3ee09d43a4e9f9640d8c4b5,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 922732722}
+      addedObject: {fileID: 1014756027}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 869924c4e3ee09d43a4e9f9640d8c4b5, type: 3}
 --- !u!1 &371886577
@@ -820,13 +814,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922732721}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.01}
-  m_LocalScale: {x: 0.000254, y: 0.000254, z: 0.000254}
+  m_LocalRotation: {x: -0.00000008940697, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.00235, y: 0.0019, z: 0.003}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 174806457}
-  m_Father: {fileID: 22980103}
+  m_Father: {fileID: 1014756027}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -896,6 +890,44 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!4 &1009516499 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 869924c4e3ee09d43a4e9f9640d8c4b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 322078263}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1014756026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1014756027}
+  m_Layer: 0
+  m_Name: ConsoleMount
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1014756027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014756026}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.16, y: 1.31, z: 1.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 922732722}
+  m_Father: {fileID: 1009516499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1104222212
 GameObject:
   m_ObjectHideFlags: 0
