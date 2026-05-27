@@ -1,0 +1,1049 @@
+{
+  "screenName": "Screen_CDM",
+  "comment": "Floex CDM pole screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour.",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Background",
+          "type": "image",
+          "stretch": true,
+          "color": "000000"
+        }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        {
+          "name": "Box_Header",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 71,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Logo",
+          "type": "text",
+          "x": 4,
+          "y": 1,
+          "w": 264,
+          "h": 73,
+          "text": "FloEx 3.0",
+          "size": 60,
+          "color": "E7696D",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_Date",
+          "type": "text",
+          "x": 1151,
+          "y": 13,
+          "w": 110,
+          "h": 25,
+          "text": "00:00:2026",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_Time",
+          "type": "text",
+          "x": 1164,
+          "y": 40,
+          "w": 106,
+          "h": 34,
+          "text": "00:00:01",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Box_Battery",
+          "type": "image",
+          "x": 1028,
+          "y": 15,
+          "w": 110,
+          "h": 50,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Battery",
+          "type": "image",
+          "x": 1060,
+          "y": 15,
+          "w": 110,
+          "h": 50,
+          "sprite": "battery_full"
+        }
+      ]
+    },
+    {
+      "name": "Panel_Cardioplegia",
+      "elements": [
+        {
+          "name": "Box_LeftReadout",
+          "type": "image",
+          "x": 25,
+          "y": 130,
+          "w": 491,
+          "h": 265,
+          "color": "141414"
+        },
+        {
+          "name": "Box_RightReadout",
+          "type": "image",
+          "x": 545,
+          "y": 132,
+          "w": 481,
+          "h": 263,
+          "color": "141414"
+        },
+        {
+          "name": "Bar_CardioHeader",
+          "type": "image",
+          "x": 25,
+          "y": 84,
+          "w": 1001,
+          "h": 46,
+          "color": "27C0F5"
+        },
+        {
+          "name": "Txt_CardioTitle",
+          "type": "text",
+          "x": 242,
+          "y": 84,
+          "w": 586,
+          "h": 45,
+          "text": "CARDIOPLEGIA",
+          "size": 40,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Img_LeftSyringe",
+          "type": "image",
+          "x": 45,
+          "y": 158,
+          "w": 68,
+          "h": 63,
+          "sprite": "syringe"
+        },
+        {
+          "name": "Txt_LeftValue",
+          "type": "text",
+          "x": 122,
+          "y": 125,
+          "w": 333,
+          "h": 118,
+          "text": "0.00",
+          "size": 100,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_LeftUnit",
+          "type": "text",
+          "x": 467,
+          "y": 184,
+          "w": 38,
+          "h": 42,
+          "text": "ml",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Box_LeftAlarm",
+          "type": "image",
+          "x": 83,
+          "y": 306,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_LeftAlarm",
+          "type": "image",
+          "x": 83,
+          "y": 306,
+          "w": 60,
+          "h": 60,
+          "sprite": "alarm"
+        },
+        {
+          "name": "Box_LeftPlay",
+          "type": "image",
+          "x": 151,
+          "y": 304,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_LeftPlay",
+          "type": "image",
+          "x": 151,
+          "y": 304,
+          "w": 60,
+          "h": 60,
+          "sprite": "play"
+        },
+        {
+          "name": "Box_LeftTimerBG",
+          "type": "image",
+          "x": 220,
+          "y": 304,
+          "w": 204,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_LeftTimer",
+          "type": "text",
+          "x": 244,
+          "y": 311,
+          "w": 157,
+          "h": 50,
+          "text": "00:00:00",
+          "size": 34,
+          "color": "FFFFFF",
+          "align": "center"
+        },
+        {
+          "name": "Box_LeftHistory",
+          "type": "image",
+          "x": 430,
+          "y": 304,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_LeftHistory",
+          "type": "image",
+          "x": 430,
+          "y": 304,
+          "w": 60,
+          "h": 60,
+          "sprite": "history"
+        },
+        {
+          "name": "Img_RightSyringe",
+          "type": "image",
+          "x": 563,
+          "y": 158,
+          "w": 73,
+          "h": 63,
+          "sprite": "syringe"
+        },
+        {
+          "name": "Txt_RightValue",
+          "type": "text",
+          "x": 637,
+          "y": 125,
+          "w": 333,
+          "h": 118,
+          "text": "0.00",
+          "size": 100,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_RightUnit",
+          "type": "text",
+          "x": 980,
+          "y": 184,
+          "w": 38,
+          "h": 42,
+          "text": "ml",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_RightMmhgValue",
+          "type": "text",
+          "x": 712,
+          "y": 250,
+          "w": 172,
+          "h": 122,
+          "text": "0",
+          "size": 100,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_RightMmhgUnit",
+          "type": "text",
+          "x": 905,
+          "y": 313,
+          "w": 98,
+          "h": 42,
+          "text": "mmHg",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Box_RightDownload",
+          "type": "image",
+          "x": 639,
+          "y": 301,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_RightDownload",
+          "type": "image",
+          "x": 639,
+          "y": 301,
+          "w": 60,
+          "h": 60,
+          "sprite": "download"
+        }
+      ]
+    },
+    {
+      "name": "Panel_Status",
+      "elements": [
+        {
+          "name": "Bar_PressureHeader",
+          "type": "image",
+          "x": 25,
+          "y": 420,
+          "w": 406,
+          "h": 38,
+          "color": "FF4D4D"
+        },
+        {
+          "name": "Txt_PressureTitle",
+          "type": "text",
+          "x": 117,
+          "y": 418,
+          "w": 171,
+          "h": 40,
+          "text": "PRESSURE",
+          "size": 40,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_P1",
+          "type": "image",
+          "x": 25,
+          "y": 458,
+          "w": 186,
+          "h": 191,
+          "color": "141414"
+        },
+        {
+          "name": "Box_P2",
+          "type": "image",
+          "x": 221,
+          "y": 458,
+          "w": 210,
+          "h": 191,
+          "color": "141414"
+        },
+        {
+          "name": "Txt_P1Label",
+          "type": "text",
+          "x": 42,
+          "y": 476,
+          "w": 26,
+          "h": 25,
+          "text": "P1",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_P1Value",
+          "type": "text",
+          "x": 32,
+          "y": 477,
+          "w": 169,
+          "h": 137,
+          "text": "0",
+          "size": 100,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_P1Unit",
+          "type": "text",
+          "x": 105,
+          "y": 585,
+          "w": 98,
+          "h": 42,
+          "text": "mmHg",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_P2Label",
+          "type": "text",
+          "x": 228,
+          "y": 476,
+          "w": 26,
+          "h": 25,
+          "text": "P2",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_P2Value",
+          "type": "text",
+          "x": 218,
+          "y": 477,
+          "w": 169,
+          "h": 137,
+          "text": "0",
+          "size": 100,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_P2Unit",
+          "type": "text",
+          "x": 318,
+          "y": 585,
+          "w": 98,
+          "h": 42,
+          "text": "mmHg",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Bar_LevelHeader",
+          "type": "image",
+          "x": 456,
+          "y": 420,
+          "w": 272,
+          "h": 38,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Txt_LevelTitle",
+          "type": "text",
+          "x": 538,
+          "y": 419,
+          "w": 98,
+          "h": 40,
+          "text": "LEVEL",
+          "size": 40,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Level",
+          "type": "image",
+          "x": 456,
+          "y": 458,
+          "w": 270,
+          "h": 191,
+          "color": "141414"
+        },
+        {
+          "name": "Txt_LevelDetected",
+          "type": "text",
+          "x": 467,
+          "y": 484,
+          "w": 206,
+          "h": 25,
+          "text": "LEVEL DETECTED :",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_LevelStatus",
+          "type": "text",
+          "x": 673,
+          "y": 484,
+          "w": 52,
+          "h": 25,
+          "text": "HIGH",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Img_LevelGraphic",
+          "type": "image",
+          "x": 545,
+          "y": 525,
+          "w": 78,
+          "h": 102,
+          "sprite": "level_bars"
+        },
+        {
+          "name": "Bar_BubbleHeader",
+          "type": "image",
+          "x": 758,
+          "y": 416,
+          "w": 270,
+          "h": 42,
+          "color": "E8E337"
+        },
+        {
+          "name": "Txt_BubbleTitle",
+          "type": "text",
+          "x": 829,
+          "y": 417,
+          "w": 129,
+          "h": 40,
+          "text": "BUBBLE",
+          "size": 40,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Bubble",
+          "type": "image",
+          "x": 758,
+          "y": 462,
+          "w": 270,
+          "h": 187,
+          "color": "141414"
+        },
+        {
+          "name": "Txt_BubbleDetected",
+          "type": "text",
+          "x": 759,
+          "y": 484,
+          "w": 225,
+          "h": 25,
+          "text": "BUBBLE DETECTED :",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_BubbleStatus",
+          "type": "text",
+          "x": 984,
+          "y": 484,
+          "w": 31,
+          "h": 25,
+          "text": "NO",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Img_BubbleGraphic",
+          "type": "image",
+          "x": 847,
+          "y": 529,
+          "w": 109,
+          "h": 88,
+          "sprite": "bubble_dots"
+        }
+      ]
+    },
+    {
+      "name": "Panel_Temperature",
+      "comment": "T1-T4. Source split each into label+value+degree+C; collapsed to label + '00.00 C' (unit folded in, wider box).",
+      "elements": [
+        {
+          "name": "Box_TempStrip",
+          "type": "image",
+          "x": 25,
+          "y": 660,
+          "w": 1001,
+          "h": 42,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_T1Label",
+          "type": "text",
+          "x": 42,
+          "y": 664,
+          "w": 25,
+          "h": 29,
+          "text": "T1",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_T1Value",
+          "type": "text",
+          "x": 84,
+          "y": 656,
+          "w": 160,
+          "h": 49,
+          "text": "00.00 °C",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_T2Label",
+          "type": "text",
+          "x": 301,
+          "y": 664,
+          "w": 25,
+          "h": 29,
+          "text": "T2",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_T2Value",
+          "type": "text",
+          "x": 351,
+          "y": 656,
+          "w": 160,
+          "h": 49,
+          "text": "00.00 °C",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_T3Label",
+          "type": "text",
+          "x": 603,
+          "y": 664,
+          "w": 25,
+          "h": 29,
+          "text": "T3",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_T3Value",
+          "type": "text",
+          "x": 644,
+          "y": 656,
+          "w": 160,
+          "h": 49,
+          "text": "00.00 °C",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_T4Label",
+          "type": "text",
+          "x": 847,
+          "y": 664,
+          "w": 25,
+          "h": 29,
+          "text": "T4",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Txt_T4Value",
+          "type": "text",
+          "x": 883,
+          "y": 656,
+          "w": 160,
+          "h": 49,
+          "text": "00.00 °C",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left"
+        }
+      ]
+    },
+    {
+      "name": "Panel_TimerBar",
+      "comment": "Bottom timer bar. 3x [play + 00:00:00 + reset] groups + speaker/mute bottom-right. Display-only, no listeners (scope-lock). Reset glyphs mirror TouchGFX: G1=restore, G2/G3=history.",
+      "elements": [
+        {
+          "name": "Box_Timer1Play",
+          "type": "image",
+          "x": 21,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Timer1Play",
+          "type": "image",
+          "x": 21,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "sprite": "play"
+        },
+        {
+          "name": "Txt_Timer1",
+          "type": "text",
+          "x": 117,
+          "y": 735,
+          "w": 157,
+          "h": 50,
+          "text": "00:00:00",
+          "size": 34,
+          "color": "FFFFFF",
+          "align": "center"
+        },
+        {
+          "name": "Box_Timer1Reset",
+          "type": "image",
+          "x": 301,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Timer1Reset",
+          "type": "image",
+          "x": 301,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "sprite": "history"
+        },
+        {
+          "name": "Box_Timer2Play",
+          "type": "image",
+          "x": 414,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Timer2Play",
+          "type": "image",
+          "x": 414,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "sprite": "play"
+        },
+        {
+          "name": "Txt_Timer2",
+          "type": "text",
+          "x": 490,
+          "y": 735,
+          "w": 157,
+          "h": 50,
+          "text": "00:00:00",
+          "size": 34,
+          "color": "FFFFFF",
+          "align": "center"
+        },
+        {
+          "name": "Box_Timer2Reset",
+          "type": "image",
+          "x": 671,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Timer2Reset",
+          "type": "image",
+          "x": 671,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "sprite": "history"
+        },
+        {
+          "name": "Box_Timer3Play",
+          "type": "image",
+          "x": 773,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Timer3Play",
+          "type": "image",
+          "x": 773,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "sprite": "play"
+        },
+        {
+          "name": "Txt_Timer3",
+          "type": "text",
+          "x": 852,
+          "y": 735,
+          "w": 157,
+          "h": 50,
+          "text": "00:00:00",
+          "size": 34,
+          "color": "FFFFFF",
+          "align": "center"
+        },
+        {
+          "name": "Box_Timer3Reset",
+          "type": "image",
+          "x": 1033,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Timer3Reset",
+          "type": "image",
+          "x": 1033,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "sprite": "history"
+        },
+        {
+          "name": "Box_Speaker",
+          "type": "image",
+          "x": 1199,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Speaker",
+          "type": "image",
+          "x": 1199,
+          "y": 725,
+          "w": 60,
+          "h": 60,
+          "sprite": "speaker"
+        }
+      ]
+    },
+    {
+      "name": "Panel_NavMenu",
+      "comment": "Right-side nav menu. Text-only list + dividers. Display-only (scope-lock). This list = future screen map.",
+      "elements": [
+        {
+          "name": "Box_NavPanel",
+          "type": "image",
+          "x": 1049,
+          "y": 84,
+          "w": 231,
+          "h": 551,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_NavSetup",
+          "type": "text",
+          "x": 1081,
+          "y": 95,
+          "w": 118,
+          "h": 48,
+          "text": "Setup",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Div_NavSetup",
+          "type": "image",
+          "x": 1054,
+          "y": 158,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBSA",
+          "type": "text",
+          "x": 1054,
+          "y": 155,
+          "w": 230,
+          "h": 60,
+          "text": "BSA & Patient",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBSA",
+          "type": "image",
+          "x": 1054,
+          "y": 205,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBubble",
+          "type": "text",
+          "x": 1054,
+          "y": 213,
+          "w": 230,
+          "h": 60,
+          "text": "Bubble Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBubble",
+          "type": "image",
+          "x": 1054,
+          "y": 266,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavLevel",
+          "type": "text",
+          "x": 1054,
+          "y": 274,
+          "w": 230,
+          "h": 60,
+          "text": "Level Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavLevel",
+          "type": "image",
+          "x": 1054,
+          "y": 327,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavPressure",
+          "type": "text",
+          "x": 1054,
+          "y": 335,
+          "w": 230,
+          "h": 60,
+          "text": "Pressure Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavPressure",
+          "type": "image",
+          "x": 1054,
+          "y": 388,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTemp",
+          "type": "text",
+          "x": 1055,
+          "y": 395,
+          "w": 230,
+          "h": 60,
+          "text": "Temperature Sensor",
+          "size": 20,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTemp",
+          "type": "image",
+          "x": 1054,
+          "y": 448,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavCardio",
+          "type": "text",
+          "x": 1055,
+          "y": 455,
+          "w": 230,
+          "h": 60,
+          "text": "Cardioplegia",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavCardio",
+          "type": "image",
+          "x": 1054,
+          "y": 508,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTimer",
+          "type": "text",
+          "x": 1055,
+          "y": 515,
+          "w": 230,
+          "h": 60,
+          "text": "Timer",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTimer",
+          "type": "image",
+          "x": 1054,
+          "y": 568,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavSystem",
+          "type": "text",
+          "x": 1055,
+          "y": 575,
+          "w": 230,
+          "h": 60,
+          "text": "System Setting",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        }
+      ]
+    }
+  ]
+}
