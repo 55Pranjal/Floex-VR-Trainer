@@ -1,0 +1,76 @@
+{
+  "screenName": "Screen_LevelSensor",
+  "comment": "Floex Level Sensor screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. Reuses Header pattern + NavMenu + bottom buttons from prior screens. Simplest layout so far: intro line, single pump row (cyan swatch + Arterial), two toggle-label+toggle pairs. Toggles frozen OFF as static toggle_off sprite (scope-lock). Cyan swatch rendered as solid colour box (no checkmark glyph).",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Background", "type": "image", "stretch": true, "color": "000000" }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Box_Header",     "type": "image", "x": 0,    "y": 0,   "w": 1280, "h": 71, "color": "1A1F29" },
+        { "name": "Txt_Logo",       "type": "text",  "x": 4,    "y": 1,   "w": 264,  "h": 73, "text": "FloEx 3.0",    "size": 60, "color": "E7696D", "align": "left",   "bold": true },
+        { "name": "Txt_ScreenTitle","type": "text",  "x": 499,  "y": 0,   "w": 373,  "h": 73, "text": "Level Sensor", "size": 60, "color": "E7696D", "align": "center", "bold": true },
+        { "name": "Box_Home",       "type": "image", "x": 1207, "y": 5,   "w": 60,   "h": 60, "color": "0C1B37" },
+        { "name": "Img_Home",       "type": "image", "x": 1207, "y": 5,   "w": 60,   "h": 60, "sprite": "home" }
+      ]
+    },
+    {
+      "name": "Body",
+      "comment": "Intro line, pump row (cyan swatch + Arterial), two toggle-label + toggle pairs.",
+      "elements": [
+        { "name": "Txt_Intro",        "type": "text",  "x": 58, "y": 95,  "w": 883, "h": 48, "text": "Select pump to stop when low level is detected", "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
+
+        { "name": "Box_ArterialSwatch","type": "image", "x": 99,  "y": 179, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Txt_Arterial",     "type": "text",  "x": 195, "y": 188, "w": 147, "h": 42, "text": "Arterial", "size": 35, "color": "FFFFFF", "align": "left", "bold": true },
+
+        { "name": "Txt_EnableInterrupt","type": "text",  "x": 58, "y": 279, "w": 708, "h": 41, "text": "Enable pump interruption base on level sensor", "size": 21, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Img_ToggleInterrupt","type": "image", "x": 99, "y": 340, "w": 138, "h": 50, "sprite": "toggle_off" },
+
+        { "name": "Txt_EnableAlarm",  "type": "text",  "x": 58, "y": 425, "w": 443, "h": 36, "text": "Enable alarm on low  reservior level", "size": 21, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Img_ToggleAlarm",  "type": "image", "x": 99, "y": 485, "w": 138, "h": 50, "sprite": "toggle_off" }
+      ]
+    },
+    {
+      "name": "Buttons",
+      "comment": "Bottom action buttons. Display-only, no listeners (scope-lock). Save & Exit green, Cancel red.",
+      "elements": [
+        { "name": "Box_SaveExit", "type": "image", "x": 279, "y": 723, "w": 204, "h": 70, "color": "5FD79B" },
+        { "name": "Txt_SaveExit", "type": "text",  "x": 279, "y": 719, "w": 204, "h": 70, "text": "Save & Exit", "size": 32, "color": "000000", "align": "center", "bold": true },
+
+        { "name": "Box_Cancel",   "type": "image", "x": 589, "y": 724, "w": 204, "h": 70, "color": "F58484" },
+        { "name": "Txt_Cancel",   "type": "text",  "x": 589, "y": 720, "w": 204, "h": 70, "text": "Cancel",      "size": 36, "color": "FFFFFF", "align": "center", "bold": true }
+      ]
+    },
+    {
+      "name": "Panel_NavMenu",
+      "comment": "Right-side nav menu. Copied from Screen_BSA (identical coords). Text-only list + dividers. Display-only (scope-lock). Level Sensor is the active screen here.",
+      "elements": [
+        { "name": "Box_NavPanel",   "type": "image", "x": 1049, "y": 84, "w": 231, "h": 551, "color": "1A1F29" },
+        { "name": "Txt_NavSetup",   "type": "text",  "x": 1081, "y": 95,  "w": 118, "h": 48, "text": "Setup", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+
+        { "name": "Div_NavSetup",   "type": "image", "x": 1054, "y": 158, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavBSA",     "type": "text",  "x": 1054, "y": 155, "w": 230, "h": 60, "text": "BSA & Patient",       "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavBSA",     "type": "image", "x": 1054, "y": 205, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavBubble",  "type": "text",  "x": 1054, "y": 213, "w": 230, "h": 60, "text": "Bubble Sensor",       "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavBubble",  "type": "image", "x": 1054, "y": 266, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavLevel",   "type": "text",  "x": 1054, "y": 274, "w": 230, "h": 60, "text": "Level Sensor",        "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavLevel",   "type": "image", "x": 1054, "y": 327, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavPressure","type": "text",  "x": 1054, "y": 335, "w": 230, "h": 60, "text": "Pressure Sensor",     "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavPressure","type": "image", "x": 1054, "y": 388, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavTemp",    "type": "text",  "x": 1055, "y": 395, "w": 230, "h": 60, "text": "Temperature Sensor",  "size": 20, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavTemp",    "type": "image", "x": 1054, "y": 448, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavCardio",  "type": "text",  "x": 1055, "y": 455, "w": 230, "h": 60, "text": "Cardioplegia",        "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavCardio",  "type": "image", "x": 1054, "y": 508, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavTimer",   "type": "text",  "x": 1055, "y": 515, "w": 230, "h": 60, "text": "Timer",               "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavTimer",   "type": "image", "x": 1054, "y": 568, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavSystem",  "type": "text",  "x": 1055, "y": 575, "w": 230, "h": 60, "text": "System Setting",      "size": 25, "color": "FFFFFF", "align": "left", "bold": true }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,889 @@
+{
+  "screenName": "Screen_PressureSensor",
+  "comment": "Floex Pressure Sensor screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. Reuses Header + NavMenu + bottom buttons. Two side-by-side pressure panels (PS1 left, PS2 right). Each panel: title, Select Pump label + dropdown box/caret, three stepper rows (Calibration Actual Value with range note / Threshold for warning / Threshold for Alarm and Pump Stop), each = value + 60x60 colour box (green up #2ECC9B / cyan down #27C0F5) + 50x50 arrow sprite inset, plus Pump Interruption label + toggle frozen OFF. Element names retain BS1/BS2 prefixes carried over from the Bubble Sensor template.",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Background",
+          "type": "image",
+          "stretch": true,
+          "color": "000000"
+        }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        {
+          "name": "Box_Header",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 71,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Logo",
+          "type": "text",
+          "x": 4,
+          "y": 1,
+          "w": 264,
+          "h": 73,
+          "text": "FloEx 3.0",
+          "size": 60,
+          "color": "E7696D",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_ScreenTitle",
+          "type": "text",
+          "x": 470,
+          "y": 1,
+          "w": 340,
+          "h": 73,
+          "text": "Pressure Sensor",
+          "size": 60,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "sprite": "home"
+        }
+      ]
+    },
+    {
+      "name": "Panel_PS1",
+      "comment": "Pressure Sensor 1, left column. box bg #121010. Three stepper blocks stacked: Calibration (Y350), Threshold for warning (Y447), Threshold for Alarm and Pump Stop (Y550).",
+      "elements": [
+        {
+          "name": "Txt_BS1Title",
+          "type": "text",
+          "x": 37,
+          "y": 99,
+          "w": 313,
+          "h": 48,
+          "text": "Pressure Sensor 1",
+          "size": 40,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS1",
+          "type": "image",
+          "x": 19,
+          "y": 160,
+          "w": 498,
+          "h": 550,
+          "color": "121010"
+        },
+        {
+          "name": "Txt_BS1SelectPump",
+          "type": "text",
+          "x": 37,
+          "y": 170,
+          "w": 183,
+          "h": 42,
+          "text": "Select Pump",
+          "size": 30,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS1Dropdown",
+          "type": "image",
+          "x": 253,
+          "y": 170,
+          "w": 260,
+          "h": 40,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Img_BS1Dropdown",
+          "type": "image",
+          "x": 470,
+          "y": 170,
+          "w": 40,
+          "h": 40,
+          "sprite": "dropdown"
+        },
+        {
+          "name": "Txt_BS1Threshold",
+          "type": "text",
+          "x": 29,
+          "y": 550,
+          "w": 236,
+          "h": 42,
+          "text": "Threshold for\nAlarm and Pump Stop",
+          "size": 22,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS1Up",
+          "type": "image",
+          "x": 289,
+          "y": 550,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_BS1UpArrow",
+          "type": "image",
+          "x": 294,
+          "y": 550,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Txt_BS1Value",
+          "type": "text",
+          "x": 349,
+          "y": 550,
+          "w": 104,
+          "h": 42,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_BS1Down",
+          "type": "image",
+          "x": 453,
+          "y": 550,
+          "w": 60,
+          "h": 60,
+          "color": "27C0F5"
+        },
+        {
+          "name": "Img_BS1DownArrow",
+          "type": "image",
+          "x": 458,
+          "y": 550,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_BS1Threshold",
+          "type": "text",
+          "x": 29,
+          "y": 350,
+          "w": 236,
+          "h": 42,
+          "text": "Calibration\nActual Value",
+          "size": 28,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_BS1Range",
+          "type": "text",
+          "x": 289,
+          "y": 405,
+          "w": 236,
+          "h": 42,
+          "text": "Range: 0-400 mmHg",
+          "size": 20,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Box_BS1Up",
+          "type": "image",
+          "x": 289,
+          "y": 350,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_BS1UpArrow",
+          "type": "image",
+          "x": 294,
+          "y": 350,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Txt_BS1Value",
+          "type": "text",
+          "x": 349,
+          "y": 350,
+          "w": 104,
+          "h": 42,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_BS1Down",
+          "type": "image",
+          "x": 453,
+          "y": 350,
+          "w": 60,
+          "h": 60,
+          "color": "27C0F5"
+        },
+        {
+          "name": "Img_BS1DownArrow",
+          "type": "image",
+          "x": 458,
+          "y": 350,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_BS1Threshold",
+          "type": "text",
+          "x": 29,
+          "y": 456,
+          "w": 236,
+          "h": 42,
+          "text": "Threshold for\nwarning(mm)",
+          "size": 28,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS1Up",
+          "type": "image",
+          "x": 289,
+          "y": 447,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_BS1UpArrow",
+          "type": "image",
+          "x": 294,
+          "y": 452,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Txt_BS1Value",
+          "type": "text",
+          "x": 349,
+          "y": 459,
+          "w": 104,
+          "h": 42,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_BS1Down",
+          "type": "image",
+          "x": 453,
+          "y": 445,
+          "w": 60,
+          "h": 60,
+          "color": "27C0F5"
+        },
+        {
+          "name": "Img_BS1DownArrow",
+          "type": "image",
+          "x": 458,
+          "y": 450,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_BS1Alarm",
+          "type": "text",
+          "x": 37,
+          "y": 653,
+          "w": 220,
+          "h": 34,
+          "text": "Pump Interruption",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Img_BS1ToggleAlarm",
+          "type": "image",
+          "x": 349,
+          "y": 645,
+          "w": 138,
+          "h": 50,
+          "sprite": "toggle_off"
+        }
+      ]
+    },
+    {
+      "name": "Panel_PS2",
+      "comment": "Pressure Sensor 2, right column. Mirror of PS1, +517 X offset.",
+      "elements": [
+        {
+          "name": "Txt_BS2Title",
+          "type": "text",
+          "x": 538,
+          "y": 99,
+          "w": 313,
+          "h": 48,
+          "text": "Pressure Sensor 2",
+          "size": 40,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS2",
+          "type": "image",
+          "x": 538,
+          "y": 160,
+          "w": 498,
+          "h": 508,
+          "color": "121010"
+        },
+        {
+          "name": "Txt_BS2SelectPump",
+          "type": "text",
+          "x": 555,
+          "y": 170,
+          "w": 183,
+          "h": 42,
+          "text": "Select Pump",
+          "size": 30,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS2Dropdown",
+          "type": "image",
+          "x": 770,
+          "y": 170,
+          "w": 260,
+          "h": 40,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Img_BS2Dropdown",
+          "type": "image",
+          "x": 987,
+          "y": 170,
+          "w": 40,
+          "h": 40,
+          "sprite": "dropdown"
+        },
+        {
+          "name": "Txt_BS2Threshold",
+          "type": "text",
+          "x": 550,
+          "y": 550,
+          "w": 236,
+          "h": 42,
+          "text": "Threshold for\nAlarm and Pump Stop",
+          "size": 22,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS2Up",
+          "type": "image",
+          "x": 806,
+          "y": 550,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_BS2UpArrow",
+          "type": "image",
+          "x": 811,
+          "y": 550,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Txt_BS2Value",
+          "type": "text",
+          "x": 866,
+          "y": 550,
+          "w": 104,
+          "h": 42,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_BS2Down",
+          "type": "image",
+          "x": 969,
+          "y": 550,
+          "w": 60,
+          "h": 60,
+          "color": "27C0F5"
+        },
+        {
+          "name": "Img_BS2DownArrow",
+          "type": "image",
+          "x": 975,
+          "y": 550,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_BS2Threshold",
+          "type": "text",
+          "x": 550,
+          "y": 350,
+          "w": 236,
+          "h": 42,
+          "text": "Calibration\nActual Value",
+          "size": 28,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_BS2Range",
+          "type": "text",
+          "x": 806,
+          "y": 405,
+          "w": 236,
+          "h": 42,
+          "text": "Range: 0-400 mmHg",
+          "size": 20,
+          "color": "FFFFFF",
+          "align": "left"
+        },
+        {
+          "name": "Box_BS2Up",
+          "type": "image",
+          "x": 806,
+          "y": 350,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_BS2UpArrow",
+          "type": "image",
+          "x": 811,
+          "y": 350,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Txt_BS2Value",
+          "type": "text",
+          "x": 866,
+          "y": 350,
+          "w": 104,
+          "h": 42,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_BS2Down",
+          "type": "image",
+          "x": 969,
+          "y": 350,
+          "w": 60,
+          "h": 60,
+          "color": "27C0F5"
+        },
+        {
+          "name": "Img_BS2DownArrow",
+          "type": "image",
+          "x": 975,
+          "y": 350,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_BS2Threshold",
+          "type": "text",
+          "x": 550,
+          "y": 456,
+          "w": 236,
+          "h": 42,
+          "text": "Threshold for\nwarning(mm)",
+          "size": 28,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_BS2Up",
+          "type": "image",
+          "x": 806,
+          "y": 447,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_BS2UpArrow",
+          "type": "image",
+          "x": 811,
+          "y": 452,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Txt_BS2Value",
+          "type": "text",
+          "x": 866,
+          "y": 459,
+          "w": 104,
+          "h": 42,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_BS2Down",
+          "type": "image",
+          "x": 969,
+          "y": 445,
+          "w": 60,
+          "h": 60,
+          "color": "27C0F5"
+        },
+        {
+          "name": "Img_BS2DownArrow",
+          "type": "image",
+          "x": 975,
+          "y": 450,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_BS2Alarm",
+          "type": "text",
+          "x": 558,
+          "y": 653,
+          "w": 220,
+          "h": 34,
+          "text": "Pump Interruption",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Img_BS2ToggleAlarm",
+          "type": "image",
+          "x": 860,
+          "y": 645,
+          "w": 138,
+          "h": 50,
+          "sprite": "toggle_off"
+        }
+      ]
+    },
+    {
+      "name": "Buttons",
+      "comment": "Bottom action buttons. Display-only, no listeners (scope-lock). Save & Exit green, Cancel red.",
+      "elements": [
+        {
+          "name": "Box_SaveExit",
+          "type": "image",
+          "x": 279,
+          "y": 723,
+          "w": 204,
+          "h": 70,
+          "color": "5FD79B"
+        },
+        {
+          "name": "Txt_SaveExit",
+          "type": "text",
+          "x": 279,
+          "y": 719,
+          "w": 204,
+          "h": 70,
+          "text": "Save & Exit",
+          "size": 32,
+          "color": "000000",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Cancel",
+          "type": "image",
+          "x": 589,
+          "y": 724,
+          "w": 204,
+          "h": 70,
+          "color": "F58484"
+        },
+        {
+          "name": "Txt_Cancel",
+          "type": "text",
+          "x": 589,
+          "y": 720,
+          "w": 204,
+          "h": 70,
+          "text": "Cancel",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Panel_NavMenu",
+      "comment": "Right-side nav menu. Copied from Screen_BSA (identical coords). Text-only list + dividers. Display-only (scope-lock). Pressure Sensor is the active screen here.",
+      "elements": [
+        {
+          "name": "Box_NavPanel",
+          "type": "image",
+          "x": 1049,
+          "y": 84,
+          "w": 231,
+          "h": 551,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_NavSetup",
+          "type": "text",
+          "x": 1081,
+          "y": 95,
+          "w": 118,
+          "h": 48,
+          "text": "Setup",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Div_NavSetup",
+          "type": "image",
+          "x": 1054,
+          "y": 158,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBSA",
+          "type": "text",
+          "x": 1054,
+          "y": 155,
+          "w": 230,
+          "h": 60,
+          "text": "BSA & Patient",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBSA",
+          "type": "image",
+          "x": 1054,
+          "y": 205,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBubble",
+          "type": "text",
+          "x": 1054,
+          "y": 213,
+          "w": 230,
+          "h": 60,
+          "text": "Bubble Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBubble",
+          "type": "image",
+          "x": 1054,
+          "y": 266,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavLevel",
+          "type": "text",
+          "x": 1054,
+          "y": 274,
+          "w": 230,
+          "h": 60,
+          "text": "Level Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavLevel",
+          "type": "image",
+          "x": 1054,
+          "y": 327,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavPressure",
+          "type": "text",
+          "x": 1054,
+          "y": 335,
+          "w": 230,
+          "h": 60,
+          "text": "Pressure Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavPressure",
+          "type": "image",
+          "x": 1054,
+          "y": 388,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTemp",
+          "type": "text",
+          "x": 1055,
+          "y": 395,
+          "w": 230,
+          "h": 60,
+          "text": "Temperature Sensor",
+          "size": 20,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTemp",
+          "type": "image",
+          "x": 1054,
+          "y": 448,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavCardio",
+          "type": "text",
+          "x": 1055,
+          "y": 455,
+          "w": 230,
+          "h": 60,
+          "text": "Cardioplegia",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavCardio",
+          "type": "image",
+          "x": 1054,
+          "y": 508,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTimer",
+          "type": "text",
+          "x": 1055,
+          "y": 515,
+          "w": 230,
+          "h": 60,
+          "text": "Timer",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTimer",
+          "type": "image",
+          "x": 1054,
+          "y": 568,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavSystem",
+          "type": "text",
+          "x": 1055,
+          "y": 575,
+          "w": 230,
+          "h": 60,
+          "text": "System Setting",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        }
+      ]
+    }
+  ]
+}

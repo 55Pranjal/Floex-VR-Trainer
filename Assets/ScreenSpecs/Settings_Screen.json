@@ -1,0 +1,525 @@
+{
+  "screenName": "Screen_SystemSetting",
+  "comment": "Floex System Setting screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. 6 label/value rows (static values), Reset to Factory default button (no listener). Reuses Header + NavMenu. Row pitch ~66.",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Background",
+          "type": "image",
+          "stretch": true,
+          "color": "000000"
+        }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        {
+          "name": "Box_Header",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 71,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Logo",
+          "type": "text",
+          "x": 4,
+          "y": 1,
+          "w": 264,
+          "h": 73,
+          "text": "FloEx 3.0",
+          "size": 60,
+          "color": "E7696D",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_ScreenTitle",
+          "type": "text",
+          "x": 470,
+          "y": 1,
+          "w": 420,
+          "h": 73,
+          "text": "System Setting",
+          "size": 60,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "sprite": "home"
+        }
+      ]
+    },
+    {
+      "name": "InfoRows",
+      "comment": "Label/value rows. Display-only static values (scope-lock). Row pitch ~66. Labels Large 36px white left; value boxes navy 0C1B37, value text center.",
+      "elements": [
+        {
+          "name": "Txt_RuntimeLbl",
+          "type": "text",
+          "x": 263,
+          "y": 170,
+          "w": 300,
+          "h": 61,
+          "text": "Total Runtime",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_RuntimeVal",
+          "type": "image",
+          "x": 675,
+          "y": 175,
+          "w": 225,
+          "h": 47,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_RuntimeVal",
+          "type": "text",
+          "x": 675,
+          "y": 173,
+          "w": 225,
+          "h": 53,
+          "text": "00:00:00",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_DaysLbl",
+          "type": "text",
+          "x": 263,
+          "y": 250,
+          "w": 300,
+          "h": 61,
+          "text": "Total Operating Days",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_DaysVal",
+          "type": "image",
+          "x": 675,
+          "y": 255,
+          "w": 225,
+          "h": 47,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_DaysVal",
+          "type": "text",
+          "x": 675,
+          "y": 252,
+          "w": 225,
+          "h": 53,
+          "text": "000",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_VersionLbl",
+          "type": "text",
+          "x": 263,
+          "y": 340,
+          "w": 300,
+          "h": 61,
+          "text": "Software Version",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_VersionVal",
+          "type": "image",
+          "x": 675,
+          "y": 345,
+          "w": 225,
+          "h": 47,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_VersionVal",
+          "type": "text",
+          "x": 675,
+          "y": 342,
+          "w": 225,
+          "h": 53,
+          "text": "1.3",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_SerialLbl",
+          "type": "text",
+          "x": 263,
+          "y": 429,
+          "w": 300,
+          "h": 61,
+          "text": "Serial Number",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_SerialVal",
+          "type": "image",
+          "x": 675,
+          "y": 440,
+          "w": 225,
+          "h": 47,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_SerialVal",
+          "type": "text",
+          "x": 675,
+          "y": 440,
+          "w": 225,
+          "h": 53,
+          "text": "1000",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_CANLbl",
+          "type": "text",
+          "x": 263,
+          "y": 510,
+          "w": 300,
+          "h": 61,
+          "text": "CAN Bus Status",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_CANVal",
+          "type": "image",
+          "x": 675,
+          "y": 520,
+          "w": 225,
+          "h": 47,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_CANVal",
+          "type": "text",
+          "x": 675,
+          "y": 517,
+          "w": 225,
+          "h": 53,
+          "text": "Disconnection",
+          "size": 28,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_CalibLbl",
+          "type": "text",
+          "x": 263,
+          "y": 592,
+          "w": 300,
+          "h": 61,
+          "text": "Last Calibration",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_CalibVal",
+          "type": "image",
+          "x": 675,
+          "y": 593,
+          "w": 225,
+          "h": 47,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_CalibVal",
+          "type": "text",
+          "x": 675,
+          "y": 593,
+          "w": 225,
+          "h": 53,
+          "text": "20/01/2025",
+          "size": 32,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Buttons",
+      "comment": "Reset to Factory default. Display-only, no listener (scope-lock). box4 CCCCCC fill, SideButton-style label.",
+      "elements": [
+        {
+          "name": "Box_Reset",
+          "type": "image",
+          "x": 436,
+          "y": 716,
+          "w": 334,
+          "h": 70,
+          "color": "CCCCCC"
+        },
+        {
+          "name": "Txt_Reset",
+          "type": "text",
+          "x": 436,
+          "y": 734,
+          "w": 334,
+          "h": 39,
+          "text": "Reset to Factory default",
+          "size": 25,
+          "color": "000000",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Panel_NavMenu",
+      "comment": "Right-side nav menu. Identical coords to other screens. Display-only (scope-lock). System Setting is active here.",
+      "elements": [
+        {
+          "name": "Box_NavPanel",
+          "type": "image",
+          "x": 1049,
+          "y": 84,
+          "w": 231,
+          "h": 551,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_NavSetup",
+          "type": "text",
+          "x": 1081,
+          "y": 95,
+          "w": 118,
+          "h": 48,
+          "text": "Setup",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Div_NavSetup",
+          "type": "image",
+          "x": 1054,
+          "y": 158,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBSA",
+          "type": "text",
+          "x": 1054,
+          "y": 155,
+          "w": 230,
+          "h": 60,
+          "text": "BSA & Patient",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBSA",
+          "type": "image",
+          "x": 1054,
+          "y": 205,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBubble",
+          "type": "text",
+          "x": 1054,
+          "y": 213,
+          "w": 230,
+          "h": 60,
+          "text": "Bubble Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBubble",
+          "type": "image",
+          "x": 1054,
+          "y": 266,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavLevel",
+          "type": "text",
+          "x": 1054,
+          "y": 274,
+          "w": 230,
+          "h": 60,
+          "text": "Level Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavLevel",
+          "type": "image",
+          "x": 1054,
+          "y": 327,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavPressure",
+          "type": "text",
+          "x": 1054,
+          "y": 335,
+          "w": 230,
+          "h": 60,
+          "text": "Pressure Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavPressure",
+          "type": "image",
+          "x": 1054,
+          "y": 388,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTemp",
+          "type": "text",
+          "x": 1055,
+          "y": 395,
+          "w": 230,
+          "h": 60,
+          "text": "Temperature Sensor",
+          "size": 20,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTemp",
+          "type": "image",
+          "x": 1054,
+          "y": 448,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavCardio",
+          "type": "text",
+          "x": 1055,
+          "y": 455,
+          "w": 230,
+          "h": 60,
+          "text": "Cardioplegia",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavCardio",
+          "type": "image",
+          "x": 1054,
+          "y": 508,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTimer",
+          "type": "text",
+          "x": 1055,
+          "y": 515,
+          "w": 230,
+          "h": 60,
+          "text": "Timer",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTimer",
+          "type": "image",
+          "x": 1054,
+          "y": 568,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavSystem",
+          "type": "text",
+          "x": 1055,
+          "y": 575,
+          "w": 230,
+          "h": 60,
+          "text": "System Setting",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        }
+      ]
+    }
+  ]
+}

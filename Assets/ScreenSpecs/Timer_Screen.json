@@ -1,0 +1,690 @@
+{
+  "screenName": "Screen_Timer",
+  "comment": "Floex Timer screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. 4 identical timer rows (Timer1-4), each: label, Set Time label+box, Elapse Time label + HH:MM:SS box, toggle frozen OFF (scope-lock). Bottom: Reset All Timer + Save & Exit + Cancel. Reuses Header + NavMenu. Row pitch ~107.",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Background",
+          "type": "image",
+          "stretch": true,
+          "color": "000000"
+        }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        {
+          "name": "Box_Header",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 71,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Logo",
+          "type": "text",
+          "x": 4,
+          "y": 1,
+          "w": 264,
+          "h": 73,
+          "text": "FloEx 3.0",
+          "size": 60,
+          "color": "E7696D",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_ScreenTitle",
+          "type": "text",
+          "x": 470,
+          "y": 1,
+          "w": 340,
+          "h": 73,
+          "text": "Timer",
+          "size": 60,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "sprite": "home"
+        }
+      ]
+    },
+    {
+      "name": "Row_Timer1",
+      "comment": "Timer 1 row. Set Time label+box, Elapse Time label+box (HH:MM:SS), toggle frozen OFF. Row pitch ~107.",
+      "elements": [
+        {
+          "name": "Txt_Timer1Label",
+          "type": "text",
+          "x": 45,
+          "y": 150,
+          "w": 108,
+          "h": 38,
+          "text": "Timer 1",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_Timer1SetLbl",
+          "type": "text",
+          "x": 221,
+          "y": 96,
+          "w": 108,
+          "h": 38,
+          "text": "Set Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer1Set",
+          "type": "image",
+          "x": 225,
+          "y": 144,
+          "w": 126,
+          "h": 50,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Timer1ElapseLbl",
+          "type": "text",
+          "x": 442,
+          "y": 96,
+          "w": 147,
+          "h": 38,
+          "text": "Elapse Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer1Elapse",
+          "type": "image",
+          "x": 442,
+          "y": 138,
+          "w": 144,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_Timer1Elapse",
+          "type": "text",
+          "x": 442,
+          "y": 147,
+          "w": 144,
+          "h": 54,
+          "text": "HH:MM:SS",
+          "size": 22,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Img_Timer1Toggle",
+          "type": "image",
+          "x": 707,
+          "y": 132,
+          "w": 138,
+          "h": 50,
+          "sprite": "toggle_off"
+        }
+      ]
+    },
+    {
+      "name": "Row_Timer2",
+      "elements": [
+        {
+          "name": "Txt_Timer2Label",
+          "type": "text",
+          "x": 45,
+          "y": 305,
+          "w": 108,
+          "h": 38,
+          "text": "Timer 2",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_Timer2SetLbl",
+          "type": "text",
+          "x": 221,
+          "y": 251,
+          "w": 108,
+          "h": 38,
+          "text": "Set Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer2Set",
+          "type": "image",
+          "x": 225,
+          "y": 299,
+          "w": 126,
+          "h": 50,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Timer2ElapseLbl",
+          "type": "text",
+          "x": 442,
+          "y": 251,
+          "w": 147,
+          "h": 38,
+          "text": "Elapse Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer2Elapse",
+          "type": "image",
+          "x": 442,
+          "y": 293,
+          "w": 144,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_Timer2Elapse",
+          "type": "text",
+          "x": 442,
+          "y": 302,
+          "w": 144,
+          "h": 54,
+          "text": "HH:MM:SS",
+          "size": 22,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Img_Timer2Toggle",
+          "type": "image",
+          "x": 707,
+          "y": 287,
+          "w": 138,
+          "h": 50,
+          "sprite": "toggle_off"
+        }
+      ]
+    },
+    {
+      "name": "Row_Timer3",
+      "elements": [
+        {
+          "name": "Txt_Timer3Label",
+          "type": "text",
+          "x": 45,
+          "y": 450,
+          "w": 108,
+          "h": 38,
+          "text": "Timer 3",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_Timer3SetLbl",
+          "type": "text",
+          "x": 221,
+          "y": 396,
+          "w": 108,
+          "h": 38,
+          "text": "Set Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer3Set",
+          "type": "image",
+          "x": 225,
+          "y": 442,
+          "w": 126,
+          "h": 50,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Timer3ElapseLbl",
+          "type": "text",
+          "x": 442,
+          "y": 396,
+          "w": 147,
+          "h": 38,
+          "text": "Elapse Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer3Elapse",
+          "type": "image",
+          "x": 442,
+          "y": 438,
+          "w": 144,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_Timer3Elapse",
+          "type": "text",
+          "x": 442,
+          "y": 447,
+          "w": 144,
+          "h": 54,
+          "text": "HH:MM:SS",
+          "size": 22,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Img_Timer3Toggle",
+          "type": "image",
+          "x": 707,
+          "y": 432,
+          "w": 138,
+          "h": 50,
+          "sprite": "toggle_off"
+        }
+      ]
+    },
+    {
+      "name": "Row_Timer4",
+      "elements": [
+        {
+          "name": "Txt_Timer4Label",
+          "type": "text",
+          "x": 45,
+          "y": 600,
+          "w": 108,
+          "h": 38,
+          "text": "Timer 4",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_Timer4SetLbl",
+          "type": "text",
+          "x": 221,
+          "y": 546,
+          "w": 108,
+          "h": 38,
+          "text": "Set Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer4Set",
+          "type": "image",
+          "x": 225,
+          "y": 594,
+          "w": 126,
+          "h": 50,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Timer4ElapseLbl",
+          "type": "text",
+          "x": 442,
+          "y": 546,
+          "w": 147,
+          "h": 38,
+          "text": "Elapse Time",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Timer4Elapse",
+          "type": "image",
+          "x": 442,
+          "y": 588,
+          "w": 144,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_Timer4Elapse",
+          "type": "text",
+          "x": 442,
+          "y": 597,
+          "w": 144,
+          "h": 54,
+          "text": "HH:MM:SS",
+          "size": 22,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Img_Timer4Toggle",
+          "type": "image",
+          "x": 707,
+          "y": 582,
+          "w": 138,
+          "h": 50,
+          "sprite": "toggle_off"
+        }
+      ]
+    },
+    {
+      "name": "Buttons",
+      "comment": "Bottom action buttons. Display-only, no listeners (scope-lock). Reset All Timer (light), Save & Exit (green), Cancel (red).",
+      "elements": [
+        {
+          "name": "Box_ResetAll",
+          "type": "image",
+          "x": 111,
+          "y": 716,
+          "w": 204,
+          "h": 70,
+          "color": "E8E8E8"
+        },
+        {
+          "name": "Txt_ResetAll",
+          "type": "text",
+          "x": 111,
+          "y": 712,
+          "w": 204,
+          "h": 70,
+          "text": "Reset All Timer",
+          "size": 21,
+          "color": "000000",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_SaveExit",
+          "type": "image",
+          "x": 421,
+          "y": 716,
+          "w": 204,
+          "h": 70,
+          "color": "5FD79B"
+        },
+        {
+          "name": "Txt_SaveExit",
+          "type": "text",
+          "x": 421,
+          "y": 712,
+          "w": 204,
+          "h": 70,
+          "text": "Save & Exit",
+          "size": 32,
+          "color": "000000",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Cancel",
+          "type": "image",
+          "x": 653,
+          "y": 716,
+          "w": 204,
+          "h": 70,
+          "color": "F58484"
+        },
+        {
+          "name": "Txt_Cancel",
+          "type": "text",
+          "x": 653,
+          "y": 712,
+          "w": 204,
+          "h": 70,
+          "text": "Cancel",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Panel_NavMenu",
+      "comment": "Right-side nav menu. Copied from Screen_BSA (identical coords). Text-only list + dividers. Display-only (scope-lock). Timer is the active screen here.",
+      "elements": [
+        {
+          "name": "Box_NavPanel",
+          "type": "image",
+          "x": 1049,
+          "y": 84,
+          "w": 231,
+          "h": 551,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_NavSetup",
+          "type": "text",
+          "x": 1081,
+          "y": 95,
+          "w": 118,
+          "h": 48,
+          "text": "Setup",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Div_NavSetup",
+          "type": "image",
+          "x": 1054,
+          "y": 158,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBSA",
+          "type": "text",
+          "x": 1054,
+          "y": 155,
+          "w": 230,
+          "h": 60,
+          "text": "BSA & Patient",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBSA",
+          "type": "image",
+          "x": 1054,
+          "y": 205,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBubble",
+          "type": "text",
+          "x": 1054,
+          "y": 213,
+          "w": 230,
+          "h": 60,
+          "text": "Bubble Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBubble",
+          "type": "image",
+          "x": 1054,
+          "y": 266,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavLevel",
+          "type": "text",
+          "x": 1054,
+          "y": 274,
+          "w": 230,
+          "h": 60,
+          "text": "Level Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavLevel",
+          "type": "image",
+          "x": 1054,
+          "y": 327,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavPressure",
+          "type": "text",
+          "x": 1054,
+          "y": 335,
+          "w": 230,
+          "h": 60,
+          "text": "Pressure Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavPressure",
+          "type": "image",
+          "x": 1054,
+          "y": 388,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTemp",
+          "type": "text",
+          "x": 1055,
+          "y": 395,
+          "w": 230,
+          "h": 60,
+          "text": "Temperature Sensor",
+          "size": 20,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTemp",
+          "type": "image",
+          "x": 1054,
+          "y": 448,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavCardio",
+          "type": "text",
+          "x": 1055,
+          "y": 455,
+          "w": 230,
+          "h": 60,
+          "text": "Cardioplegia",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavCardio",
+          "type": "image",
+          "x": 1054,
+          "y": 508,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTimer",
+          "type": "text",
+          "x": 1055,
+          "y": 515,
+          "w": 230,
+          "h": 60,
+          "text": "Timer",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTimer",
+          "type": "image",
+          "x": 1054,
+          "y": 568,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavSystem",
+          "type": "text",
+          "x": 1055,
+          "y": 575,
+          "w": 230,
+          "h": 60,
+          "text": "System Setting",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        }
+      ]
+    }
+  ]
+}

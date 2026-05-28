@@ -1,0 +1,145 @@
+{
+  "screenName": "Screen_TemperatureSensor",
+  "comment": "Floex Temperature Sensor screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. 4 identical sensor rows (T1-T4), each: label, Max stepper (up+value+down), Min stepper (up+value+down), Alarm Beep box + touch glyph. Steppers = 60x60 colour box (green up #2ECC9B / cyan down #27C0F5) + 50x50 arrow inset (+5,+5). Row band box4_1 at Y169 H65, ~98px row pitch. Reuses Header + NavMenu + buttons. Alarm-beep touch glyph rendered as static (scope-lock); no sprite assumed — flagged.",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Background", "type": "image", "stretch": true, "color": "000000" }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Box_Header",     "type": "image", "x": 0,    "y": 0,   "w": 1280, "h": 71, "color": "1A1F29" },
+        { "name": "Txt_Logo",       "type": "text",  "x": 4,    "y": 1,   "w": 264,  "h": 73, "text": "FloEx 3.0",          "size": 60, "color": "E7696D", "align": "left",   "bold": true },
+        { "name": "Txt_ScreenTitle","type": "text",  "x": 440,  "y": 0,   "w": 460,  "h": 73, "text": "Temperature Sensor", "size": 60, "color": "E7696D", "align": "center", "bold": true },
+        { "name": "Box_Home",       "type": "image", "x": 1207, "y": 5,   "w": 60,   "h": 60, "color": "0C1B37" },
+        { "name": "Img_Home",       "type": "image", "x": 1207, "y": 5,   "w": 60,   "h": 60, "sprite": "home" }
+      ]
+    },
+    {
+      "name": "ColumnHeaders",
+      "elements": [
+        { "name": "Txt_ColSensors", "type": "text", "x": 16,  "y": 124, "w": 100, "h": 37, "text": "Sensors",         "size": 26, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Txt_ColMax",     "type": "text", "x": 149, "y": 124, "w": 213, "h": 37, "text": "Max Alarm Limit", "size": 26, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Txt_ColMin",     "type": "text", "x": 471, "y": 124, "w": 209, "h": 37, "text": "Min Alarm Limit", "size": 26, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Txt_ColAlarm",   "type": "text", "x": 785, "y": 124, "w": 151, "h": 37, "text": "Alarm Beep",      "size": 26, "color": "FFFFFF", "align": "left", "bold": true }
+      ]
+    },
+    {
+      "name": "Row_T1",
+      "elements": [
+        { "name": "Box_RowT1",        "type": "image", "x": 11,  "y": 169, "w": 995, "h": 65, "color": "27292B" },
+        { "name": "Txt_T1Label",      "type": "text",  "x": 11,  "y": 178, "w": 81,  "h": 54, "text": "T 1", "size": 40, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T1MaxUp",      "type": "image", "x": 136, "y": 172, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T1MaxUp",      "type": "image", "x": 141, "y": 177, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T1MaxVal",     "type": "text",  "x": 219, "y": 175, "w": 60,  "h": 50, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T1MaxDown",    "type": "image", "x": 306, "y": 171, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T1MaxDown",    "type": "image", "x": 311, "y": 176, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T1MinUp",      "type": "image", "x": 456, "y": 170, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T1MinUp",      "type": "image", "x": 461, "y": 175, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T1MinVal",     "type": "text",  "x": 539, "y": 176, "w": 60,  "h": 54, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T1MinDown",    "type": "image", "x": 626, "y": 169, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T1MinDown",    "type": "image", "x": 631, "y": 174, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T1Alarm",      "type": "image", "x": 759, "y": 171, "w": 250, "h": 63, "color": "1A1F29" },
+        { "name": "Img_T1Alarm",    "type": "image", "x": 957, "y": 176, "w": 50,  "h": 50, "sprite": "touch" }
+      ]
+    },
+    {
+      "name": "Row_T2",
+      "elements": [
+        { "name": "Box_RowT2",        "type": "image", "x": 11,  "y": 267, "w": 995, "h": 65, "color": "27292B" },
+        { "name": "Txt_T2Label",      "type": "text",  "x": 11,  "y": 276, "w": 81,  "h": 54, "text": "T 2", "size": 40, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T2MaxUp",      "type": "image", "x": 136, "y": 270, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T2MaxUp",      "type": "image", "x": 141, "y": 275, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T2MaxVal",     "type": "text",  "x": 219, "y": 273, "w": 60,  "h": 50, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T2MaxDown",    "type": "image", "x": 306, "y": 269, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T2MaxDown",    "type": "image", "x": 311, "y": 274, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T2MinUp",      "type": "image", "x": 456, "y": 268, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T2MinUp",      "type": "image", "x": 461, "y": 273, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T2MinVal",     "type": "text",  "x": 539, "y": 274, "w": 60,  "h": 54, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T2MinDown",    "type": "image", "x": 626, "y": 267, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T2MinDown",    "type": "image", "x": 631, "y": 272, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T2Alarm",      "type": "image", "x": 759, "y": 269, "w": 250, "h": 63, "color": "1A1F29" },
+        { "name": "Img_T1Alarm",    "type": "image", "x": 957, "y": 274, "w": 50,  "h": 50, "sprite": "touch" }
+      ]
+    },
+    {
+      "name": "Row_T3",
+      "elements": [
+        { "name": "Box_RowT3",        "type": "image", "x": 11,  "y": 365, "w": 995, "h": 65, "color": "27292B" },
+        { "name": "Txt_T3Label",      "type": "text",  "x": 11,  "y": 374, "w": 81,  "h": 54, "text": "T 3", "size": 40, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T3MaxUp",      "type": "image", "x": 136, "y": 368, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T3MaxUp",      "type": "image", "x": 141, "y": 373, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T3MaxVal",     "type": "text",  "x": 219, "y": 371, "w": 60,  "h": 50, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T3MaxDown",    "type": "image", "x": 306, "y": 367, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T3MaxDown",    "type": "image", "x": 311, "y": 372, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T3MinUp",      "type": "image", "x": 456, "y": 366, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T3MinUp",      "type": "image", "x": 461, "y": 371, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T3MinVal",     "type": "text",  "x": 539, "y": 372, "w": 60,  "h": 54, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T3MinDown",    "type": "image", "x": 626, "y": 365, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T3MinDown",    "type": "image", "x": 631, "y": 370, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T3Alarm",      "type": "image", "x": 759, "y": 367, "w": 250, "h": 63, "color": "1A1F29" },
+        { "name": "Img_T1Alarm",    "type": "image", "x": 957, "y": 372, "w": 50,  "h": 50, "sprite": "touch" }
+      ]
+    },
+    {
+      "name": "Row_T4",
+      "elements": [
+        { "name": "Box_RowT4",        "type": "image", "x": 11,  "y": 463, "w": 995, "h": 65, "color": "27292B" },
+        { "name": "Txt_T4Label",      "type": "text",  "x": 11,  "y": 472, "w": 81,  "h": 54, "text": "T 4", "size": 40, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T4MaxUp",      "type": "image", "x": 136, "y": 466, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T4MaxUp",      "type": "image", "x": 141, "y": 471, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T4MaxVal",     "type": "text",  "x": 219, "y": 469, "w": 60,  "h": 50, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T4MaxDown",    "type": "image", "x": 306, "y": 465, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T4MaxDown",    "type": "image", "x": 311, "y": 470, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T4MinUp",      "type": "image", "x": 456, "y": 464, "w": 60,  "h": 60, "color": "2ECC9B" },
+        { "name": "Img_T4MinUp",      "type": "image", "x": 461, "y": 469, "w": 50,  "h": 50, "sprite": "arrow_up_green" },
+        { "name": "Txt_T4MinVal",     "type": "text",  "x": 539, "y": 470, "w": 60,  "h": 54, "text": "0\u00b0C", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Box_T4MinDown",    "type": "image", "x": 626, "y": 463, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_T4MinDown",    "type": "image", "x": 631, "y": 468, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
+        { "name": "Box_T4Alarm",      "type": "image", "x": 759, "y": 465, "w": 250, "h": 63, "color": "1A1F29" },
+        { "name": "Img_T1Alarm",    "type": "image", "x": 957, "y": 470, "w": 50,  "h": 50, "sprite": "touch" }
+      ]
+    },
+    {
+      "name": "Buttons",
+      "comment": "Bottom action buttons. Display-only, no listeners (scope-lock). Save & Exit green, Cancel red.",
+      "elements": [
+        { "name": "Box_SaveExit", "type": "image", "x": 279, "y": 723, "w": 204, "h": 70, "color": "5FD79B" },
+        { "name": "Txt_SaveExit", "type": "text",  "x": 279, "y": 719, "w": 204, "h": 70, "text": "Save & Exit", "size": 32, "color": "000000", "align": "center", "bold": true },
+
+        { "name": "Box_Cancel",   "type": "image", "x": 589, "y": 724, "w": 204, "h": 70, "color": "F58484" },
+        { "name": "Txt_Cancel",   "type": "text",  "x": 589, "y": 720, "w": 204, "h": 70, "text": "Cancel",      "size": 36, "color": "FFFFFF", "align": "center", "bold": true }
+      ]
+    },
+    {
+      "name": "Panel_NavMenu",
+      "comment": "Right-side nav menu. Copied from Screen_BSA (identical coords). Text-only list + dividers. Display-only (scope-lock). Temperature Sensor is the active screen here.",
+      "elements": [
+        { "name": "Box_NavPanel",   "type": "image", "x": 1049, "y": 84, "w": 231, "h": 551, "color": "1A1F29" },
+        { "name": "Txt_NavSetup",   "type": "text",  "x": 1081, "y": 95,  "w": 118, "h": 48, "text": "Setup", "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+
+        { "name": "Div_NavSetup",   "type": "image", "x": 1054, "y": 158, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavBSA",     "type": "text",  "x": 1054, "y": 155, "w": 230, "h": 60, "text": "BSA & Patient",       "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavBSA",     "type": "image", "x": 1054, "y": 205, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavBubble",  "type": "text",  "x": 1054, "y": 213, "w": 230, "h": 60, "text": "Bubble Sensor",       "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavBubble",  "type": "image", "x": 1054, "y": 266, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavLevel",   "type": "text",  "x": 1054, "y": 274, "w": 230, "h": 60, "text": "Level Sensor",        "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavLevel",   "type": "image", "x": 1054, "y": 327, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavPressure","type": "text",  "x": 1054, "y": 335, "w": 230, "h": 60, "text": "Pressure Sensor",     "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavPressure","type": "image", "x": 1054, "y": 388, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavTemp",    "type": "text",  "x": 1055, "y": 395, "w": 230, "h": 60, "text": "Temperature Sensor",  "size": 20, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavTemp",    "type": "image", "x": 1054, "y": 448, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavCardio",  "type": "text",  "x": 1055, "y": 455, "w": 230, "h": 60, "text": "Cardioplegia",        "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavCardio",  "type": "image", "x": 1054, "y": 508, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavTimer",   "type": "text",  "x": 1055, "y": 515, "w": 230, "h": 60, "text": "Timer",               "size": 25, "color": "FFFFFF", "align": "left", "bold": true },
+        { "name": "Div_NavTimer",   "type": "image", "x": 1054, "y": 568, "w": 210, "h": 2, "color": "3A4150" },
+        { "name": "Txt_NavSystem",  "type": "text",  "x": 1055, "y": 575, "w": 230, "h": 60, "text": "System Setting",      "size": 25, "color": "FFFFFF", "align": "left", "bold": true }
+      ]
+    }
+  ]
+}
