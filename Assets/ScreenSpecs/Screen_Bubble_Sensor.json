@@ -28,7 +28,9 @@
         { "name": "Txt_BS1Title",       "type": "text",  "x": 37,  "y": 99,  "w": 313, "h": 48,  "text": "Bubble Sensor 1", "size": 40, "color": "FFFFFF", "align": "left", "bold": true },
 
         { "name": "Txt_BS1SelectPump",  "type": "text",  "x": 37,  "y": 161, "w": 183, "h": 42,  "text": "Select Pump",    "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
-        { "name": "Box_BS1Dropdown",    "type": "image", "x": 27,  "y": 208, "w": 478, "h": 225, "color": "1A1F29" },
+        { "name": "Box_BS1Dropdown",    "type": "image", "x": 43,  "y": 220, "w": 450, "h": 40, "color": "1A1F29" },
+         { "name": "Img_BS1Dropdown",     "type": "image", "x": 450, "y": 222, "w": 40,  "h": 40,  "sprite": "dropdown" },
+
 
         { "name": "Txt_BS1Threshold",   "type": "text",  "x": 29,  "y": 456, "w": 236, "h": 42,  "text": "Threshold (mm)", "size": 28, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_BS1Up",          "type": "image", "x": 289, "y": 447, "w": 60,  "h": 60,  "color": "2ECC9B" },
@@ -52,7 +54,8 @@
         { "name": "Txt_BS2Title",       "type": "text",  "x": 538, "y": 99,  "w": 313, "h": 48,  "text": "Bubble Sensor 2", "size": 40, "color": "FFFFFF", "align": "left", "bold": true },
 
         { "name": "Txt_BS2SelectPump",  "type": "text",  "x": 538, "y": 161, "w": 183, "h": 42,  "text": "Select Pump",    "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
-        { "name": "Box_BS2Dropdown",    "type": "image", "x": 538, "y": 208, "w": 478, "h": 225, "color": "1A1F29" },
+        { "name": "Box_BS2Dropdown",    "type": "image", "x": 564, "y": 220, "w": 450, "h": 40, "color": "1A1F29" },
+        { "name": "Img_BS2Dropdown",     "type": "image", "x": 971, "y": 222, "w": 40,  "h": 40,  "sprite": "dropdown" },
 
         { "name": "Txt_BS2Threshold",   "type": "text",  "x": 560, "y": 456, "w": 236, "h": 42,  "text": "Threshold (mm)", "size": 28, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_BS2Up",          "type": "image", "x": 799, "y": 447, "w": 60,  "h": 60,  "color": "2ECC9B" },

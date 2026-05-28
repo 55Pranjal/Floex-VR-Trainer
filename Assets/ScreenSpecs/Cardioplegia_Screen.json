@@ -1,0 +1,577 @@
+{
+  "screenName": "Screen_Cardioplegia",
+  "comment": "Floex Cardioplegia screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. Type dropdown (frozen empty), First/Normal dose volume (static values), 3 total-volume rows (frozen empty), Save & Exit + Cancel (no listeners). Reuses Header + NavMenu.",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Background",
+          "type": "image",
+          "stretch": true,
+          "color": "000000"
+        }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        {
+          "name": "Box_Header",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 71,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Logo",
+          "type": "text",
+          "x": 4,
+          "y": 1,
+          "w": 264,
+          "h": 73,
+          "text": "FloEx 3.0",
+          "size": 60,
+          "color": "E7696D",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_ScreenTitle",
+          "type": "text",
+          "x": 420,
+          "y": 1,
+          "w": 420,
+          "h": 73,
+          "text": "Cardioplegia",
+          "size": 60,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "sprite": "home"
+        }
+      ]
+    },
+    {
+      "name": "TypeSelect",
+      "comment": "Cardioplegia Type dropdown. Display-only, frozen empty (scope-lock). Box + dropdown arrow sprite.",
+      "elements": [
+        {
+          "name": "Txt_TypeLabel",
+          "type": "text",
+          "x": 18,
+          "y": 78,
+          "w": 284,
+          "h": 54,
+          "text": "Cardioplegia Type",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_TypeDrop",
+          "type": "image",
+          "x": 18,
+          "y": 132,
+          "w": 312,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_TypeArrow",
+          "type": "image",
+          "x": 280,
+          "y": 147,
+          "w": 40,
+          "h": 40,
+          "sprite": "dropdown"
+        }
+      ]
+    },
+    {
+      "name": "DoseLeft",
+      "comment": "Left column: First Dose button + First/Normal dose volume labels and value boxes. Display-only static values (scope-lock). Box pitch ~138.",
+      "elements": [
+        {
+          "name": "Box_FirstDose",
+          "type": "image",
+          "x": 106,
+          "y": 300,
+          "w": 228,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_FirstDose",
+          "type": "text",
+          "x": 106,
+          "y": 303,
+          "w": 228,
+          "h": 54,
+          "text": "First Dose",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_FirstDoseVolLbl",
+          "type": "text",
+          "x": 111,
+          "y": 389,
+          "w": 228,
+          "h": 29,
+          "text": "First Dose Volume",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_FirstDoseVol",
+          "type": "image",
+          "x": 108,
+          "y": 439,
+          "w": 228,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_FirstDoseVol",
+          "type": "text",
+          "x": 108,
+          "y": 440,
+          "w": 226,
+          "h": 55,
+          "text": "1000 ml",
+          "size": 36,
+          "color": "FFFCFC",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Txt_NormalDoseVolLbl",
+          "type": "text",
+          "x": 111,
+          "y": 527,
+          "w": 228,
+          "h": 29,
+          "text": "Normal Dose Volume",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_NormalDoseVol",
+          "type": "image",
+          "x": 108,
+          "y": 577,
+          "w": 228,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_NormalDoseVol",
+          "type": "text",
+          "x": 108,
+          "y": 578,
+          "w": 226,
+          "h": 55,
+          "text": "500 ml",
+          "size": 36,
+          "color": "FFFCFC",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "VolumeRight",
+      "comment": "Right column: 3 total-volume rows. Each: label (left) + value box with 'ml' (right). Display-only frozen empty (scope-lock). Row pitch ~105.",
+      "elements": [
+        {
+          "name": "Txt_TVLbl",
+          "type": "text",
+          "x": 460,
+          "y": 315,
+          "w": 208,
+          "h": 35,
+          "text": "Total Volume",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_TV",
+          "type": "image",
+          "x": 718,
+          "y": 300,
+          "w": 228,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_TVUnit",
+          "type": "text",
+          "x": 718,
+          "y": 303,
+          "w": 210,
+          "h": 54,
+          "text": "ml",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "right",
+          "bold": true
+        },
+        {
+          "name": "Txt_TVBLbl",
+          "type": "text",
+          "x": 460,
+          "y": 450,
+          "w": 230,
+          "h": 35,
+          "text": "Total Volume Blood",
+          "size": 21,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_TVB",
+          "type": "image",
+          "x": 718,
+          "y": 435,
+          "w": 228,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_TVBUnit",
+          "type": "text",
+          "x": 718,
+          "y": 438,
+          "w": 210,
+          "h": 54,
+          "text": "ml",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "right",
+          "bold": true
+        },
+        {
+          "name": "Txt_TVCLbl",
+          "type": "text",
+          "x": 460,
+          "y": 585,
+          "w": 250,
+          "h": 35,
+          "text": "Total Volume Crystalloid",
+          "size": 18,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_TVC",
+          "type": "image",
+          "x": 718,
+          "y": 570,
+          "w": 228,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Txt_TVCUnit",
+          "type": "text",
+          "x": 718,
+          "y": 573,
+          "w": 210,
+          "h": 54,
+          "text": "ml",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "right",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Buttons",
+      "comment": "Bottom buttons. Display-only, no listeners (scope-lock). No Reset on this screen.",
+      "elements": [
+        {
+          "name": "Box_SaveExit",
+          "type": "image",
+          "x": 279,
+          "y": 723,
+          "w": 204,
+          "h": 70,
+          "color": "5FD79B"
+        },
+        {
+          "name": "Txt_SaveExit",
+          "type": "text",
+          "x": 279,
+          "y": 719,
+          "w": 204,
+          "h": 70,
+          "text": "Save & Exit",
+          "size": 32,
+          "color": "000000",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Cancel",
+          "type": "image",
+          "x": 589,
+          "y": 724,
+          "w": 204,
+          "h": 70,
+          "color": "F58484"
+        },
+        {
+          "name": "Txt_Cancel",
+          "type": "text",
+          "x": 589,
+          "y": 720,
+          "w": 204,
+          "h": 70,
+          "text": "Cancel",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Panel_NavMenu",
+      "comment": "Right-side nav menu. Identical coords to other screens. Display-only (scope-lock). Cardioplegia is active here.",
+      "elements": [
+        {
+          "name": "Box_NavPanel",
+          "type": "image",
+          "x": 1049,
+          "y": 84,
+          "w": 231,
+          "h": 551,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_NavSetup",
+          "type": "text",
+          "x": 1081,
+          "y": 95,
+          "w": 118,
+          "h": 48,
+          "text": "Setup",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Div_NavSetup",
+          "type": "image",
+          "x": 1054,
+          "y": 158,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBSA",
+          "type": "text",
+          "x": 1054,
+          "y": 155,
+          "w": 230,
+          "h": 60,
+          "text": "BSA & Patient",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBSA",
+          "type": "image",
+          "x": 1054,
+          "y": 205,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavBubble",
+          "type": "text",
+          "x": 1054,
+          "y": 213,
+          "w": 230,
+          "h": 60,
+          "text": "Bubble Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavBubble",
+          "type": "image",
+          "x": 1054,
+          "y": 266,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavLevel",
+          "type": "text",
+          "x": 1054,
+          "y": 274,
+          "w": 230,
+          "h": 60,
+          "text": "Level Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavLevel",
+          "type": "image",
+          "x": 1054,
+          "y": 327,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavPressure",
+          "type": "text",
+          "x": 1054,
+          "y": 335,
+          "w": 230,
+          "h": 60,
+          "text": "Pressure Sensor",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavPressure",
+          "type": "image",
+          "x": 1054,
+          "y": 388,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTemp",
+          "type": "text",
+          "x": 1055,
+          "y": 395,
+          "w": 230,
+          "h": 60,
+          "text": "Temperature Sensor",
+          "size": 20,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTemp",
+          "type": "image",
+          "x": 1054,
+          "y": 448,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavCardio",
+          "type": "text",
+          "x": 1055,
+          "y": 455,
+          "w": 230,
+          "h": 60,
+          "text": "Cardioplegia",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavCardio",
+          "type": "image",
+          "x": 1054,
+          "y": 508,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavTimer",
+          "type": "text",
+          "x": 1055,
+          "y": 515,
+          "w": 230,
+          "h": 60,
+          "text": "Timer",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Div_NavTimer",
+          "type": "image",
+          "x": 1054,
+          "y": 568,
+          "w": 210,
+          "h": 2,
+          "color": "3A4150"
+        },
+        {
+          "name": "Txt_NavSystem",
+          "type": "text",
+          "x": 1055,
+          "y": 575,
+          "w": 230,
+          "h": 60,
+          "text": "System Setting",
+          "size": 25,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        }
+      ]
+    }
+  ]
+}

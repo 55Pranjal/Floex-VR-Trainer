@@ -1,0 +1,565 @@
+{
+  "screenName": "Screen_DateTime",
+  "comment": "Floex Date & Time screen (reached from clock, NOT in nav menu). TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. 6 steppers (Day/Month/Year + Hour/Minute/Second), each green up-btn + value box + blue down-btn, all frozen static (scope-lock). Save & Exit + CANCEL, no listeners. No nav menu.",
+  "canvasWidth": 1280,
+  "canvasHeight": 800,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Background",
+          "type": "image",
+          "stretch": true,
+          "color": "000000"
+        }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        {
+          "name": "Box_Header",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 71,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_Logo",
+          "type": "text",
+          "x": 4,
+          "y": 1,
+          "w": 264,
+          "h": 73,
+          "text": "FloEx 3.0",
+          "size": 60,
+          "color": "E7696D",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Txt_ScreenTitle",
+          "type": "text",
+          "x": 420,
+          "y": 1,
+          "w": 420,
+          "h": 73,
+          "text": "Date & Time",
+          "size": 60,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "color": "0C1B37"
+        },
+        {
+          "name": "Img_Home",
+          "type": "image",
+          "x": 1207,
+          "y": 5,
+          "w": 60,
+          "h": 60,
+          "sprite": "home"
+        }
+      ]
+    },
+    {
+      "name": "Col_Left",
+      "comment": "Left column: Day / Month / Year steppers. Display-only frozen values (scope-lock): up/down buttons are static images, no listeners. Row pitch ~160.",
+      "elements": [
+        {
+          "name": "Txt_DayLbl",
+          "type": "text",
+          "x": 98,
+          "y": 188,
+          "w": 120,
+          "h": 42,
+          "text": "Day",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_DayUp",
+          "type": "image",
+          "x": 263,
+          "y": 181,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_DayUp",
+          "type": "image",
+          "x": 268,
+          "y": 186,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Box_DayVal",
+          "type": "image",
+          "x": 323,
+          "y": 180,
+          "w": 104,
+          "h": 61,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_DayVal",
+          "type": "text",
+          "x": 323,
+          "y": 177,
+          "w": 104,
+          "h": 67,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_DayDown",
+          "type": "image",
+          "x": 427,
+          "y": 181,
+          "w": 60,
+          "h": 60,
+          "color": "4A9FD4"
+        },
+        {
+          "name": "Img_DayDown",
+          "type": "image",
+          "x": 432,
+          "y": 186,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_MonthLbl",
+          "type": "text",
+          "x": 98,
+          "y": 347,
+          "w": 120,
+          "h": 42,
+          "text": "Month",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_MonthUp",
+          "type": "image",
+          "x": 263,
+          "y": 340,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_MonthUp",
+          "type": "image",
+          "x": 268,
+          "y": 345,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Box_MonthVal",
+          "type": "image",
+          "x": 323,
+          "y": 339,
+          "w": 104,
+          "h": 61,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_MonthVal",
+          "type": "text",
+          "x": 323,
+          "y": 336,
+          "w": 104,
+          "h": 67,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_MonthDown",
+          "type": "image",
+          "x": 427,
+          "y": 340,
+          "w": 60,
+          "h": 60,
+          "color": "4A9FD4"
+        },
+        {
+          "name": "Img_MonthDown",
+          "type": "image",
+          "x": 432,
+          "y": 345,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_YearLbl",
+          "type": "text",
+          "x": 98,
+          "y": 506,
+          "w": 120,
+          "h": 42,
+          "text": "Year",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_YearUp",
+          "type": "image",
+          "x": 263,
+          "y": 499,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_YearUp",
+          "type": "image",
+          "x": 268,
+          "y": 504,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Box_YearVal",
+          "type": "image",
+          "x": 323,
+          "y": 498,
+          "w": 104,
+          "h": 61,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_YearVal",
+          "type": "text",
+          "x": 323,
+          "y": 495,
+          "w": 104,
+          "h": 67,
+          "text": "2000",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_YearDown",
+          "type": "image",
+          "x": 427,
+          "y": 499,
+          "w": 60,
+          "h": 60,
+          "color": "4A9FD4"
+        },
+        {
+          "name": "Img_YearDown",
+          "type": "image",
+          "x": 432,
+          "y": 504,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        }
+      ]
+    },
+    {
+      "name": "Col_Right",
+      "comment": "Right column: Hour / Minute / Second steppers. Display-only frozen values (scope-lock). Row pitch ~160.",
+      "elements": [
+        {
+          "name": "Txt_HourLbl",
+          "type": "text",
+          "x": 630,
+          "y": 187,
+          "w": 120,
+          "h": 42,
+          "text": "Hour",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_HourUp",
+          "type": "image",
+          "x": 795,
+          "y": 180,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_HourUp",
+          "type": "image",
+          "x": 800,
+          "y": 185,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Box_HourVal",
+          "type": "image",
+          "x": 855,
+          "y": 179,
+          "w": 104,
+          "h": 61,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_HourVal",
+          "type": "text",
+          "x": 855,
+          "y": 176,
+          "w": 104,
+          "h": 67,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_HourDown",
+          "type": "image",
+          "x": 959,
+          "y": 180,
+          "w": 60,
+          "h": 60,
+          "color": "4A9FD4"
+        },
+        {
+          "name": "Img_HourDown",
+          "type": "image",
+          "x": 964,
+          "y": 185,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_MinuteLbl",
+          "type": "text",
+          "x": 630,
+          "y": 347,
+          "w": 140,
+          "h": 42,
+          "text": "Minute",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_MinuteUp",
+          "type": "image",
+          "x": 795,
+          "y": 340,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_MinuteUp",
+          "type": "image",
+          "x": 800,
+          "y": 345,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Box_MinuteVal",
+          "type": "image",
+          "x": 855,
+          "y": 339,
+          "w": 104,
+          "h": 61,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_MinuteVal",
+          "type": "text",
+          "x": 855,
+          "y": 336,
+          "w": 104,
+          "h": 67,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_MinuteDown",
+          "type": "image",
+          "x": 959,
+          "y": 340,
+          "w": 60,
+          "h": 60,
+          "color": "4A9FD4"
+        },
+        {
+          "name": "Img_MinuteDown",
+          "type": "image",
+          "x": 964,
+          "y": 345,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        },
+        {
+          "name": "Txt_SecondLbl",
+          "type": "text",
+          "x": 630,
+          "y": 506,
+          "w": 140,
+          "h": 42,
+          "text": "Second",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Box_SecondUp",
+          "type": "image",
+          "x": 795,
+          "y": 499,
+          "w": 60,
+          "h": 60,
+          "color": "2ECC9B"
+        },
+        {
+          "name": "Img_SecondUp",
+          "type": "image",
+          "x": 800,
+          "y": 504,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_up_green"
+        },
+        {
+          "name": "Box_SecondVal",
+          "type": "image",
+          "x": 855,
+          "y": 498,
+          "w": 104,
+          "h": 61,
+          "color": "1A1F29"
+        },
+        {
+          "name": "Txt_SecondVal",
+          "type": "text",
+          "x": 855,
+          "y": 495,
+          "w": 104,
+          "h": 67,
+          "text": "0",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_SecondDown",
+          "type": "image",
+          "x": 959,
+          "y": 499,
+          "w": 60,
+          "h": 60,
+          "color": "4A9FD4"
+        },
+        {
+          "name": "Img_SecondDown",
+          "type": "image",
+          "x": 964,
+          "y": 504,
+          "w": 50,
+          "h": 50,
+          "sprite": "arrow_down_cyan"
+        }
+      ]
+    },
+    {
+      "name": "Buttons",
+      "comment": "Save & Exit (green) + CANCEL (red). Display-only, no listeners (scope-lock). No nav menu on this screen.",
+      "elements": [
+        {
+          "name": "Box_SaveExit",
+          "type": "image",
+          "x": 265,
+          "y": 628,
+          "w": 204,
+          "h": 70,
+          "color": "5FD79B"
+        },
+        {
+          "name": "Txt_SaveExit",
+          "type": "text",
+          "x": 265,
+          "y": 624,
+          "w": 204,
+          "h": 70,
+          "text": "Save & Exit",
+          "size": 32,
+          "color": "000000",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Box_Cancel",
+          "type": "image",
+          "x": 675,
+          "y": 628,
+          "w": 204,
+          "h": 70,
+          "color": "F58484"
+        },
+        {
+          "name": "Txt_Cancel",
+          "type": "text",
+          "x": 675,
+          "y": 624,
+          "w": 204,
+          "h": 70,
+          "text": "CANCEL",
+          "size": 32,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    }
+  ]
+}
