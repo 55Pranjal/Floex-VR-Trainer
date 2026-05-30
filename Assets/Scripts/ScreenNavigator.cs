@@ -5,10 +5,10 @@ using UnityEngine.Events;
 
 /// <summary>
 /// Screen-to-screen navigation for the Floex console.
-/// Attach to the Canvas. At launch it finds each screen's own nav rows + home
-/// icon by name, turns them into Buttons at runtime, and wires them to swap
-/// which screen is active. The screen JSON and ScreenBuilder stay untouched
-/// (static only) — every bit of navigation behaviour lives here.
+/// Attach to the Canvas. At launch it finds each screen's own nav rows, home
+/// icon, and header / modal links by name, turns them into Buttons at runtime,
+/// and wires them to swap which screen is active. The screen JSON and
+/// ScreenBuilder stay untouched (static only) — all navigation behaviour lives here.
 /// </summary>
 public class ScreenNavigator : MonoBehaviour
 {
@@ -29,6 +29,16 @@ public class ScreenNavigator : MonoBehaviour
         { "Txt_NavCardio",   "Screen_Cardioplegia" },
         { "Txt_NavTimer",    "Screen_Timer" },
         { "Txt_NavSystem",   "Screen_SystemSetting" },
+    };
+
+    // Header / modal links — same operation as a nav row, different sources.
+    // Lives on CDM (the date & time openers) and Screen_DateTime (the closers).
+    static readonly Dictionary<string, string> LinkMap = new Dictionary<string, string>
+    {
+        { "Txt_Date",     "Screen_DateTime" },   // CDM header -> open Date & Time
+        { "Txt_Time",     "Screen_DateTime" },   // CDM header -> open Date & Time
+        { "Box_SaveExit", "Screen_CDM" },        // DateTime   -> close to home
+        { "Box_Cancel",   "Screen_CDM" },        // DateTime   -> close to home
     };
 
     const string HomeIconName = "Img_Home";
@@ -54,18 +64,32 @@ public class ScreenNavigator : MonoBehaviour
 
     void WireScreen(Transform screenRoot)
     {
-        foreach (KeyValuePair<string, string> entry in NavMap)
-        {
-            Transform row = FindDeep(screenRoot, entry.Key);
-            if (row == null) continue;          // screen may not contain this row
-            string target = entry.Value;        // capture per row for the closure
-            HookButton(row.gameObject, () => ShowScreen(target));
-        }
+        // Display-only UI: nothing is clickable except what we explicitly wire.
+        // Turning every graphic off first means a label drawn on top of a wired
+        // box (e.g. the "Save & Exit" text over Box_SaveExit) can't swallow the
+        // tap — the ray falls through it to the box underneath. HookButton turns
+        // the wired elements back on.
+        foreach (Graphic g in screenRoot.GetComponentsInChildren<Graphic>(true))
+            g.raycastTarget = false;
+
+        WireLinks(screenRoot, NavMap);
+        WireLinks(screenRoot, LinkMap);
 
         // Home icon is absent on the home screen itself — null is fine.
         Transform home = FindDeep(screenRoot, HomeIconName);
         if (home != null)
             HookButton(home.gameObject, () => ShowScreen(homeScreen));
+    }
+
+    void WireLinks(Transform screenRoot, Dictionary<string, string> map)
+    {
+        foreach (KeyValuePair<string, string> entry in map)
+        {
+            Transform t = FindDeep(screenRoot, entry.Key);
+            if (t == null) continue;            // this screen doesn't contain it
+            string target = entry.Value;        // capture per entry for the closure
+            HookButton(t.gameObject, () => ShowScreen(target));
+        }
     }
 
     void HookButton(GameObject go, UnityAction onClick)
