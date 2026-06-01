@@ -1,0 +1,11 @@
+Model Information:
+* title:	Medical instrument tray
+* source:	https://sketchfab.com/3d-models/medical-instrument-tray-7babe1cd3e82485da6ce3eb2add5b8ac
+* author:	kkso199 (https://sketchfab.com/kkso199)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Medical instrument tray" (https://sketchfab.com/3d-models/medical-instrument-tray-7babe1cd3e82485da6ce3eb2add5b8ac) by kkso199 (https://sketchfab.com/kkso199) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
