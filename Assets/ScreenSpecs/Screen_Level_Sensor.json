@@ -26,7 +26,7 @@
       "elements": [
         { "name": "Txt_Intro",        "type": "text",  "x": 58, "y": 95,  "w": 883, "h": 48, "text": "Select pump to stop when low level is detected", "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
 
-        { "name": "Box_ArterialSwatch","type": "image", "x": 99,  "y": 179, "w": 60,  "h": 60, "color": "27C0F5" },
+        { "name": "Img_Arterial","type": "image", "x": 99,  "y": 179, "w": 60,  "h": 60, "color": "27C0F5" },
         { "name": "Txt_Arterial",     "type": "text",  "x": 195, "y": 188, "w": 147, "h": 42, "text": "Arterial", "size": 35, "color": "FFFFFF", "align": "left", "bold": true },
 
         { "name": "Txt_EnableInterrupt","type": "text",  "x": 58, "y": 279, "w": 708, "h": 41, "text": "Enable pump interruption base on level sensor", "size": 21, "color": "FFFFFF", "align": "left", "bold": true },
