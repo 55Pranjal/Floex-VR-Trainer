@@ -4,20 +4,6 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-/// <summary>
-/// Generic N-state cycler for a console screen (Product B scope).
-/// Each click on Box_{name} advances through a list of states; the matching
-/// Img_{name} is tinted to show which state is active, and — if the screen
-/// includes a Txt_{name}Label — the label text is written too.
-///
-/// A 2-state cycler is a toggle, a 3-state cycler is the Temperature alarm beep,
-/// and N-state is whatever you want. State count and tints are per-field, set in
-/// the Inspector.
-///
-/// Cooperates with ScreenNavigator and SpinnerController: Cancel reverts the
-/// snapshot taken when the screen opened, additive to whatever else is wired
-/// to Box_Cancel. Save just exits — the live values persist.
-/// </summary>
 public class CyclerController : MonoBehaviour
 {
     [System.Serializable]
@@ -25,12 +11,13 @@ public class CyclerController : MonoBehaviour
     {
         public string label = "";       // optional, written into Txt_{name}Label if present
         public Color  tint  = Color.white;
+        public Sprite sprite;           // OPTIONAL: if set on an Image, swaps the sprite (tint ignored)
     }
 
     [System.Serializable]
     public class Field
     {
-        public string  name;            // "T1Alarm" -> Box_T1Alarm (clickable) + Img_T1Alarm (tinted)
+        public string  name;
         public int     start = 0;
         public State[] states;
     }
@@ -45,7 +32,7 @@ public class CyclerController : MonoBehaviour
     };
 
     [Tooltip("Hover/press tint on the clickable Box (separate from per-state tint applied to the Img).")]
-    public Color highlightColor = new Color(0.906f, 0.412f, 0.427f); // FloEx coral
+    public Color highlightColor = new Color(0.906f, 0.412f, 0.427f);
 
     const string CancelBoxName = "Box_Cancel";
 
@@ -54,13 +41,11 @@ public class CyclerController : MonoBehaviour
     readonly Dictionary<string, Graphic>  visuals  = new Dictionary<string, Graphic>();
     readonly Dictionary<string, TMP_Text> labels   = new Dictionary<string, TMP_Text>();
 
-    // Three climbing-urgency tints: info -> caution -> alert. Keeps all three
-    // levels reading as "active" — no level looks "off".
     static State[] DefaultAlarmStates() => new State[]
     {
-        new State { label = "Low",    tint = new Color(0.40f, 0.70f, 0.90f) }, // info blue
-        new State { label = "Medium", tint = new Color(0.98f, 0.73f, 0.09f) }, // caution yellow (firmware FABA17)
-        new State { label = "High",   tint = new Color(0.906f, 0.412f, 0.427f) }, // FloEx coral
+        new State { label = "Low",    tint = new Color(0.40f, 0.70f, 0.90f) },
+        new State { label = "Medium", tint = new Color(0.98f, 0.73f, 0.09f) },
+        new State { label = "High",   tint = new Color(0.906f, 0.412f, 0.427f) },
     };
 
     void Awake()
@@ -76,54 +61,49 @@ public class CyclerController : MonoBehaviour
 
     void OnEnable()
     {
-        // Screen opened: snapshot so Cancel can restore.
         foreach (Field f in fields)
             snapshot[f.name] = indices.TryGetValue(f.name, out int v) ? v : f.start;
     }
 
-   void Start()
-{
-    foreach (Field f in fields)
+    void Start()
     {
-        Transform imgT = FindDeep(transform, "Img_" + f.name);
-        if (imgT != null)
+        foreach (Field f in fields)
         {
-            Graphic g = imgT.GetComponent<Graphic>();
-            if (g != null) visuals[f.name] = g;
+            Transform imgT = FindDeep(transform, "Img_" + f.name);
+            if (imgT != null)
+            {
+                Graphic g = imgT.GetComponent<Graphic>();
+                if (g != null) visuals[f.name] = g;
+            }
+            else
+            {
+                Debug.LogWarning($"[CyclerController] 'Img_{f.name}' not found on {name} — no visual feedback for this field.");
+            }
+
+            Transform txt = FindDeep(transform, "Txt_" + f.name + "Label");
+            if (txt != null)
+            {
+                TMP_Text t = txt.GetComponent<TMP_Text>();
+                if (t != null) labels[f.name] = t;
+            }
+
+            Field cf = f;
+
+            Transform click = FindDeep(transform, "Box_" + f.name);
+            bool isFallback = false;
+            if (click == null) { click = imgT; isFallback = true; }
+
+            if (click != null) HookClickable(click, () => Advance(cf), isFallback);
+            else Debug.LogWarning($"[CyclerController] No Box_{f.name} or Img_{f.name} on {name} — field unwired.");
+
+            Refresh(f.name);
         }
-        else
-        {
-            Debug.LogWarning($"[CyclerController] 'Img_{f.name}' not found on {name} — no tint feedback for this field.");
-        }
 
-        // Optional label
-        Transform txt = FindDeep(transform, "Txt_" + f.name + "Label");
-        if (txt != null)
-        {
-            TMP_Text t = txt.GetComponent<TMP_Text>();
-            if (t != null) labels[f.name] = t;
-        }
-
-        Field cf = f;
-
-        // Click target: Box_{name} preferred (separate clickable on top of Img),
-        // fall back to Img_{name} for screens where the visual IS the clickable
-        // (toggle sprites, swatches).
-        Transform click = FindDeep(transform, "Box_" + f.name);
-        bool isFallback = false;
-        if (click == null) { click = imgT; isFallback = true; }
-
-        if (click != null) HookClickable(click, () => Advance(cf), isFallback);
-        else Debug.LogWarning($"[CyclerController] No Box_{f.name} or Img_{f.name} on {name} — field unwired.");
-
-        Refresh(f.name);
+        Transform cancel = FindDeep(transform, CancelBoxName);
+        Button cancelBtn = cancel != null ? cancel.GetComponent<Button>() : null;
+        if (cancelBtn != null) cancelBtn.onClick.AddListener(RevertToSnapshot);
     }
 
-    // Cancel reverts (additive listener; ScreenNavigator already wired navigation).
-    Transform cancel = FindDeep(transform, CancelBoxName);
-    Button cancelBtn = cancel != null ? cancel.GetComponent<Button>() : null;
-    if (cancelBtn != null) cancelBtn.onClick.AddListener(RevertToSnapshot);
-}
     void Advance(Field f)
     {
         if (f.states == null || f.states.Length == 0) return;
@@ -131,7 +111,6 @@ public class CyclerController : MonoBehaviour
         Refresh(f.name);
     }
 
-    /// <summary>Restore indices to the screen-open snapshot. Hooked to Cancel.</summary>
     public void RevertToSnapshot()
     {
         foreach (Field f in fields)
@@ -148,40 +127,51 @@ public class CyclerController : MonoBehaviour
         if (f == null || f.states == null || f.states.Length == 0) return;
         State s = f.states[indices[fieldName]];
 
-        if (visuals.TryGetValue(fieldName, out Graphic g)) g.color = s.tint;
+        if (visuals.TryGetValue(fieldName, out Graphic g))
+        {
+            // Sprite swap takes precedence over tint, if both are usable.
+            Image img = g as Image;
+            if (s.sprite != null && img != null)
+            {
+                img.sprite = s.sprite;
+                img.color  = Color.white;   // neutralize any prior tint
+            }
+            else
+            {
+                g.color = s.tint;
+            }
+        }
         if (labels.TryGetValue(fieldName, out TMP_Text t)) t.text = s.label;
     }
 
     void HookClickable(Transform t, UnityAction onClick, bool isFallback)
-{
-    Graphic g = t.GetComponent<Graphic>();
-    if (g != null) g.raycastTarget = true;
-
-    Button btn = t.GetComponent<Button>();
-    if (btn == null) btn = t.gameObject.AddComponent<Button>();
-    btn.targetGraphic = g;
-
-    if (isFallback)
     {
-        // Same element is visual AND clickable — disable Button's ColorTint
-        // transition so it doesn't fight our state tint in Refresh().
-        btn.transition = Selectable.Transition.None;
-    }
-    else
-    {
-        ColorBlock cb = btn.colors;
-        cb.normalColor      = Color.white;
-        cb.highlightedColor = highlightColor;
-        cb.pressedColor     = highlightColor;
-        cb.selectedColor    = Color.white;
-        cb.fadeDuration     = 0.05f;
-        btn.colors = cb;
-        btn.transition = Selectable.Transition.ColorTint;
-    }
+        Graphic g = t.GetComponent<Graphic>();
+        if (g != null) g.raycastTarget = true;
 
-    btn.onClick.RemoveAllListeners();
-    btn.onClick.AddListener(onClick);
-}
+        Button btn = t.GetComponent<Button>();
+        if (btn == null) btn = t.gameObject.AddComponent<Button>();
+        btn.targetGraphic = g;
+
+        if (isFallback)
+        {
+            btn.transition = Selectable.Transition.None;
+        }
+        else
+        {
+            ColorBlock cb = btn.colors;
+            cb.normalColor      = Color.white;
+            cb.highlightedColor = highlightColor;
+            cb.pressedColor     = highlightColor;
+            cb.selectedColor    = Color.white;
+            cb.fadeDuration     = 0.05f;
+            btn.colors = cb;
+            btn.transition = Selectable.Transition.ColorTint;
+        }
+
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(onClick);
+    }
 
     static Transform FindDeep(Transform root, string n)
     {
