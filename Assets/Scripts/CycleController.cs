@@ -81,41 +81,49 @@ public class CyclerController : MonoBehaviour
             snapshot[f.name] = indices.TryGetValue(f.name, out int v) ? v : f.start;
     }
 
-    void Start()
+   void Start()
+{
+    foreach (Field f in fields)
     {
-        // Runs after ScreenNavigator.Awake, so re-enabling raycasts sticks.
-        foreach (Field f in fields)
+        Transform imgT = FindDeep(transform, "Img_" + f.name);
+        if (imgT != null)
         {
-            Transform img = FindDeep(transform, "Img_" + f.name);
-            if (img != null)
-            {
-                Graphic g = img.GetComponent<Graphic>();
-                if (g != null) visuals[f.name] = g;
-            }
-            else
-            {
-                Debug.LogWarning($"[CyclerController] 'Img_{f.name}' not found on {name} — no tint feedback for this field.");
-            }
-
-            // Optional label — only used if the JSON includes it.
-            Transform txt = FindDeep(transform, "Txt_" + f.name + "Label");
-            if (txt != null)
-            {
-                TMP_Text t = txt.GetComponent<TMP_Text>();
-                if (t != null) labels[f.name] = t;
-            }
-
-            Field cf = f;
-            HookBox("Box_" + f.name, () => Advance(cf));
-            Refresh(f.name);
+            Graphic g = imgT.GetComponent<Graphic>();
+            if (g != null) visuals[f.name] = g;
+        }
+        else
+        {
+            Debug.LogWarning($"[CyclerController] 'Img_{f.name}' not found on {name} — no tint feedback for this field.");
         }
 
-        // Cancel reverts (additive listener; ScreenNavigator already wired navigation).
-        Transform cancel = FindDeep(transform, CancelBoxName);
-        Button cancelBtn = cancel != null ? cancel.GetComponent<Button>() : null;
-        if (cancelBtn != null) cancelBtn.onClick.AddListener(RevertToSnapshot);
+        // Optional label
+        Transform txt = FindDeep(transform, "Txt_" + f.name + "Label");
+        if (txt != null)
+        {
+            TMP_Text t = txt.GetComponent<TMP_Text>();
+            if (t != null) labels[f.name] = t;
+        }
+
+        Field cf = f;
+
+        // Click target: Box_{name} preferred (separate clickable on top of Img),
+        // fall back to Img_{name} for screens where the visual IS the clickable
+        // (toggle sprites, swatches).
+        Transform click = FindDeep(transform, "Box_" + f.name);
+        bool isFallback = false;
+        if (click == null) { click = imgT; isFallback = true; }
+
+        if (click != null) HookClickable(click, () => Advance(cf), isFallback);
+        else Debug.LogWarning($"[CyclerController] No Box_{f.name} or Img_{f.name} on {name} — field unwired.");
+
+        Refresh(f.name);
     }
 
+    // Cancel reverts (additive listener; ScreenNavigator already wired navigation).
+    Transform cancel = FindDeep(transform, CancelBoxName);
+    Button cancelBtn = cancel != null ? cancel.GetComponent<Button>() : null;
+    if (cancelBtn != null) cancelBtn.onClick.AddListener(RevertToSnapshot);
+}
     void Advance(Field f)
     {
         if (f.states == null || f.states.Length == 0) return;
@@ -144,18 +152,23 @@ public class CyclerController : MonoBehaviour
         if (labels.TryGetValue(fieldName, out TMP_Text t)) t.text = s.label;
     }
 
-    void HookBox(string boxName, UnityAction onClick)
+    void HookClickable(Transform t, UnityAction onClick, bool isFallback)
+{
+    Graphic g = t.GetComponent<Graphic>();
+    if (g != null) g.raycastTarget = true;
+
+    Button btn = t.GetComponent<Button>();
+    if (btn == null) btn = t.gameObject.AddComponent<Button>();
+    btn.targetGraphic = g;
+
+    if (isFallback)
     {
-        Transform t = FindDeep(transform, boxName);
-        if (t == null) { Debug.LogWarning($"[CyclerController] '{boxName}' not found on {name}"); return; }
-
-        Graphic g = t.GetComponent<Graphic>();
-        if (g != null) g.raycastTarget = true;          // ScreenNavigator turned this off
-
-        Button btn = t.GetComponent<Button>();
-        if (btn == null) btn = t.gameObject.AddComponent<Button>();
-        btn.targetGraphic = g;
-
+        // Same element is visual AND clickable — disable Button's ColorTint
+        // transition so it doesn't fight our state tint in Refresh().
+        btn.transition = Selectable.Transition.None;
+    }
+    else
+    {
         ColorBlock cb = btn.colors;
         cb.normalColor      = Color.white;
         cb.highlightedColor = highlightColor;
@@ -164,10 +177,11 @@ public class CyclerController : MonoBehaviour
         cb.fadeDuration     = 0.05f;
         btn.colors = cb;
         btn.transition = Selectable.Transition.ColorTint;
-
-        btn.onClick.RemoveAllListeners();
-        btn.onClick.AddListener(onClick);
     }
+
+    btn.onClick.RemoveAllListeners();
+    btn.onClick.AddListener(onClick);
+}
 
     static Transform FindDeep(Transform root, string n)
     {

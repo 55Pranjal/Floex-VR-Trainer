@@ -64,7 +64,7 @@
         { "name": "Box_T2MinDown",    "type": "image", "x": 626, "y": 267, "w": 60,  "h": 60, "color": "27C0F5" },
         { "name": "Img_T2MinDown",    "type": "image", "x": 631, "y": 272, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
         { "name": "Box_T2Alarm",      "type": "image", "x": 759, "y": 269, "w": 250, "h": 63, "color": "1A1F29" },
-        { "name": "Img_T1Alarm",    "type": "image", "x": 957, "y": 274, "w": 50,  "h": 50, "sprite": "touch" }
+        { "name": "Img_T2Alarm",    "type": "image", "x": 957, "y": 274, "w": 50,  "h": 50, "sprite": "touch" }
       ]
     },
     {
@@ -83,7 +83,7 @@
         { "name": "Box_T3MinDown",    "type": "image", "x": 626, "y": 365, "w": 60,  "h": 60, "color": "27C0F5" },
         { "name": "Img_T3MinDown",    "type": "image", "x": 631, "y": 370, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
         { "name": "Box_T3Alarm",      "type": "image", "x": 759, "y": 367, "w": 250, "h": 63, "color": "1A1F29" },
-        { "name": "Img_T1Alarm",    "type": "image", "x": 957, "y": 372, "w": 50,  "h": 50, "sprite": "touch" }
+        { "name": "Img_T3Alarm",    "type": "image", "x": 957, "y": 372, "w": 50,  "h": 50, "sprite": "touch" }
       ]
     },
     {
@@ -102,7 +102,7 @@
         { "name": "Box_T4MinDown",    "type": "image", "x": 626, "y": 463, "w": 60,  "h": 60, "color": "27C0F5" },
         { "name": "Img_T4MinDown",    "type": "image", "x": 631, "y": 468, "w": 50,  "h": 50, "sprite": "arrow_down_cyan" },
         { "name": "Box_T4Alarm",      "type": "image", "x": 759, "y": 465, "w": 250, "h": 63, "color": "1A1F29" },
-        { "name": "Img_T1Alarm",    "type": "image", "x": 957, "y": 470, "w": 50,  "h": 50, "sprite": "touch" }
+        { "name": "Img_T4Alarm",    "type": "image", "x": 957, "y": 470, "w": 50,  "h": 50, "sprite": "touch" }
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
   "screenName": "Screen_PressureSensor",
-  "comment": "Floex Pressure Sensor screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. Reuses Header + NavMenu + bottom buttons. Two side-by-side pressure panels (PS1 left, PS2 right). Each panel: title, Select Pump label + dropdown box/caret, three stepper rows (Calibration Actual Value with range note / Threshold for warning / Threshold for Alarm and Pump Stop), each = value + 60x60 colour box (green up #2ECC9B / cyan down #27C0F5) + 50x50 arrow sprite inset, plus Pump Interruption label + toggle frozen OFF. Element names retain BS1/BS2 prefixes carried over from the Bubble Sensor template.",
+  "comment": "Floex Pressure Sensor screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. Reuses Header + NavMenu + bottom buttons. Two side-by-side pressure panels (PS1 left, PS2 right). Each panel: title, Select Pump label + dropdown box/caret/label, three stepper rows (Calibration Y350 / Threshold warning Y447 / Threshold alarm Y550), each = label + 60x60 colour box (green up #2ECC9B / cyan down #27C0F5) + 50x50 arrow sprite inset + value text, plus Pump Interruption label + toggle. Names disambiguated by purpose: Cal / ThreshWarn / ThreshAlarm.",
   "canvasWidth": 1280,
   "canvasHeight": 800,
   "groups": [
@@ -75,10 +75,10 @@
     },
     {
       "name": "Panel_PS1",
-      "comment": "Pressure Sensor 1, left column. box bg #121010. Three stepper blocks stacked: Calibration (Y350), Threshold for warning (Y447), Threshold for Alarm and Pump Stop (Y550).",
+      "comment": "Pressure Sensor 1, left column. box bg #121010. Three stepper blocks stacked: Calibration (Y350), Threshold for warning (Y447), Threshold for Alarm and Pump Stop (Y550). Names use Cal / ThreshWarn / ThreshAlarm to disambiguate.",
       "elements": [
         {
-          "name": "Txt_BS1Title",
+          "name": "Txt_PS1Title",
           "type": "text",
           "x": 37,
           "y": 99,
@@ -91,7 +91,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS1",
+          "name": "Box_PS1",
           "type": "image",
           "x": 19,
           "y": 160,
@@ -100,7 +100,7 @@
           "color": "121010"
         },
         {
-          "name": "Txt_BS1SelectPump",
+          "name": "Txt_PS1SelectPump",
           "type": "text",
           "x": 37,
           "y": 170,
@@ -113,7 +113,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS1Dropdown",
+          "name": "Box_PS1Dropdown",
           "type": "image",
           "x": 253,
           "y": 170,
@@ -122,7 +122,20 @@
           "color": "1A1F29"
         },
         {
-          "name": "Img_BS1Dropdown",
+          "name": "Txt_PS1DropdownLabel",
+          "type": "text",
+          "x": 263,
+          "y": 172,
+          "w": 200,
+          "h": 40,
+          "text": "ARTERIAL",
+          "size": 24,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Img_PS1Dropdown",
           "type": "image",
           "x": 470,
           "y": 170,
@@ -131,7 +144,7 @@
           "sprite": "dropdown"
         },
         {
-          "name": "Txt_BS1Threshold",
+          "name": "Txt_PS1ThreshAlarmLabel",
           "type": "text",
           "x": 29,
           "y": 550,
@@ -144,7 +157,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS1Up",
+          "name": "Box_PS1ThreshAlarmUp",
           "type": "image",
           "x": 289,
           "y": 550,
@@ -153,7 +166,7 @@
           "color": "2ECC9B"
         },
         {
-          "name": "Img_BS1UpArrow",
+          "name": "Img_PS1ThreshAlarmUp",
           "type": "image",
           "x": 294,
           "y": 550,
@@ -162,7 +175,7 @@
           "sprite": "arrow_up_green"
         },
         {
-          "name": "Txt_BS1Value",
+          "name": "Txt_PS1ThreshAlarmVal",
           "type": "text",
           "x": 349,
           "y": 550,
@@ -175,7 +188,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS1Down",
+          "name": "Box_PS1ThreshAlarmDown",
           "type": "image",
           "x": 453,
           "y": 550,
@@ -184,7 +197,7 @@
           "color": "27C0F5"
         },
         {
-          "name": "Img_BS1DownArrow",
+          "name": "Img_PS1ThreshAlarmDown",
           "type": "image",
           "x": 458,
           "y": 550,
@@ -193,7 +206,7 @@
           "sprite": "arrow_down_cyan"
         },
         {
-          "name": "Txt_BS1Threshold",
+          "name": "Txt_PS1CalLabel",
           "type": "text",
           "x": 29,
           "y": 350,
@@ -206,7 +219,7 @@
           "bold": true
         },
         {
-          "name": "Txt_BS1Range",
+          "name": "Txt_PS1Range",
           "type": "text",
           "x": 289,
           "y": 405,
@@ -218,7 +231,7 @@
           "align": "left"
         },
         {
-          "name": "Box_BS1Up",
+          "name": "Box_PS1CalUp",
           "type": "image",
           "x": 289,
           "y": 350,
@@ -227,7 +240,7 @@
           "color": "2ECC9B"
         },
         {
-          "name": "Img_BS1UpArrow",
+          "name": "Img_PS1CalUp",
           "type": "image",
           "x": 294,
           "y": 350,
@@ -236,7 +249,7 @@
           "sprite": "arrow_up_green"
         },
         {
-          "name": "Txt_BS1Value",
+          "name": "Txt_PS1CalVal",
           "type": "text",
           "x": 349,
           "y": 350,
@@ -249,7 +262,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS1Down",
+          "name": "Box_PS1CalDown",
           "type": "image",
           "x": 453,
           "y": 350,
@@ -258,7 +271,7 @@
           "color": "27C0F5"
         },
         {
-          "name": "Img_BS1DownArrow",
+          "name": "Img_PS1CalDown",
           "type": "image",
           "x": 458,
           "y": 350,
@@ -267,7 +280,7 @@
           "sprite": "arrow_down_cyan"
         },
         {
-          "name": "Txt_BS1Threshold",
+          "name": "Txt_PS1ThreshWarnLabel",
           "type": "text",
           "x": 29,
           "y": 456,
@@ -280,7 +293,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS1Up",
+          "name": "Box_PS1ThreshWarnUp",
           "type": "image",
           "x": 289,
           "y": 447,
@@ -289,7 +302,7 @@
           "color": "2ECC9B"
         },
         {
-          "name": "Img_BS1UpArrow",
+          "name": "Img_PS1ThreshWarnUp",
           "type": "image",
           "x": 294,
           "y": 452,
@@ -298,7 +311,7 @@
           "sprite": "arrow_up_green"
         },
         {
-          "name": "Txt_BS1Value",
+          "name": "Txt_PS1ThreshWarnVal",
           "type": "text",
           "x": 349,
           "y": 459,
@@ -311,7 +324,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS1Down",
+          "name": "Box_PS1ThreshWarnDown",
           "type": "image",
           "x": 453,
           "y": 445,
@@ -320,7 +333,7 @@
           "color": "27C0F5"
         },
         {
-          "name": "Img_BS1DownArrow",
+          "name": "Img_PS1ThreshWarnDown",
           "type": "image",
           "x": 458,
           "y": 450,
@@ -329,7 +342,7 @@
           "sprite": "arrow_down_cyan"
         },
         {
-          "name": "Txt_BS1Alarm",
+          "name": "Txt_PS1Interrupt",
           "type": "text",
           "x": 37,
           "y": 653,
@@ -342,7 +355,7 @@
           "bold": true
         },
         {
-          "name": "Img_BS1ToggleAlarm",
+          "name": "Img_PS1ToggleInterrupt",
           "type": "image",
           "x": 349,
           "y": 645,
@@ -357,7 +370,7 @@
       "comment": "Pressure Sensor 2, right column. Mirror of PS1, +517 X offset.",
       "elements": [
         {
-          "name": "Txt_BS2Title",
+          "name": "Txt_PS2Title",
           "type": "text",
           "x": 538,
           "y": 99,
@@ -370,7 +383,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS2",
+          "name": "Box_PS2",
           "type": "image",
           "x": 538,
           "y": 160,
@@ -379,7 +392,7 @@
           "color": "121010"
         },
         {
-          "name": "Txt_BS2SelectPump",
+          "name": "Txt_PS2SelectPump",
           "type": "text",
           "x": 555,
           "y": 170,
@@ -392,7 +405,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS2Dropdown",
+          "name": "Box_PS2Dropdown",
           "type": "image",
           "x": 770,
           "y": 170,
@@ -401,7 +414,20 @@
           "color": "1A1F29"
         },
         {
-          "name": "Img_BS2Dropdown",
+          "name": "Txt_PS2DropdownLabel",
+          "type": "text",
+          "x": 780,
+          "y": 172,
+          "w": 200,
+          "h": 40,
+          "text": "ARTERIAL",
+          "size": 24,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Img_PS2Dropdown",
           "type": "image",
           "x": 987,
           "y": 170,
@@ -410,7 +436,7 @@
           "sprite": "dropdown"
         },
         {
-          "name": "Txt_BS2Threshold",
+          "name": "Txt_PS2ThreshAlarmLabel",
           "type": "text",
           "x": 550,
           "y": 550,
@@ -423,7 +449,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS2Up",
+          "name": "Box_PS2ThreshAlarmUp",
           "type": "image",
           "x": 806,
           "y": 550,
@@ -432,7 +458,7 @@
           "color": "2ECC9B"
         },
         {
-          "name": "Img_BS2UpArrow",
+          "name": "Img_PS2ThreshAlarmUp",
           "type": "image",
           "x": 811,
           "y": 550,
@@ -441,7 +467,7 @@
           "sprite": "arrow_up_green"
         },
         {
-          "name": "Txt_BS2Value",
+          "name": "Txt_PS2ThreshAlarmVal",
           "type": "text",
           "x": 866,
           "y": 550,
@@ -454,7 +480,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS2Down",
+          "name": "Box_PS2ThreshAlarmDown",
           "type": "image",
           "x": 969,
           "y": 550,
@@ -463,7 +489,7 @@
           "color": "27C0F5"
         },
         {
-          "name": "Img_BS2DownArrow",
+          "name": "Img_PS2ThreshAlarmDown",
           "type": "image",
           "x": 975,
           "y": 550,
@@ -472,7 +498,7 @@
           "sprite": "arrow_down_cyan"
         },
         {
-          "name": "Txt_BS2Threshold",
+          "name": "Txt_PS2CalLabel",
           "type": "text",
           "x": 550,
           "y": 350,
@@ -485,7 +511,7 @@
           "bold": true
         },
         {
-          "name": "Txt_BS2Range",
+          "name": "Txt_PS2Range",
           "type": "text",
           "x": 806,
           "y": 405,
@@ -497,7 +523,7 @@
           "align": "left"
         },
         {
-          "name": "Box_BS2Up",
+          "name": "Box_PS2CalUp",
           "type": "image",
           "x": 806,
           "y": 350,
@@ -506,7 +532,7 @@
           "color": "2ECC9B"
         },
         {
-          "name": "Img_BS2UpArrow",
+          "name": "Img_PS2CalUp",
           "type": "image",
           "x": 811,
           "y": 350,
@@ -515,7 +541,7 @@
           "sprite": "arrow_up_green"
         },
         {
-          "name": "Txt_BS2Value",
+          "name": "Txt_PS2CalVal",
           "type": "text",
           "x": 866,
           "y": 350,
@@ -528,7 +554,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS2Down",
+          "name": "Box_PS2CalDown",
           "type": "image",
           "x": 969,
           "y": 350,
@@ -537,7 +563,7 @@
           "color": "27C0F5"
         },
         {
-          "name": "Img_BS2DownArrow",
+          "name": "Img_PS2CalDown",
           "type": "image",
           "x": 975,
           "y": 350,
@@ -546,7 +572,7 @@
           "sprite": "arrow_down_cyan"
         },
         {
-          "name": "Txt_BS2Threshold",
+          "name": "Txt_PS2ThreshWarnLabel",
           "type": "text",
           "x": 550,
           "y": 456,
@@ -559,7 +585,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS2Up",
+          "name": "Box_PS2ThreshWarnUp",
           "type": "image",
           "x": 806,
           "y": 447,
@@ -568,7 +594,7 @@
           "color": "2ECC9B"
         },
         {
-          "name": "Img_BS2UpArrow",
+          "name": "Img_PS2ThreshWarnUp",
           "type": "image",
           "x": 811,
           "y": 452,
@@ -577,7 +603,7 @@
           "sprite": "arrow_up_green"
         },
         {
-          "name": "Txt_BS2Value",
+          "name": "Txt_PS2ThreshWarnVal",
           "type": "text",
           "x": 866,
           "y": 459,
@@ -590,7 +616,7 @@
           "bold": true
         },
         {
-          "name": "Box_BS2Down",
+          "name": "Box_PS2ThreshWarnDown",
           "type": "image",
           "x": 969,
           "y": 445,
@@ -599,7 +625,7 @@
           "color": "27C0F5"
         },
         {
-          "name": "Img_BS2DownArrow",
+          "name": "Img_PS2ThreshWarnDown",
           "type": "image",
           "x": 975,
           "y": 450,
@@ -608,7 +634,7 @@
           "sprite": "arrow_down_cyan"
         },
         {
-          "name": "Txt_BS2Alarm",
+          "name": "Txt_PS2Interrupt",
           "type": "text",
           "x": 558,
           "y": 653,
@@ -621,7 +647,7 @@
           "bold": true
         },
         {
-          "name": "Img_BS2ToggleAlarm",
+          "name": "Img_PS2ToggleInterrupt",
           "type": "image",
           "x": 860,
           "y": 645,

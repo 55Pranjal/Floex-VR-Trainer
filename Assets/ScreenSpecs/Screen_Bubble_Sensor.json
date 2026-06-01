@@ -30,12 +30,13 @@
         { "name": "Txt_BS1SelectPump",  "type": "text",  "x": 37,  "y": 161, "w": 183, "h": 42,  "text": "Select Pump",    "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_BS1Dropdown",    "type": "image", "x": 43,  "y": 220, "w": 450, "h": 40, "color": "1A1F29" },
          { "name": "Img_BS1Dropdown",     "type": "image", "x": 450, "y": 222, "w": 40,  "h": 40,  "sprite": "dropdown" },
+         { "name": "Txt_BS1DropdownLabel", "type": "text", "x": 53, "y": 222, "w": 390, "h": 40, "text": "ARTERIAL", "size": 28, "color": "FFFFFF", "align": "left", "bold": true },
 
 
         { "name": "Txt_BS1Threshold",   "type": "text",  "x": 29,  "y": 456, "w": 236, "h": 42,  "text": "Threshold (mm)", "size": 28, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_BS1Up",          "type": "image", "x": 289, "y": 447, "w": 60,  "h": 60,  "color": "2ECC9B" },
         { "name": "Img_BS1UpArrow",     "type": "image", "x": 294, "y": 452, "w": 50,  "h": 50,  "sprite": "arrow_up_green" },
-        { "name": "Txt_BS1Value",       "type": "text",  "x": 349, "y": 459, "w": 104, "h": 42,  "text": "0",              "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Txt_BS1Val",       "type": "text",  "x": 349, "y": 459, "w": 104, "h": 42,  "text": "0",              "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
         { "name": "Box_BS1Down",        "type": "image", "x": 453, "y": 445, "w": 60,  "h": 60,  "color": "27C0F5" },
         { "name": "Img_BS1DownArrow",   "type": "image", "x": 458, "y": 450, "w": 50,  "h": 50,  "sprite": "arrow_down_cyan" },
 
@@ -56,11 +57,12 @@
         { "name": "Txt_BS2SelectPump",  "type": "text",  "x": 538, "y": 161, "w": 183, "h": 42,  "text": "Select Pump",    "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_BS2Dropdown",    "type": "image", "x": 564, "y": 220, "w": 450, "h": 40, "color": "1A1F29" },
         { "name": "Img_BS2Dropdown",     "type": "image", "x": 971, "y": 222, "w": 40,  "h": 40,  "sprite": "dropdown" },
+        { "name": "Txt_BS2DropdownLabel", "type": "text", "x": 574, "y": 222, "w": 390, "h": 40, "text": "ARTERIAL", "size": 28, "color": "FFFFFF", "align": "left", "bold": true },
 
         { "name": "Txt_BS2Threshold",   "type": "text",  "x": 560, "y": 456, "w": 236, "h": 42,  "text": "Threshold (mm)", "size": 28, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_BS2Up",          "type": "image", "x": 799, "y": 447, "w": 60,  "h": 60,  "color": "2ECC9B" },
         { "name": "Img_BS2UpArrow",     "type": "image", "x": 804, "y": 452, "w": 50,  "h": 50,  "sprite": "arrow_up_green" },
-        { "name": "Txt_BS2Value",       "type": "text",  "x": 859, "y": 459, "w": 104, "h": 42,  "text": "0",              "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Txt_BS2Val",       "type": "text",  "x": 859, "y": 459, "w": 104, "h": 42,  "text": "0",              "size": 36, "color": "FFFFFF", "align": "center", "bold": true },
         { "name": "Box_BS2Down",        "type": "image", "x": 963, "y": 445, "w": 60,  "h": 60,  "color": "27C0F5" },
         { "name": "Img_BS2DownArrow",   "type": "image", "x": 968, "y": 450, "w": 50,  "h": 50,  "sprite": "arrow_down_cyan" },
 
