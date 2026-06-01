@@ -1,6 +1,6 @@
 {
   "screenName": "Screen_Cardioplegia",
-  "comment": "Floex Cardioplegia screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. Type dropdown (frozen empty), First/Normal dose volume (static values), 3 total-volume rows (frozen empty), Save & Exit + Cancel (no listeners). Reuses Header + NavMenu.",
+  "comment": "Floex Cardioplegia screen. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT B: Type dropdown cycles AUTOMATIC<->MANUAL via CyclerController. First Dose / Normal Dose Volume static (firmware has keyboard editing commented out). Total Volume / TVB / TVC frozen empty (firmware-populated runtime values, scope-lock).",
   "canvasWidth": 1280,
   "canvasHeight": 800,
   "groups": [
@@ -75,7 +75,7 @@
     },
     {
       "name": "TypeSelect",
-      "comment": "Cardioplegia Type dropdown. Display-only, frozen empty (scope-lock). Box + dropdown arrow sprite.",
+      "comment": "Cardioplegia Type dropdown. 2-state cycler (AUTOMATIC <-> MANUAL). Box clickable, label overlays.",
       "elements": [
         {
           "name": "Txt_TypeLabel",
@@ -91,7 +91,7 @@
           "bold": true
         },
         {
-          "name": "Box_TypeDrop",
+          "name": "Box_TypeDropdown",
           "type": "image",
           "x": 18,
           "y": 132,
@@ -100,7 +100,20 @@
           "color": "0C1B37"
         },
         {
-          "name": "Img_TypeArrow",
+          "name": "Txt_TypeDropdownLabel",
+          "type": "text",
+          "x": 28,
+          "y": 137,
+          "w": 240,
+          "h": 50,
+          "text": "AUTOMATIC",
+          "size": 30,
+          "color": "FFFFFF",
+          "align": "left",
+          "bold": true
+        },
+        {
+          "name": "Img_TypeDropdown",
           "type": "image",
           "x": 280,
           "y": 147,
@@ -112,7 +125,7 @@
     },
     {
       "name": "DoseLeft",
-      "comment": "Left column: First Dose button + First/Normal dose volume labels and value boxes. Display-only static values (scope-lock). Box pitch ~138.",
+      "comment": "Left column: First Dose button + First/Normal dose volume labels and value boxes. Display-only static values (firmware keyboard editing is commented out).",
       "elements": [
         {
           "name": "Box_FirstDose",
@@ -210,7 +223,7 @@
     },
     {
       "name": "VolumeRight",
-      "comment": "Right column: 3 total-volume rows. Each: label (left) + value box with 'ml' (right). Display-only frozen empty (scope-lock). Row pitch ~105.",
+      "comment": "Right column: 3 total-volume rows. Each: label (left) + value box with 'ml' (right). Display-only frozen empty (firmware-populated, scope-lock). Row pitch ~105.",
       "elements": [
         {
           "name": "Txt_TVLbl",

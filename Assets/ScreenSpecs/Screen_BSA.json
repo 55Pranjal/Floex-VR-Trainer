@@ -1,6 +1,6 @@
 {
   "screenName": "Screen_BSA",
-  "comment": "Floex BSA & Patient form. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT A: display-only, NO behaviour. Reuses Header pattern + NavMenu from CDM. Input boxes color 1A1F29 (= header bg). Field = label (Large 36px) + input box + optional unit suffix (right-aligned inside box).",
+  "comment": "Floex BSA & Patient form. TouchGFX coords (top-left origin, Y-down). Generator flips Y. PRODUCT B: 9 fields editable via TMP_InputField + Quest system keyboard, BSA computed from height*weight on Calculate. CI and Target Flow stay empty (need cardioplegia output, out of trainer scope).",
   "canvasWidth": 1280,
   "canvasHeight": 800,
   "groups": [
@@ -22,56 +22,70 @@
     },
     {
       "name": "Form_LeftColumn",
+      "comment": "Left column. Each editable field = label + box + Txt overlay (InputField display target). Cardiac+BSA boxes are computed — Txt populated by Calculate.",
       "elements": [
         { "name": "Txt_LblName",    "type": "text",  "x": 56, "y": 84,  "w": 300, "h": 42, "text": "Patient Name",          "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Name",       "type": "image", "x": 56, "y": 131, "w": 450, "h": 50, "color": "1A1F29" },
+        { "name": "Txt_Name",       "type": "text",  "x": 66, "y": 131, "w": 430, "h": 50, "text": "",                     "size": 28, "color": "FFFFFF", "align": "left" },
 
         { "name": "Txt_LblAge",     "type": "text",  "x": 56, "y": 188, "w": 300, "h": 42, "text": "Patient Age",           "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Age",        "type": "image", "x": 56, "y": 235, "w": 450, "h": 53, "color": "1A1F29" },
+        { "name": "Txt_Age",        "type": "text",  "x": 66, "y": 235, "w": 430, "h": 53, "text": "",                     "size": 28, "color": "FFFFFF", "align": "left" },
 
         { "name": "Txt_LblWeight",  "type": "text",  "x": 56, "y": 292, "w": 300, "h": 42, "text": "Patient Weight",        "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Weight",     "type": "image", "x": 56, "y": 339, "w": 450, "h": 51, "color": "1A1F29" },
+        { "name": "Txt_Weight",     "type": "text",  "x": 66, "y": 339, "w": 360, "h": 51, "text": "",                     "size": 28, "color": "FFFFFF", "align": "left" },
         { "name": "Txt_UnitKg",     "type": "text",  "x": 430, "y": 339, "w": 68, "h": 44, "text": "kg",                    "size": 36, "color": "FFFFFF", "align": "right", "bold": true },
 
         { "name": "Txt_LblCardiac", "type": "text",  "x": 56, "y": 405, "w": 317, "h": 42, "text": "Patient Cardiac Index", "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Cardiac",    "type": "image", "x": 56, "y": 458, "w": 450, "h": 45, "color": "1A1F29" },
+        { "name": "Txt_Cardiac",    "type": "text",  "x": 66, "y": 458, "w": 260, "h": 45, "text": "",                     "size": 28, "color": "FFFFFF", "align": "left" },
         { "name": "Txt_UnitCardiac","type": "text",  "x": 331, "y": 459, "w": 168, "h": 44, "text": "L/min/m\u00b2",        "size": 36, "color": "FFFFFF", "align": "right", "bold": true },
 
         { "name": "Txt_LblBSA",     "type": "text",  "x": 61, "y": 503, "w": 174, "h": 42, "text": "Patient BSA",           "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_BSA",        "type": "image", "x": 56, "y": 552, "w": 450, "h": 50, "color": "1A1F29" },
+        { "name": "Txt_BSA",        "type": "text",  "x": 66, "y": 552, "w": 360, "h": 50, "text": "",                     "size": 28, "color": "FFFFFF", "align": "left" },
         { "name": "Txt_UnitM2",     "type": "text",  "x": 430, "y": 551, "w": 68, "h": 44, "text": "m\u00b2",               "size": 36, "color": "FFFFFF", "align": "right", "bold": true },
 
         { "name": "Txt_LblAnesth",  "type": "text",  "x": 61, "y": 605, "w": 341, "h": 42, "text": "Anesthesiologist Name", "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
-        { "name": "Box_Anesth",     "type": "image", "x": 56, "y": 658, "w": 450, "h": 50, "color": "1A1F29" }
+        { "name": "Box_Anesth",     "type": "image", "x": 56, "y": 658, "w": 450, "h": 50, "color": "1A1F29" },
+        { "name": "Txt_Anesth",     "type": "text",  "x": 66, "y": 658, "w": 430, "h": 50, "text": "",                     "size": 28, "color": "FFFFFF", "align": "left" }
       ]
     },
     {
       "name": "Form_RightColumn",
+      "comment": "Right column. Same pattern. Target Flow box computed — Txt populated by Calculate (but stays empty in trainer since CI requires cardioplegia data).",
       "elements": [
         { "name": "Txt_LblID",        "type": "text",  "x": 554, "y": 84,  "w": 300, "h": 42, "text": "Patient ID",          "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_ID",           "type": "image", "x": 554, "y": 131, "w": 450, "h": 50, "color": "1A1F29" },
+        { "name": "Txt_ID",           "type": "text",  "x": 564, "y": 131, "w": 430, "h": 50, "text": "",                   "size": 28, "color": "FFFFFF", "align": "left" },
 
         { "name": "Txt_LblBlood",     "type": "text",  "x": 552, "y": 188, "w": 302, "h": 42, "text": "Patient Blood Group", "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Blood",        "type": "image", "x": 554, "y": 235, "w": 450, "h": 53, "color": "1A1F29" },
+        { "name": "Txt_Blood",        "type": "text",  "x": 564, "y": 235, "w": 430, "h": 53, "text": "",                   "size": 28, "color": "FFFFFF", "align": "left" },
 
         { "name": "Txt_LblHight",     "type": "text",  "x": 554, "y": 292, "w": 195, "h": 42, "text": "Patient Hight",       "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Hight",        "type": "image", "x": 554, "y": 339, "w": 450, "h": 48, "color": "1A1F29" },
+        { "name": "Txt_Hight",        "type": "text",  "x": 564, "y": 339, "w": 360, "h": 48, "text": "",                   "size": 28, "color": "FFFFFF", "align": "left" },
         { "name": "Txt_UnitCm",       "type": "text",  "x": 930, "y": 341, "w": 68, "h": 44, "text": "cm",                   "size": 36, "color": "FFFFFF", "align": "right", "bold": true },
 
         { "name": "Txt_LblTarget",    "type": "text",  "x": 554, "y": 405, "w": 291, "h": 42, "text": "Patient Target Flow", "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Target",       "type": "image", "x": 554, "y": 458, "w": 450, "h": 45, "color": "1A1F29" },
+        { "name": "Txt_Target",       "type": "text",  "x": 564, "y": 458, "w": 320, "h": 45, "text": "",                   "size": 28, "color": "FFFFFF", "align": "left" },
         { "name": "Txt_UnitLmin",     "type": "text",  "x": 897, "y": 459, "w": 97, "h": 44, "text": "L/min",                "size": 36, "color": "FFFFFF", "align": "right", "bold": true },
 
         { "name": "Txt_LblSurgeon",   "type": "text",  "x": 554, "y": 503, "w": 219, "h": 42, "text": "Surgeon Name",        "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
         { "name": "Box_Surgeon",      "type": "image", "x": 554, "y": 552, "w": 450, "h": 50, "color": "1A1F29" },
+        { "name": "Txt_Surgeon",      "type": "text",  "x": 564, "y": 552, "w": 430, "h": 50, "text": "",                   "size": 28, "color": "FFFFFF", "align": "left" },
 
         { "name": "Txt_LblPerfusion", "type": "text",  "x": 554, "y": 605, "w": 273, "h": 42, "text": "Perfusionist Name",   "size": 36, "color": "FFFFFF", "align": "left", "bold": true },
-        { "name": "Box_Perfusion",    "type": "image", "x": 554, "y": 658, "w": 450, "h": 51, "color": "1A1F29" }
+        { "name": "Box_Perfusion",    "type": "image", "x": 554, "y": 658, "w": 450, "h": 51, "color": "1A1F29" },
+        { "name": "Txt_Perfusion",    "type": "text",  "x": 564, "y": 658, "w": 430, "h": 51, "text": "",                   "size": 28, "color": "FFFFFF", "align": "left" }
       ]
     },
     {
       "name": "Buttons",
-      "comment": "Bottom action buttons. Display-only, no listeners (scope-lock). Fill colors eyeballed; tune after rebuild.",
+      "comment": "Bottom action buttons. Calculate computes BSA from h+w. OK/EXIT are keyboard helpers from firmware - visual-only in trainer (Quest system keyboard handles its own submit/cancel).",
       "elements": [
         { "name": "Box_Calculate",  "type": "image", "x": 56,  "y": 720, "w": 204, "h": 70, "color": "FFFFFF" },
         { "name": "Txt_Calculate",  "type": "text",  "x": 56,  "y": 716, "w": 204, "h": 70, "text": "Calculate",   "size": 36, "color": "000000", "align": "center", "bold": true },
