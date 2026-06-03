@@ -1,0 +1,168 @@
+{
+  "screenName": "Tube_Size_1",
+  "comment": "Pump head — exclusive picker for tube size. PRODUCT A: display + navigation only via ExclusivePickerController. Sprite names match firmware tube_index 0..5. Canvas 800x480.",
+  "canvasWidth": 800,
+  "canvasHeight": 480,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Background", "type": "image", "stretch": true, "color": "000000" }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        {
+          "name": "Txt_Logo", "type": "text",
+          "x": 10, "y": 4, "w": 220, "h": 48,
+          "text": "FloEx 3.0", "size": 36, "color": "E7696D",
+          "align": "left", "bold": true
+        },
+        {
+          "name": "Img_HomeBorder", "type": "image",
+          "x": 724, "y": 13, "w": 60, "h": 60,
+          "sprite": "home_border"
+        },
+        {
+          "name": "Img_HomeIcon", "type": "image",
+          "x": 724, "y": 13, "w": 60, "h": 60,
+          "sprite": "home"
+        }
+      ]
+    },
+    {
+      "name": "Buttons_Top",
+      "elements": [
+        {
+          "name": "Btn_Tube0_Outline", "type": "image",
+          "x": 97, "y": 73, "w": 150, "h": 150,
+          "sprite": "tube_outline_1"
+        },
+        {
+          "name": "Btn_Tube0_Circle", "type": "image",
+          "x": 137, "y": 93, "w": 70, "h": 70,
+          "sprite": "tube_circle_1"
+        },
+        {
+          "name": "Btn_Tube0_Label", "type": "text",
+          "x": 148, "y": 172, "w": 49, "h": 40,
+          "text": "1/4", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        },
+        {
+          "name": "Btn_Tube1_Outline", "type": "image",
+          "x": 311, "y": 73, "w": 150, "h": 150,
+          "sprite": "tube_outline_2"
+        },
+        {
+          "name": "Btn_Tube1_Circle", "type": "image",
+          "x": 351, "y": 93, "w": 70, "h": 70,
+          "sprite": "tube_circle_2"
+        },
+        {
+          "name": "Btn_Tube1_Label", "type": "text",
+          "x": 362, "y": 172, "w": 49, "h": 40,
+          "text": "3/8", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        },
+        {
+          "name": "Btn_Tube2_Outline", "type": "image",
+          "x": 545, "y": 73, "w": 150, "h": 150,
+          "sprite": "tube_outline_3"
+        },
+        {
+          "name": "Btn_Tube2_Circle", "type": "image",
+          "x": 585, "y": 93, "w": 70, "h": 70,
+          "sprite": "tube_circle_3"
+        },
+        {
+          "name": "Btn_Tube2_Label", "type": "text",
+          "x": 596, "y": 172, "w": 49, "h": 40,
+          "text": "1/2", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Buttons_Bottom",
+      "elements": [
+        {
+          "name": "Btn_Tube3_Outline", "type": "image",
+          "x": 97, "y": 246, "w": 150, "h": 150,
+          "sprite": "tube_outline_4"
+        },
+        {
+          "name": "Btn_Tube3_Circle", "type": "image",
+          "x": 137, "y": 266, "w": 70, "h": 70,
+          "sprite": "tube_circle_4"
+        },
+        {
+          "name": "Btn_Tube3_Label", "type": "text",
+          "x": 148, "y": 345, "w": 49, "h": 40,
+          "text": "5/16", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        },
+        {
+          "name": "Btn_Tube4_Outline", "type": "image",
+          "x": 311, "y": 246, "w": 150, "h": 150,
+          "sprite": "tube_outline_5"
+        },
+        {
+          "name": "Btn_Tube4_Circle", "type": "image",
+          "x": 351, "y": 266, "w": 70, "h": 70,
+          "sprite": "tube_circle_5"
+        },
+        {
+          "name": "Btn_Tube4_Label", "type": "text",
+          "x": 362, "y": 345, "w": 49, "h": 40,
+          "text": "F1", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        },
+        {
+          "name": "Btn_Tube5_Outline", "type": "image",
+          "x": 545, "y": 246, "w": 150, "h": 150,
+          "sprite": "tube_outline_6"
+        },
+        {
+          "name": "Btn_Tube5_Circle", "type": "image",
+          "x": 585, "y": 266, "w": 70, "h": 70,
+          "sprite": "tube_circle_6"
+        },
+        {
+          "name": "Btn_Tube5_Label", "type": "text",
+          "x": 596, "y": 345, "w": 49, "h": 40,
+          "text": "F2", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Buttons_Action",
+      "elements": [
+        {
+          "name": "Btn_Cancel_Bg", "type": "image",
+          "x": 167, "y": 423, "w": 175, "h": 50,
+          "sprite": "button_rounded_small"
+        },
+        {
+          "name": "Btn_Cancel_Label", "type": "text",
+          "x": 167, "y": 423, "w": 175, "h": 50,
+          "text": "CANCEL", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        },
+        {
+          "name": "Btn_Apply_Bg", "type": "image",
+          "x": 424, "y": 423, "w": 175, "h": 50,
+          "sprite": "button_rounded_small"
+        },
+        {
+          "name": "Btn_Apply_Label", "type": "text",
+          "x": 424, "y": 423, "w": 175, "h": 50,
+          "text": "APPLY", "size": 34, "color": "FFFFFF",
+          "align": "center", "bold": true
+        }
+      ]
+    }
+  ]
+}

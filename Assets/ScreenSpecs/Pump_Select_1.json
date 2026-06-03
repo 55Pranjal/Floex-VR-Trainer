@@ -1,0 +1,188 @@
+{
+  "screenName": "Pump_Select_1",
+  "comment": "Pump head — exclusive picker for pump type. PRODUCT A: display + navigation only via ExclusivePickerController. 800x480 canvas (single pump head).",
+  "canvasWidth": 800,
+  "canvasHeight": 480,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Background",
+          "type": "image",
+          "stretch": true,
+          "color": "000000"
+        }
+      ]
+    },
+    {
+  "name": "Header",
+  "elements": [
+    {
+      "name": "Txt_Logo",
+      "type": "text",
+      "x": 10, "y": 0, "w": 220, "h": 48,
+      "text": "FloEx 3.0",
+      "size": 36,
+      "color": "E7696D",
+      "align": "left",
+      "bold": true
+    },
+    {
+      "name": "Txt_Title",
+      "type": "text",
+      "x": 264, "y": 8, "w": 273, "h": 40,
+      "text": "SELECT PUMP TYPE",
+      "size": 28,
+      "color": "FFFFFF",
+      "align": "center",
+      "bold": true
+    },
+    {
+      "name": "Img_HomeBorder",
+      "type": "image",
+      "x": 724, "y": 15, "w": 60, "h": 60,
+      "sprite": "home_border"
+    },
+    {
+      "name": "Img_HomeIcon",
+      "type": "image",
+      "x": 724, "y": 15, "w": 60, "h": 60,
+      "sprite": "home"
+    }
+  ]
+},
+    {
+      "name": "Buttons_Top",
+      "elements": [
+        {
+          "name": "Btn_Arterial_Bg",
+          "type": "image",
+          "x": 128, "y": 109, "w": 240, "h": 50,
+          "sprite": "button_rounded_medium"
+        },
+        {
+          "name": "Btn_Arterial_Label",
+          "type": "text",
+          "x": 128, "y": 109, "w": 240, "h": 50,
+          "text": "ARTERIAL",
+          "size": 36,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Btn_Cardioplegia_Bg",
+          "type": "image",
+          "x": 409, "y": 109, "w": 240, "h": 50,
+          "sprite": "button_rounded_medium"
+        },
+        {
+          "name": "Btn_Cardioplegia_Label",
+          "type": "text",
+          "x": 409, "y": 109, "w": 240, "h": 50,
+          "text": "CARDIOPLEGIA",
+          "size": 32,
+          "color": "5BC8E7",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Buttons_Middle",
+      "elements": [
+        {
+          "name": "Btn_Vent_Bg",
+          "type": "image",
+          "x": 128, "y": 190, "w": 240, "h": 50,
+          "sprite": "button_rounded_medium"
+        },
+        {
+          "name": "Btn_Vent_Label",
+          "type": "text",
+          "x": 128, "y": 190, "w": 240, "h": 50,
+          "text": "VENT",
+          "size": 36,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Btn_Suction1_Bg",
+          "type": "image",
+          "x": 409, "y": 190, "w": 240, "h": 50,
+          "sprite": "button_rounded_medium"
+        },
+        {
+          "name": "Btn_Suction1_Label",
+          "type": "text",
+          "x": 409, "y": 190, "w": 240, "h": 50,
+          "text": "SUCTION 1",
+          "size": 36,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Buttons_Bottom",
+      "elements": [
+        {
+          "name": "Btn_Suction2_Bg",
+          "type": "image",
+          "x": 409, "y": 274, "w": 240, "h": 50,
+          "sprite": "button_rounded_medium"
+        },
+        {
+          "name": "Btn_Suction2_Label",
+          "type": "text",
+          "x": 409, "y": 274, "w": 240, "h": 50,
+          "text": "SUCTION 2",
+          "size": 36,
+          "color": "E7696D",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "name": "Buttons_Action",
+      "elements": [
+        {
+          "name": "Btn_Cancel_Bg",
+          "type": "image",
+          "x": 157, "y": 383, "w": 175, "h": 50,
+          "sprite": "button_rounded_small"
+        },
+        {
+          "name": "Btn_Cancel_Label",
+          "type": "text",
+          "x": 157, "y": 383, "w": 175, "h": 50,
+          "text": "CANCEL",
+          "size": 34,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
+          "name": "Btn_Apply_Bg",
+          "type": "image",
+          "x": 453, "y": 383, "w": 175, "h": 50,
+          "sprite": "button_rounded_small"
+        },
+        {
+          "name": "Btn_Apply_Label",
+          "type": "text",
+          "x": 453, "y": 383, "w": 175, "h": 50,
+          "text": "APPLY",
+          "size": 34,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        }
+      ]
+    }
+  ]
+}
