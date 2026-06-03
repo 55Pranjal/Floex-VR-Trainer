@@ -4,18 +4,21 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// BSA &amp; Patient form controller. Attaches TMP_InputField to 9 editable
-/// Box_X elements at runtime, using each matching Txt_X as the display target.
-/// Tapping a field gives it focus; in editor a physical keyboard works, in VR
-/// the Quest system keyboard (or OVRVirtualKeyboard if installed) appears.
+/// BSA &amp; Patient form controller (display-only).
 ///
-/// Calculate computes BSA = sqrt(height * weight / 3600) and writes the result
-/// to Txt_BSA. Cardiac Index and Target Flow are left empty - their firmware
-/// formulas depend on cardioplegia output data, which the trainer doesn't have.
+/// Writes realistic patient defaults to the 9 Txt_X elements on screen open
+/// so the screen looks fully populated as it would in a real OR setting.
+/// Calculate computes BSA from the displayed weight and height; Cancel
+/// clears the computed-field outputs.
 ///
-/// Cancel reverts every editable field to the value it had when the screen
-/// last became active. Save &amp; Exit just navigates (ScreenNavigator does that)
-/// and leaves typed values in place.
+/// VR keyboard text-entry was attempted on Days 15-16. The combination of
+/// Meta XR SDK v74, TMP_InputField (and legacy UI.InputField), and Meta's
+/// PointableCanvasModule does not deliver pointer events to InputField
+/// components on this canvas - cyclers and Buttons work, InputFields do
+/// not. Display-only is a deliberate Product A/B scope decision:
+/// perfusionists doing familiarisation training don't need to enter
+/// patient data, only see the screen layout and react to clinical values.
+/// See devlog/day-16.md for full rationale and reproducible findings.
 /// </summary>
 public class BSAFormController : MonoBehaviour
 {
@@ -24,11 +27,15 @@ public class BSAFormController : MonoBehaviour
     {
         public string name;
         public string initialValue = "";
-        public int    charLimit    = 32;
+        // charLimit and contentType are retained but unused in display-only
+        // mode. Kept so a future re-enable of typing doesn't require a
+        // struct change (and so the Inspector serialization stays compatible
+        // with any existing overrides).
+        public int charLimit = 32;
         public TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard;
     }
 
-    [Tooltip("One entry per editable field on this screen. Element lookup is Box_{name} + Txt_{name}.")]
+    [Tooltip("One entry per displayed field on this screen. Display target is Txt_{name}.")]
     public Field[] editableFields = new Field[]
     {
         new Field { name = "Name",      initialValue = "John Doe",   charLimit = 30, contentType = TMP_InputField.ContentType.Standard },
@@ -48,69 +55,36 @@ public class BSAFormController : MonoBehaviour
     [Tooltip("Hover/press tint on Calculate button.")]
     public Color highlightColor = new Color(0.906f, 0.412f, 0.427f); // FloEx coral
 
-    [Tooltip("Selection background colour inside InputFields.")]
-    public Color selectionColor = new Color(0.906f, 0.412f, 0.427f, 0.5f);
-
-    [Tooltip("Caret colour.")]
-    public Color caretColor = new Color(0.906f, 0.412f, 0.427f, 1.0f);
-
     const string CalculateBoxName = "Box_Calculate";
     const string CancelBoxName    = "Box_Cancel";
 
-    readonly Dictionary<string, TMP_InputField> inputs   = new Dictionary<string, TMP_InputField>();
-    readonly Dictionary<string, TMP_Text>       readOnly = new Dictionary<string, TMP_Text>();
-    readonly Dictionary<string, string>         snapshot = new Dictionary<string, string>();
-
-    void OnEnable()
-    {
-        // First activation: inputs dict is empty, Start will handle snapshot.
-        // Re-activation: refresh snapshot from current text so Cancel reverts
-        // to whatever the user sees right now, not the original initials.
-        if (inputs.Count == 0) return;
-        foreach (var kv in inputs)
-            snapshot[kv.Key] = kv.Value.text;
-    }
+    readonly Dictionary<string, TMP_Text> displays = new Dictionary<string, TMP_Text>();
+    readonly Dictionary<string, TMP_Text> readOnly = new Dictionary<string, TMP_Text>();
 
     void Start()
     {
         // ScreenNavigator runs in Awake and turns off raycast on everything.
-        // We re-enable on the boxes we actually need clickable.
+        // In display-only mode we only re-enable raycast on Box_Calculate -
+        // the field boxes intentionally stay non-interactive.
 
         foreach (Field f in editableFields)
         {
-            Transform box = FindDeep(transform, "Box_" + f.name);
             Transform txt = FindDeep(transform, "Txt_" + f.name);
-            if (box == null || txt == null)
+            if (txt == null)
             {
-                Debug.LogWarning($"[BSAFormController] Box_{f.name} or Txt_{f.name} not found on {name} - field skipped.");
+                Debug.LogWarning($"[BSAFormController] Txt_{f.name} not found - field skipped.");
                 continue;
             }
 
-            Image  img    = box.GetComponent<Image>();
             TMP_Text text = txt.GetComponent<TMP_Text>();
-            if (img == null || text == null)
+            if (text == null)
             {
-                Debug.LogWarning($"[BSAFormController] Box_{f.name} missing Image or Txt_{f.name} missing TMP_Text.");
+                Debug.LogWarning($"[BSAFormController] Txt_{f.name} missing TMP_Text.");
                 continue;
             }
 
-            img.raycastTarget = true;
-
-            TMP_InputField input = box.GetComponent<TMP_InputField>();
-            if (input == null) input = box.gameObject.AddComponent<TMP_InputField>();
-
-            input.textComponent  = text;
-            input.targetGraphic  = img;
-            input.text           = f.initialValue;
-            input.characterLimit = f.charLimit;
-            input.contentType    = f.contentType;
-            input.lineType       = TMP_InputField.LineType.SingleLine;
-            input.selectionColor = selectionColor;
-            input.caretColor     = caretColor;
-            input.customCaretColor = true;
-
-            inputs[f.name]   = input;
-            snapshot[f.name] = input.text;
+            text.text = f.initialValue;
+            displays[f.name] = text;
         }
 
         foreach (string n in computedFields)
@@ -122,7 +96,11 @@ public class BSAFormController : MonoBehaviour
                 continue;
             }
             TMP_Text t = txt.GetComponent<TMP_Text>();
-            if (t != null) readOnly[n] = t;
+            if (t != null)
+            {
+                readOnly[n] = t;
+                t.text = "";  // start cleared - Calculate fills it in
+            }
         }
 
         WireCalculate();
@@ -157,9 +135,10 @@ public class BSAFormController : MonoBehaviour
     void WireCancel()
     {
         // Additive listener on top of whatever ScreenNavigator wired (the navigate).
+        // Clears the computed-field outputs so the user can re-tap Calculate.
         Transform cancel = FindDeep(transform, CancelBoxName);
         Button btn = cancel != null ? cancel.GetComponent<Button>() : null;
-        if (btn != null) btn.onClick.AddListener(RevertToSnapshot);
+        if (btn != null) btn.onClick.AddListener(ClearComputed);
     }
 
     void Calculate()
@@ -179,19 +158,13 @@ public class BSAFormController : MonoBehaviour
 
     float ParseFloat(string fieldName)
     {
-        if (!inputs.TryGetValue(fieldName, out TMP_InputField input)) return 0f;
-        return float.TryParse(input.text, out float v) ? v : 0f;
+        if (!displays.TryGetValue(fieldName, out TMP_Text t)) return 0f;
+        return float.TryParse(t.text, out float v) ? v : 0f;
     }
 
-    /// <summary>Restore every editable field to its screen-open value. Hooked to Cancel.</summary>
-    public void RevertToSnapshot()
+    /// <summary>Clear all computed-field outputs. Hooked to Cancel.</summary>
+    public void ClearComputed()
     {
-        foreach (var kv in inputs)
-            if (snapshot.TryGetValue(kv.Key, out string s))
-                kv.Value.text = s;
-
-        // Clear any computed-field output too - it doesn't survive Cancel
-        // since the inputs that produced it just reverted.
         foreach (var kv in readOnly)
             kv.Value.text = "";
     }
