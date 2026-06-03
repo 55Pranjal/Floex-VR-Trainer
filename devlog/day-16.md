@@ -1,9 +1,10 @@
-# Day 16 — VR Keyboard Wall, BSA Pivot, CDM Product B
+# Day 16 — VR Keyboard Wall, BSA Pivot, CDM Product B, Pump Head Batch 1
 
 ## Goal at start of day
 
-Finish the BSA VR keyboard by writing the TMP bridge (per Day 15 plan), then
-move to pump-head screens.
+Morning: finish the BSA VR keyboard by writing the TMP bridge (per Day 15
+plan). Afternoon: open `feature/pump-head-screens` and start the pump-head
+work — minimum bar was firmware reading + Pump_Select_1.
 
 ## What actually happened
 
@@ -13,6 +14,11 @@ through positioning, focus dispatch, and event routing until we hit a wall
 that makes the whole approach non-viable under Meta XR SDK v74. Pivoted BSA
 to display-only with realistic clinical defaults, then did CDM Product B
 interactivity (sprite toggles + resets, no time counting).
+
+In the afternoon, branched to `feature/pump-head-screens` and got way more
+done than planned: all three exclusive pickers + a stub Screen1 + the full
+navigation/state/picker architecture, all wired and validated end-to-end
+in VR on one pump head canvas. Batch 1 of the pump-head plan is closed.
 
 ## Diagnosis sequence (chronological — for future reference)
 
@@ -159,14 +165,149 @@ existing snake_case convention used by ScreenBuilder.
 Tested in VR. All 5 toggles flip correctly, all 4 resets snap their paired
 toggle back. No regressions on existing screens.
 
+## Pump Head Batch 1 — pickers + nav loop on one canvas
+
+Switched to `feature/pump-head-screens`. Goal: get one pump head fully
+working before duplicating to the other three. Independent state per pump
+head — instance fields, not singletons — so duplication later is just a
+prefab copy.
+
+### Canvas setup — PumpHead_01_Canvas
+
+- 800x480 reference resolution (matches firmware Designer canvas)
+- World Space, Constant Pixel Size scaler, scale 0.0002 (≈16cm x 9.6cm,
+  roughly a 7" touchscreen)
+- Position (0.186, 0.41, -1.19), Rotation (45, 0, 0) — sits on the
+  leftmost pump head's top surface, tilted toward the operator.
+  Placeholder; refine when real machine dimensions arrive.
+- Meta Interaction SDK stack matching CDM:
+  - **Pointable Canvas** — Canvas slot wired to self
+  - **Ray Interactable** — Pointable Element + Surface wired to self
+  - **Plane Surface** — Facing Backward, Double Sided checked
+
+Note for future canvas work: a BoxCollider does **not** work for Meta VR
+ray hits. Spent ~10 minutes adding one before realizing — Meta's stack is
+surface-based via PlaneSurface + RayInteractable, not collider-based.
+Documenting in case I forget by Day 18.
+
+### Screen JSONs (4)
+
+All against the existing Screen_CDM.json schema.
+
+- **Pump_Select_1.json** — 5 exclusive options (Arterial/Cardio/Vent/
+  Suct1/Suct2) + CANCEL/APPLY + home icon. Reuses one
+  `button_rounded_small.png` outline sprite for every rounded button on
+  the screen — TouchGFX uses a single outline asset throughout, so we
+  do the same.
+- **Tube_Size_1.json** — 6 exclusive options (1/4, 3/8, 1/2, 5/16, F1, F2)
+  + CANCEL/APPLY. Each button is 3 layered elements: outline sprite +
+  inner circle sprite + label. 12 sprites total
+  (`tube_outline_1..6.png` + `tube_circle_1..6.png`), numbered 0-5 to
+  match the firmware tubeIndex.
+- **Direction.json** — 2 options (Forward, Reverse) + CANCEL/APPLY. Each
+  direction button is 3 layered elements: `green_border.png` (reused) +
+  arrow sprite + text label.
+- **Screen_1.json** — STUB. Three nav buttons (PUMP SELECT, TUBE SIZE,
+  DIRECTION) + three state-display labels (Pump: --, Tube: --,
+  Direction: --) + a footer note. The full Screen1 (LPM/RPM/CI displays,
+  START/STOP, bottom bar) is Batch 2 work; this stub is just enough to
+  validate the navigation loop.
+
+Header pattern reused across all four: "FloEx 3.0" coral logo top-left +
+home icon (`home_border.png` behind `home.png`) top-right.
+
+### C# scripts — three new, two deletions
+
+Cleanup first: `MainScreenDisplay.cs` and `PumpState.cs` deleted. Both
+referenced live simulation state (flowRate, rpm, isRunning, cardiacIndex)
+that violates the Product A scope-lock. `ClickLogger.cs` also deleted —
+debug-only from Day 11, no longer needed.
+
+**PumpHeadState.cs** — instance MonoBehaviour, one per pump head. Mirrors
+the firmware Model struct: pumpIndex, tubeIndex, directionForward. Name
+lookups for label refresh. Not a singleton — each canvas instance carries
+its own copy.
+
+**PumpHeadNavigator.cs** — adapted from CDM's `ScreenNavigator`. Scoped
+to one pump head canvas: collects child screens, wires Screen1's three nav
+buttons to ShowScreen calls, refreshes Screen1's state labels via
+PumpHeadState whenever returning home. Same defensive
+`raycastTarget = false` pattern as the CDM navigator.
+
+**ExclusivePickerController.cs** — single controller for all three pickers,
+parameterized by `PickerKind` enum (Pump/Tube/Direction). Mirrors the
+firmware Presenter's 5-step pattern exactly:
+
+- `OnEnable` → load state from PumpHeadState, highlight current
+  (= firmware `activate`)
+- Option tapped → set tempSelected, mark changed, re-highlight
+  (= `onOptionSelected`)
+- APPLY → commit temp to state if changed, navigator.ShowScreen("Screen1")
+  (= `onApplyClicked`)
+- CANCEL → revert temp to state, navigator.ShowScreen("Screen1")
+  (= `onCancelClicked`)
+- Highlight = alpha 1.0 on selected, 0.4 on rest (firmware uses 255/100 —
+  same ratio in float).
+
+Option names per kind hardcoded in `OptionNames()`. Coupling to JSON
+GameObject names is acceptable for now — 3 pickers, ~13 dependencies.
+
+### Sprites imported
+
+`button_rounded_small.png`, `home.png`, `home_border.png`,
+`tube_outline_1..6.png` (6), `tube_circle_1..6.png` (6),
+`green_border.png`, `direction_forward.png`, `direction_reverse.png`.
+All snake_case, matching ScreenBuilder convention.
+
+### Bugs hit, lessons
+
+- **Canvas nested under Floex_Trainer hid the Render Mode dropdown.**
+  "Pixel Perfect: Inherit" was the signal — child canvases inherit render
+  mode from their parent canvas. Moving PumpHead_01_Canvas to scene root
+  exposed it; set to World Space.
+- **Scale 0.002 vs 0.0002.** One decimal apart, 10x size difference.
+  First attempt was 0.002, screen was bigger than the whole HLM.
+- **Label-on-button click swallowing.** Initial ExclusivePickerController
+  didn't disable raycastTarget on child labels/icons. Clicks landed on
+  the label's TMP component (no Button), got dropped. Fixed by mirroring
+  the CDM navigator's "turn everything off, HookButton re-enables per
+  element" pattern.
+
+### End-to-end validation
+
+Tested in VR with controllers, leftmost pump head only:
+- Walk to pump head, see Screen1 with default state
+- Tap PUMP SELECT → picker appears, current selection highlighted
+- Tap CARDIOPLEGIA → highlight moves
+- Tap APPLY → return to Screen1, "Pump: Cardio" now showing
+- Same for tube size and direction
+- CANCEL on any picker correctly reverts and navigates back
+
+Every button works except the home icon header — deferred (no Screen_Main
+exists yet to navigate to). Same display-only deferral pattern as CDM's
+Img_LeftAlarm and Img_RightDownload.
+
 ## Carry-over to Day 17+
 
-- BSA OK and EXIT buttons still unwired — Pranjal will determine navigation
-  destinations from BSA firmware files (not in this session's set).
-- Screen_Main (home screen) has no interactivity yet — the nav buttons that
-  jump to each subscreen are not wired.
-- Pump-head TouchGFX files received today — `feature/pump-head-screens`
-  branch to open after this commit lands.
+- **Batch 2 of pump-head:** full Screen1 (LPM/RPM/CI/current/torque/voltage,
+  START/STOP, bottom bar, fixed nav panel replacing slide menus) + Screen2_1
+  Master-Slave + Screen3 Pulse Mode + Screen4 Fine Calibration. Open
+  question: START/STOP buttons stay 0.00 (Option A) or toggle to typical
+  running values like 4.50 L/PM, 180 RPM (Option B)? B is more educational
+  without crossing into simulation — just a static two-state toggle.
+  Decide before writing Screen1 JSON.
+- **Batch 3 of pump-head:** Screen5 Diagnostics + duplicate
+  PumpHead_01_Canvas prefab to the other 3 pump heads + double pump-head
+  3D model (teammate sending).
+- **Home button on all 4 pump head screens display-only** until Screen_Main
+  exists. Same pattern as CDM's Img_LeftAlarm + Img_RightDownload.
+- **Real machine dimensions still pending** from Shiv — current scale/
+  position eyeballed. Block to Batch 3 duplication.
+- **`tube_circle_3.png` renders white/gray, not green** in Unity. Visual
+  issue, low priority — check sprite import settings or the source PNG.
+- BSA OK and EXIT buttons still unwired (Day 15-16 morning carry-over).
+- Screen_Main has no interactivity yet — the nav buttons jumping to each
+  subscreen are not wired.
 - CDM JSON has Img_LeftAlarm and Img_RightDownload still display-only —
   firmware has Low/Medium/High buzzer handlers but those UI buttons aren't
   on this CDM screen layout; Download has no clean no-physiology meaning.
@@ -175,9 +316,13 @@ toggle back. No regressions on existing screens.
   handler — either firmware to be extended or P2 is a visual-only sensor.
   Worth flagging to Hashir next sync.
 - 16KB-aligned warning on `libUnityOpenXR.so` (Android 15 compat) — Unity
-  fix in a future patch release, nothing to do from our side.
+  fix in a future patch, nothing to do from our side.
+- Two `medical_instrument_tray` instances in scene, one should be deleted.
 
 ## Files touched today
+
+Morning (BSA + CDM, on `feature/console-screens` branch — committed
+earlier in day):
 
 - `Assets/Scripts/BSAFormController.cs` — full rewrite (display-only mode)
 - `Assets/Scripts/CDMScreenController.cs` — new file
@@ -186,5 +331,21 @@ toggle back. No regressions on existing screens.
 - Scene `OR_Environment.unity` — BSA InputField + keyboard scaffolding
   removed, CDMScreenController added to Screen_CDM with sprite refs in
   Inspector
-- `Assets/Scripts/InputFieldActivator.cs` — created and then deleted during
-  pivot; not in final commit
+- `Assets/Scripts/InputFieldActivator.cs` — created and then deleted
+  during pivot; not in commit
+
+Afternoon/evening (Pump Head Batch 1, on `feature/pump-head-screens`):
+
+- `Assets/ScreenSpecs/Pump_Select_1.json` — new
+- `Assets/ScreenSpecs/Tube_Size_1.json` — new
+- `Assets/ScreenSpecs/Direction.json` — new
+- `Assets/ScreenSpecs/Screen_1.json` — new (stub)
+- `Assets/Scripts/PumpHeadState.cs` — new
+- `Assets/Scripts/PumpHeadNavigator.cs` — new
+- `Assets/Scripts/ExclusivePickerController.cs` — new
+- `Assets/Scripts/MainScreenDisplay.cs` — deleted (deprecated)
+- `Assets/Scripts/PumpState.cs` — deleted (deprecated)
+- `Assets/Scripts/ClickLogger.cs` — deleted (Day 11 debug-only)
+- `Assets/Textures/UI/` — 17 new sprites (see lists above)
+- Scene `OR_Environment.unity` — PumpHead_01_Canvas added at scene root
+  with full Meta Interaction component stack
