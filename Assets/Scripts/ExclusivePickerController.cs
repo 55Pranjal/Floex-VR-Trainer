@@ -9,8 +9,9 @@ using TMPro;
 /// Direction). 5-step pattern from firmware Presenter:
 ///   activate           -> load state from PumpHeadState, highlight current
 ///   onOptionSelected   -> set temp, mark changed, re-highlight
-///   onApplyClicked     -> commit temp to state, nav back to Screen1
-///   onCancelClicked    -> revert temp to state, nav back to Screen1
+///   onApplyClicked     -> commit temp to state, nav back to home
+///   onCancelClicked    -> revert temp to state, nav back to home
+///   onHomePressed      -> same as cancel (revert, nav back)
 /// Highlight = alpha 255 on selected, alpha 100 on rest (matches firmware).
 /// </summary>
 public class ExclusivePickerController : MonoBehaviour
@@ -21,27 +22,27 @@ public class ExclusivePickerController : MonoBehaviour
     public PickerKind kind;
     public PumpHeadState state;
     public PumpHeadNavigator navigator;
-    [Tooltip("Screen name to return to on Apply/Cancel.")]
-    public string returnScreen = "Screen1";
+    [Tooltip("Screen name to return to on Apply/Cancel/Home.")]
+    public string returnScreen = "Screen_PumpHead_Screen1";
 
     int tempSelected;
     bool changed;
 
-   void OnEnable()
-{
-    // Display-only by default — HookButton turns raycast back on for wired elements.
-    foreach (Graphic g in GetComponentsInChildren<Graphic>(true))
-        g.raycastTarget = false;
+    void OnEnable()
+    {
+        // Display-only by default — HookButton turns raycast back on for wired elements.
+        foreach (Graphic g in GetComponentsInChildren<Graphic>(true))
+            g.raycastTarget = false;
 
-    WireOptions();
-    WireActionButtons();
-    LoadFromState();
-    Highlight(tempSelected);
-}
+        WireOptions();
+        WireActionButtons();
+        WireHomeButton();
+        LoadFromState();
+        Highlight(tempSelected);
+    }
 
     void WireOptions()
     {
-        // Each picker's option GameObject names — must match the JSON.
         string[] names = OptionNames();
         for (int i = 0; i < names.Length; i++)
         {
@@ -59,6 +60,13 @@ public class ExclusivePickerController : MonoBehaviour
 
         Transform apply = FindDeep(transform, "Btn_Apply_Bg");
         if (apply != null) HookButton(apply.gameObject, OnApply);
+    }
+
+    void WireHomeButton()
+    {
+        // Header home button on picker screens. Behaves like Cancel.
+        Transform home = FindDeep(transform, "Img_HomeBorder");
+        if (home != null) HookButton(home.gameObject, OnHomePressed);
     }
 
     string[] OptionNames()
@@ -110,10 +118,15 @@ public class ExclusivePickerController : MonoBehaviour
 
     void OnCancel()
     {
-        // Revert to state (firmware ::onCancelClicked behaviour).
         LoadFromState();
         Highlight(tempSelected);
         if (navigator != null) navigator.ShowScreen(returnScreen);
+    }
+
+    void OnHomePressed()
+    {
+        // Treat as cancel — revert any pending selection, then nav home.
+        OnCancel();
     }
 
     void Highlight(int selected)
@@ -126,7 +139,7 @@ public class ExclusivePickerController : MonoBehaviour
             Image img = t.GetComponent<Image>();
             if (img == null) continue;
             Color c = img.color;
-            c.a = (i == selected) ? 1.0f : 0.4f;   // 255 vs 100/255 from firmware
+            c.a = (i == selected) ? 1.0f : 0.4f;
             img.color = c;
         }
     }
@@ -139,7 +152,7 @@ public class ExclusivePickerController : MonoBehaviour
         Button btn = go.GetComponent<Button>();
         if (btn == null) btn = go.AddComponent<Button>();
         btn.targetGraphic = graphic;
-        btn.transition = Selectable.Transition.None; // alpha highlight handled in Highlight()
+        btn.transition = Selectable.Transition.None;
 
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(onClick);

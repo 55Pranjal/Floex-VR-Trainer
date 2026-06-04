@@ -1,0 +1,59 @@
+{
+  "screenName": "Screen_PumpHead_Screen5",
+  "canvasWidth": 800,
+  "canvasHeight": 480,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Img_Bg", "type": "image", "x": 0, "y": 0, "w": 800, "h": 480, "color": "000000", "stretch": true }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Box_Header", "type": "image", "x": 0, "y": 0, "w": 800, "h": 72, "color": "2B1D1D" },
+        { "name": "Text_FloEx", "type": "text", "x": 27, "y": 8, "w": 220, "h": 56, "text": "FloEx 3.0", "size": 48, "color": "E7696D", "align": "left", "bold": true },
+        { "name": "Text_Title", "type": "text", "x": 250, "y": 16, "w": 400, "h": 40, "text": "DIAGNOSTICS", "size": 34, "color": "E7696D", "align": "center", "bold": true }
+      ]
+    },
+    {
+      "name": "DataRows",
+      "elements": [
+        { "name": "Label_TOH", "type": "text", "x": 43, "y": 95, "w": 360, "h": 47, "text": "Total Operating hours", "size": 28, "color": "EDDFDF", "align": "left" },
+        { "name": "Value_TOH", "type": "text", "x": 414, "y": 98, "w": 280, "h": 44, "text": "00:00:00", "size": 34, "color": "FFFCFC", "align": "center" },
+        { "name": "Label_TOD", "type": "text", "x": 43, "y": 158, "w": 360, "h": 47, "text": "Total Operating Days", "size": 28, "color": "EDDFDF", "align": "left" },
+        { "name": "Value_TOD", "type": "text", "x": 414, "y": 158, "w": 280, "h": 44, "text": "00", "size": 34, "color": "FFFCFC", "align": "center" },
+        { "name": "Label_TMRH", "type": "text", "x": 43, "y": 221, "w": 360, "h": 47, "text": "Total Motor Running hours", "size": 28, "color": "EDDFDF", "align": "left" },
+        { "name": "Value_TMRH", "type": "text", "x": 414, "y": 224, "w": 280, "h": 44, "text": "00:00:00", "size": 34, "color": "FFFCFC", "align": "center" },
+        { "name": "Label_TMRD", "type": "text", "x": 43, "y": 284, "w": 360, "h": 47, "text": "Total Motor Running Days", "size": 28, "color": "EDDFDF", "align": "left" },
+        { "name": "Value_TMRD", "type": "text", "x": 414, "y": 284, "w": 280, "h": 44, "text": "00", "size": 34, "color": "FFFCFC", "align": "center" },
+        { "name": "Label_ServiceNeed", "type": "text", "x": 43, "y": 360, "w": 200, "h": 47, "text": "Service Need", "size": 28, "color": "EDDFDF", "align": "left" },
+        { "name": "Icon_ServiceNeed", "type": "image", "x": 249, "y": 357, "w": 50, "h": 50, "sprite": "error" }
+      ]
+    },
+    {
+      "name": "ActionButtons",
+      "elements": [
+        { "name": "Btn_Cancel_Bg", "type": "image", "x": 349, "y": 409, "w": 175, "h": 50, "sprite": "button_rounded_small" },
+        { "name": "Btn_Cancel_Text", "type": "text", "x": 349, "y": 403, "w": 175, "h": 50, "text": "CANCEL", "size": 34, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Btn_Apply_Bg", "type": "image", "x": 579, "y": 409, "w": 175, "h": 50, "sprite": "button_rounded_small" },
+        { "name": "Btn_Apply_Text", "type": "text", "x": 579, "y": 403, "w": 175, "h": 50, "text": "APPLY", "size": 34, "color": "FFFFFF", "align": "center", "bold": true }
+      ]
+    },
+    {
+      "name": "NavStrip",
+      "elements": [
+        { "name": "Box_NavStripBg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 337, "color": "0B1529" },
+        { "name": "Btn_P2_Bg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P2_Text", "type": "text", "x": 730, "y": 72, "w": 70, "h": 82, "text": "P2", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P3_Bg", "type": "image", "x": 730, "y": 156, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P3_Text", "type": "text", "x": 730, "y": 156, "w": 70, "h": 82, "text": "P3", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P4_Bg", "type": "image", "x": 730, "y": 240, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P4_Text", "type": "text", "x": 730, "y": 240, "w": 70, "h": 82, "text": "P4", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P1_Bg", "type": "image", "x": 730, "y": 324, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P1_Text", "type": "text", "x": 730, "y": 324, "w": 70, "h": 82, "text": "P1", "color": "FFFFFF", "size": 38, "align": "center" }
+      ]
+    }
+  ]
+}

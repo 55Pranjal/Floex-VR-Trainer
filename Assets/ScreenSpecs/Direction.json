@@ -41,12 +41,12 @@
     },
     {
       "name": "Btn_Forward_Arrow", "type": "image",
-      "x": 153, "y": 187, "w": 60, "h": 60,
+      "x": 140, "y": 187, "w": 60, "h": 60,
       "sprite": "direction_forward"
     },
     {
       "name": "Btn_Forward_Label", "type": "text",
-      "x": 233, "y": 197, "w": 160, "h": 40,
+      "x": 215, "y": 197, "w": 160, "h": 40,
       "text": "FORWARD", "size": 30, "color": "FFFFFF",
       "align": "center", "bold": true
     },
@@ -57,12 +57,12 @@
     },
     {
       "name": "Btn_Reverse_Arrow", "type": "image",
-      "x": 494, "y": 187, "w": 60, "h": 60,
+      "x": 480, "y": 187, "w": 60, "h": 60,
       "sprite": "direction_reverse"
     },
     {
       "name": "Btn_Reverse_Label", "type": "text",
-      "x": 574, "y": 197, "w": 160, "h": 40,
+      "x": 555, "y": 197, "w": 160, "h": 40,
       "text": "REVERSE", "size": 30, "color": "FFFFFF",
       "align": "center", "bold": true
     }
@@ -78,8 +78,8 @@
         },
         {
           "name": "Btn_Cancel_Label", "type": "text",
-          "x": 176, "y": 360, "w": 175, "h": 50,
-          "text": "CANCEL", "size": 34, "color": "FFFFFF",
+          "x": 176, "y": 352, "w": 175, "h": 50,
+          "text": "CANCEL", "size": 28, "color": "FFFFFF",
           "align": "center", "bold": true
         },
         {
@@ -89,8 +89,8 @@
         },
         {
           "name": "Btn_Apply_Label", "type": "text",
-          "x": 500, "y": 360, "w": 175, "h": 50,
-          "text": "APPLY", "size": 34, "color": "FFFFFF",
+          "x": 500, "y": 352, "w": 175, "h": 50,
+          "text": "APPLY", "size": 28, "color": "FFFFFF",
           "align": "center", "bold": true
         }
       ]

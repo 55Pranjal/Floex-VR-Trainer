@@ -1,0 +1,86 @@
+{
+  "screenName": "Screen_PumpHead_Screen2_1",
+  "canvasWidth": 800,
+  "canvasHeight": 480,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Img_Bg", "type": "image", "x": 0, "y": 0, "w": 800, "h": 480, "color": "000000", "stretch": true }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Txt_Logo", "type": "text", "x": 10, "y": 4, "w": 173, "h": 48, "text": "FloEx 3.0", "color": "E7696D", "size": 48, "align": "left" },
+        { "name": "Txt_Title", "type": "text", "x": 198, "y": 0, "w": 500, "h": 55, "text": "MASTER - SLAVE CONFIGURATION", "color": "E7696D", "size": 24, "align": "center" }
+      ]
+    },
+    {
+      "name": "SectionLabels",
+      "elements": [
+        { "name": "Txt_SelectMaster", "type": "text", "x": 20, "y": 78, "w": 430, "h": 55, "text": "SELECT MASTER", "color": "FFFFFF", "size": 34, "align": "center" },
+        { "name": "Txt_PercentFlow", "type": "text", "x": 500, "y": 91, "w": 168, "h": 55, "text": "% OF FLOW", "color": "FCFCFC", "size": 34, "align": "center" }
+      ]
+    },
+    {
+      "name": "MasterButtons",
+      "elements": [
+        { "name": "Img_BtnArterial", "type": "image", "x": 20, "y": 144, "w": 200, "h": 50, "sprite": "button_rounded_medium" },
+        { "name": "Txt_Arterial", "type": "text", "x": 20, "y": 144, "w": 200, "h": 50, "text": "ARTERIAL", "color": "E7696D", "size": 24, "align": "center" },
+
+        { "name": "Img_BtnCardioplegia", "type": "image", "x": 250, "y": 144, "w": 200, "h": 50, "sprite": "button_rounded_medium" },
+        { "name": "Txt_Cardioplegia", "type": "text", "x": 250, "y": 144, "w": 200, "h": 50, "text": "CARDIOPLEGIA", "color": "29D3F5", "size": 24, "align": "center" },
+
+        { "name": "Img_BtnVent", "type": "image", "x": 20, "y": 225, "w": 200, "h": 50, "sprite": "button_rounded_medium" },
+        { "name": "Txt_Vent", "type": "text", "x": 20, "y": 225, "w": 200, "h": 50, "text": "VENT", "color": "FFFFFF", "size": 24, "align": "center" },
+
+        { "name": "Img_BtnSuction1", "type": "image", "x": 250, "y": 225, "w": 200, "h": 50, "sprite": "button_rounded_medium" },
+        { "name": "Txt_Suction1", "type": "text", "x": 250, "y": 225, "w": 200, "h": 50, "text": "SUCTION 1", "color": "E7696D", "size": 24, "align": "center" },
+
+        { "name": "Img_BtnSuction2", "type": "image", "x": 20, "y": 306, "w": 200, "h": 50, "sprite": "button_rounded_medium" },
+        { "name": "Txt_Suction2", "type": "text", "x": 20, "y": 306, "w": 200, "h": 50, "text": "SUCTION 2", "color": "E7696D", "size": 24, "align": "center" },
+
+        { "name": "Img_BtnNil", "type": "image", "x": 250, "y": 306, "w": 200, "h": 50, "sprite": "button_rounded_medium" },
+        { "name": "Txt_Nil", "type": "text", "x": 250, "y": 306, "w": 200, "h": 50, "text": "Nil", "color": "FFFFFF", "size": 24, "align": "center" }
+      ]
+    },
+    {
+      "name": "Spinner",
+      "elements": [
+        { "name": "Img_CounterBg", "type": "image", "x": 500, "y": 168, "w": 168, "h": 44, "color": "FFFFFF" },
+        { "name": "Txt_CounterValue", "type": "text", "x": 500, "y": 168, "w": 168, "h": 44, "text": "0", "color": "000000", "size": 30, "align": "center" },
+
+        { "name": "Img_BtnUp", "type": "image", "x": 500, "y": 262, "w": 60, "h": 60, "color": "2ECC9B" },
+        { "name": "Img_UpArrow", "type": "image", "x": 500, "y": 262, "w": 60, "h": 60, "sprite": "arrow_up_green" },
+
+        { "name": "Img_BtnDown", "type": "image", "x": 608, "y": 262, "w": 60, "h": 60, "color": "27C0F5" },
+        { "name": "Img_DownArrow", "type": "image", "x": 608, "y": 262, "w": 60, "h": 60, "sprite": "arrow_down_cyan" }
+      ]
+    },
+    {
+      "name": "ActionButtons",
+      "elements": [
+        { "name": "Img_BtnCancel", "type": "image", "x": 306, "y": 416, "w": 175, "h": 50, "sprite": "button_rounded_small" },
+        { "name": "Txt_Cancel", "type": "text", "x": 306, "y": 410, "w": 175, "h": 50, "text": "CANCEL", "color": "FFFFFF", "size": 34, "align": "center" },
+
+        { "name": "Img_BtnApply", "type": "image", "x": 520, "y": 416, "w": 175, "h": 50, "sprite": "button_rounded_small" },
+        { "name": "Txt_Apply", "type": "text", "x": 520, "y": 410, "w": 175, "h": 50, "text": "APPLY", "color": "FFFFFF", "size": 34, "align": "center" }
+      ]
+    },
+    {
+      "name": "NavStrip",
+      "elements": [
+        { "name": "Box_NavStripBg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 337, "color": "0B1529" },
+        { "name": "Btn_P1_Bg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P1_Text", "type": "text", "x": 730, "y": 72, "w": 70, "h": 82, "text": "P1", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P3_Bg", "type": "image", "x": 730, "y": 156, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P3_Text", "type": "text", "x": 730, "y": 156, "w": 70, "h": 82, "text": "P3", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P4_Bg", "type": "image", "x": 730, "y": 240, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P4_Text", "type": "text", "x": 730, "y": 240, "w": 70, "h": 82, "text": "P4", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P5_Bg", "type": "image", "x": 730, "y": 324, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P5_Text", "type": "text", "x": 730, "y": 324, "w": 70, "h": 82, "text": "P5", "color": "FFFFFF", "size": 38, "align": "center" }
+      ]
+    }
+  ]
+}

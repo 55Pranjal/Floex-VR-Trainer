@@ -1,0 +1,76 @@
+{
+  "screenName": "Screen_PumpHead_Screen1",
+  "canvasWidth": 800,
+  "canvasHeight": 480,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Img_Bg", "type": "image", "x": 0, "y": 0, "w": 800, "h": 480, "color": "000000", "stretch": true }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Box_Header", "type": "image", "x": 0, "y": 0, "w": 800, "h": 72, "color": "2B1D1D" },
+        { "name": "Img_PumpSelectBorder", "type": "image", "x": 548, "y": 10, "w": 240, "h": 45, "sprite": "button_rounded_medium" },
+        { "name": "Txt_Logo", "type": "text", "x": 10, "y": 4, "w": 173, "h": 48, "text": "FloEx 3.0", "color": "E7696D", "size": 48, "align": "left" },
+        { "name": "Txt_PumpSelect", "type": "text", "x": 538, "y": 10, "w": 240, "h": 45, "text": "PUMP SELECT", "color": "FFFFFF", "size": 24, "align": "center" }
+      ]
+    },
+    {
+      "name": "MainReadouts",
+      "elements": [
+        { "name": "Txt_LpmValue", "type": "text", "x": 70, "y": 66, "w": 317, "h": 157, "text": "0.00", "color": "FFFFFF", "size": 116, "align": "center" },
+        { "name": "Txt_LpmUnit", "type": "text", "x": 180, "y": 198, "w": 99, "h": 50, "text": "L/PM", "color": "FFFFFF", "size": 44, "align": "left" },
+        { "name": "Txt_RpmValue", "type": "text", "x": 477, "y": 84, "w": 207, "h": 124, "text": "000", "color": "FFFFFF", "size": 100, "align": "center" },
+        { "name": "Txt_RpmUnit", "type": "text", "x": 537, "y": 205, "w": 86, "h": 50, "text": "RPM", "color": "FFFFFF", "size": 44, "align": "left" }
+      ]
+    },
+    {
+      "name": "StartStop",
+      "elements": [
+        { "name": "Img_StartBg", "type": "image", "x": 127, "y": 272, "w": 204, "h": 70, "color": "30D158" },
+        { "name": "Txt_Start", "type": "text", "x": 127, "y": 272, "w": 204, "h": 70, "text": "START", "color": "FFFFFF", "size": 44, "align": "center" },
+        { "name": "Img_StopBg", "type": "image", "x": 478, "y": 272, "w": 204, "h": 70, "color": "E63946" },
+        { "name": "Txt_Stop", "type": "text", "x": 478, "y": 272, "w": 204, "h": 70, "text": "STOP", "color": "FFFFFF", "size": 44, "align": "center" }
+      ]
+    },
+    {
+      "name": "StatusRow",
+      "elements": [
+        { "name": "Txt_Ci", "type": "text", "x": 10, "y": 355, "w": 95, "h": 40, "text": "CI 2.2", "color": "FFFFFF", "size": 28, "align": "left" },
+        { "name": "Txt_Current", "type": "text", "x": 130, "y": 355, "w": 110, "h": 40, "text": "I:0.00A", "color": "FFFFFF", "size": 28, "align": "left" },
+        { "name": "Txt_Torque", "type": "text", "x": 270, "y": 355, "w": 140, "h": 40, "text": "TQ:0.00Nm", "color": "FFFFFF", "size": 28, "align": "left" },
+        { "name": "Txt_Voltage", "type": "text", "x": 440, "y": 355, "w": 110, "h": 40, "text": "V:0.00V", "color": "FFFFFF", "size": 28, "align": "left" },
+        { "name": "Txt_PcBypass", "type": "text", "x": 580, "y": 355, "w": 140, "h": 40, "text": "PC ByPass", "color": "FFFFFF", "size": 28, "align": "left" }
+      ]
+    },
+    {
+      "name": "Footer",
+      "elements": [
+        { "name": "Box_Footer", "type": "image", "x": 0, "y": 409, "w": 800, "h": 72, "color": "0B1529" },
+        { "name": "Img_PlayIcon", "type": "image", "x": 10, "y": 414, "w": 60, "h": 60, "sprite": "play", "color": "E8F6FB" },
+        { "name": "Txt_Timer", "type": "text", "x": 94, "y": 419, "w": 134, "h": 40, "text": "00:00:00", "color": "FFFCFC", "size": 34, "align": "center" },
+        { "name": "Img_HistoryIcon", "type": "image", "x": 259, "y": 414, "w": 60, "h": 60, "sprite": "history", "color": "E8F6FB" },
+        { "name": "Txt_Tube", "type": "text", "x": 351, "y": 420, "w": 104, "h": 50, "text": "1/4", "color": "FFFFFF", "size": 34, "align": "center" },
+        { "name": "Txt_Direction", "type": "text", "x": 493, "y": 424, "w": 110, "h": 39, "text": "CW", "color": "FFFCFC", "size": 34, "align": "center" },
+        { "name": "Img_BypassToggle", "type": "image", "x": 650, "y": 420, "w": 138, "h": 50, "sprite": "toggle_off" }
+      ]
+    },
+    {
+      "name": "NavStrip",
+      "elements": [
+        { "name": "Box_NavStripBg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 337, "color": "0B1529" },
+        { "name": "Btn_P2_Bg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P2_Text", "type": "text", "x": 730, "y": 72, "w": 70, "h": 82, "text": "P2", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P3_Bg", "type": "image", "x": 730, "y": 156, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P3_Text", "type": "text", "x": 730, "y": 156, "w": 70, "h": 82, "text": "P3", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P4_Bg", "type": "image", "x": 730, "y": 240, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P4_Text", "type": "text", "x": 730, "y": 240, "w": 70, "h": 82, "text": "P4", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P5_Bg", "type": "image", "x": 730, "y": 324, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P5_Text", "type": "text", "x": 730, "y": 324, "w": 70, "h": 82, "text": "P5", "color": "FFFFFF", "size": 38, "align": "center" }
+      ]
+    }
+  ]
+}

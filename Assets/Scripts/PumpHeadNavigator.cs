@@ -5,61 +5,170 @@ using UnityEngine.Events;
 using TMPro;
 
 /// <summary>
-/// Screen-to-screen navigation for one pump head canvas.
-/// Attach to PumpHead_NN_Canvas. Wires nav buttons on Screen1 (PUMP SELECT,
-/// TUBE SIZE, DIRECTION) and refreshes Screen1's state labels on return.
-/// Picker apply/cancel calls back through ShowScreen("Screen1").
+/// Per-canvas navigation for the pump head. Manages:
+///  - Screen1 picker entry button (PUMP SELECT -> Pump_Select_1)
+///  - 4-button nav strip on Screen1/2_1/3/4/5 (slot-swap pattern)
+///  - Screen lifecycle (ShowScreen activates one, deactivates rest)
+///  - Label refresh on return home (state mirrors)
+/// Click pipeline: PointableCanvas -> GraphicRaycaster -> Unity Button.onClick.
 /// </summary>
 public class PumpHeadNavigator : MonoBehaviour
 {
-    [Tooltip("Shown on launch and when returning from a picker.")]
-    public string homeScreen = "Screen1";
+    [Tooltip("Default screen shown on launch and when returning from a picker.")]
+    public string homeScreen = "Screen_PumpHead_Screen1";
 
-    [Tooltip("Tint applied to a button on hover + press.")]
+    [Tooltip("Tint applied to a button on hover/press.")]
     public Color highlightColor = new Color(0.906f, 0.412f, 0.427f);
 
-    [Tooltip("Pump head state — refreshed labels on Screen1 read from this.")]
+    [Tooltip("Pump head state - refreshed labels on Screen1 read from this.")]
     public PumpHeadState state;
 
-    // Screen1 nav button name -> screen it opens
-    static readonly Dictionary<string, string> NavMap = new Dictionary<string, string>
+    // Screen1's picker entry buttons -> picker screens
+    // Header: Img_PumpSelectBorder (badge); footer: Txt_Tube + Txt_Direction labels.
+    // The footer text labels double as both state display (mirror state) AND clickable
+    // picker entry. RefreshHomeLabels keeps their text current.
+    static readonly Dictionary<string, string> Screen1PickerEntries = new Dictionary<string, string>
     {
-        { "Btn_PumpSelect", "Pump_Select_1" },
-        { "Btn_TubeSize",   "Tube_Size_1" },
-        { "Btn_Direction",  "Direction" },
+        { "Img_PumpSelectBorder", "Pump_Select_1" },
+        { "Txt_Tube",             "Tube_Size_1"   },
+        { "Txt_Direction",        "Direction"     },
+    };
+
+    // Nav strip button name -> destination screen.
+    // Each pump head screen has 4 of these (excludes its own label slot).
+    static readonly Dictionary<string, string> NavStripMap = new Dictionary<string, string>
+    {
+        { "Btn_P1_Bg", "Screen_PumpHead_Screen1"   },
+        { "Btn_P2_Bg", "Screen_PumpHead_Screen2_1" },
+        { "Btn_P3_Bg", "Screen_PumpHead_Screen3"   },
+        { "Btn_P4_Bg", "Screen_PumpHead_Screen4"   },
+        { "Btn_P5_Bg", "Screen_PumpHead_Screen5"   },
+    };
+
+    static readonly HashSet<string> ManagedScreens = new HashSet<string>
+    {
+        "Screen_PumpHead_Screen1", "Screen_PumpHead_Screen2_1",
+        "Screen_PumpHead_Screen3", "Screen_PumpHead_Screen4",
+        "Screen_PumpHead_Screen5",
+        "Pump_Select_1", "Tube_Size_1", "Direction",
     };
 
     readonly List<GameObject> screens = new List<GameObject>();
 
     void Awake()
     {
-        // Collect direct-child screens (the picker root names + Screen1).
+        // Collect managed direct-child screens
         foreach (Transform child in transform)
-            if (IsManagedScreen(child.name))
+            if (ManagedScreens.Contains(child.name))
                 screens.Add(child.gameObject);
 
-        // Wire Screen1's three nav buttons.
-        Transform screen1 = transform.Find(homeScreen);
-        if (screen1 != null)
-        {
-            // Display-only by default; HookButton turns raycast back on per-element.
-            foreach (Graphic g in screen1.GetComponentsInChildren<Graphic>(true))
-                g.raycastTarget = false;
+        // Home (Screen1): blanket-disable raycast, then re-enable specific buttons
+        WireHomeScreen();
 
-            foreach (KeyValuePair<string, string> entry in NavMap)
-            {
-                Transform t = FindDeep(screen1, entry.Key);
-                if (t == null) continue;
-                string target = entry.Value;
-                HookButton(t.gameObject, () => ShowScreen(target));
-            }
-        }
+        // Other pump head screens: only enable nav strip buttons; leave the rest
+        // alone so future per-screen controllers (Screen2_1Controller etc.) own them
+        WireNavStripOnly("Screen_PumpHead_Screen2_1");
+        WireNavStripOnly("Screen_PumpHead_Screen3");
+        WireNavStripOnly("Screen_PumpHead_Screen4");
+        WireNavStripOnly("Screen_PumpHead_Screen5");
 
         ShowScreen(homeScreen);
     }
 
-    static bool IsManagedScreen(string n) =>
-        n == "Screen1" || n == "Pump_Select_1" || n == "Tube_Size_1" || n == "Direction";
+    void Update()
+    {
+        // Session timer ticks here so it survives screen navigation.
+        if (state != null && state.timerRunning)
+            state.timerSeconds += Time.deltaTime;
+    }
+
+    void WireHomeScreen()
+    {
+        Transform home = transform.Find(homeScreen);
+        if (home == null) return;
+
+        // Display-only by default; HookButton turns raycast back on per-element
+        foreach (Graphic g in home.GetComponentsInChildren<Graphic>(true))
+            g.raycastTarget = false;
+
+        // Nav strip
+        WireNavStripButtons(home);
+
+        // Picker entries (PUMP SELECT etc.)
+        foreach (KeyValuePair<string, string> entry in Screen1PickerEntries)
+        {
+            Transform t = FindDeep(home, entry.Key);
+            if (t == null) continue;
+            string target = entry.Value;
+            HookButton(t.gameObject, () => ShowScreen(target));
+        }
+    }
+
+    void WireNavStripOnly(string screenName)
+    {
+        Transform screen = transform.Find(screenName);
+        if (screen == null) return;
+        WireNavStripButtons(screen);
+    }
+
+    /// <summary>Wire the 4 nav strip buttons on a screen. Called at canvas Awake
+    /// AND by each screen controller's OnEnable (so the blanket raycast disable
+    /// they do doesn't leave the nav strip unclickable).</summary>
+    public void WireNavStripButtons(Transform screen)
+    {
+        foreach (KeyValuePair<string, string> entry in NavStripMap)
+        {
+            Transform bgT = FindDeep(screen, entry.Key);
+            if (bgT == null) continue;  // slot not on this screen (current screen's button)
+
+            string target = entry.Value;
+            HookButton(bgT.gameObject, () => ShowScreen(target));
+
+            // Disable raycast on the text overlay so the click lands on the bg
+            string textName = entry.Key.Replace("_Bg", "_Text");
+            Transform textT = FindDeep(screen, textName);
+            if (textT != null)
+            {
+                Graphic tg = textT.GetComponent<Graphic>();
+                if (tg != null) tg.raycastTarget = false;
+            }
+        }
+    }
+
+    /// <summary>Activates one screen, deactivates the rest. Refreshes Screen1
+    /// labels when returning home (picker apply path).</summary>
+    public void ShowScreen(string screenName)
+    {
+        bool found = false;
+        foreach (GameObject screen in screens)
+        {
+            bool match = screen.name == screenName;
+            screen.SetActive(match);
+            if (match) found = true;
+        }
+
+        if (!found)
+        {
+            Debug.LogWarning($"[PumpHeadNavigator] No screen named '{screenName}' under " +
+                             $"{gameObject.name}. Check the homeScreen field and child names.");
+        }
+
+        if (screenName == homeScreen) RefreshHomeLabels();
+    }
+
+    void RefreshHomeLabels()
+    {
+        if (state == null) return;
+        Transform home = transform.Find(homeScreen);
+        if (home == null) return;
+
+        // Badge in header mirrors current pump (e.g. "Arterial").
+        // Footer labels mirror current tube + direction (and are clickable picker entries).
+        // Direction renders as CW/CCW in the footer; PumpHeadState keeps Forward/Reverse semantics internally.
+        SetText(home, "Txt_PumpSelect", state.GetPumpName());
+        SetText(home, "Txt_Tube",       state.GetTubeName());
+        SetText(home, "Txt_Direction",  state.directionForward ? "CW" : "CCW");
+    }
 
     void HookButton(GameObject go, UnityAction onClick)
     {
@@ -81,27 +190,6 @@ public class PumpHeadNavigator : MonoBehaviour
 
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(onClick);
-    }
-
-    /// <summary>Activates one screen, deactivates the rest. Refreshes Screen1
-    /// labels when returning home (picker apply path).</summary>
-    public void ShowScreen(string screenName)
-    {
-        foreach (GameObject screen in screens)
-            screen.SetActive(screen.name == screenName);
-
-        if (screenName == homeScreen) RefreshHomeLabels();
-    }
-
-    void RefreshHomeLabels()
-    {
-        if (state == null) return;
-        Transform screen1 = transform.Find(homeScreen);
-        if (screen1 == null) return;
-
-        SetText(screen1, "Txt_PumpState",      "Pump: "      + state.GetPumpName());
-        SetText(screen1, "Txt_TubeState",      "Tube: "      + state.GetTubeName());
-        SetText(screen1, "Txt_DirectionState", "Direction: " + state.GetDirectionName());
     }
 
     void SetText(Transform root, string name, string value)

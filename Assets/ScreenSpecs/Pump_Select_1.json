@@ -66,7 +66,7 @@
           "type": "text",
           "x": 128, "y": 109, "w": 240, "h": 50,
           "text": "ARTERIAL",
-          "size": 36,
+          "size": 24,
           "color": "E7696D",
           "align": "center",
           "bold": true
@@ -82,7 +82,7 @@
           "type": "text",
           "x": 409, "y": 109, "w": 240, "h": 50,
           "text": "CARDIOPLEGIA",
-          "size": 32,
+          "size": 24,
           "color": "5BC8E7",
           "align": "center",
           "bold": true
@@ -103,7 +103,7 @@
           "type": "text",
           "x": 128, "y": 190, "w": 240, "h": 50,
           "text": "VENT",
-          "size": 36,
+          "size": 24,
           "color": "FFFFFF",
           "align": "center",
           "bold": true
@@ -119,7 +119,7 @@
           "type": "text",
           "x": 409, "y": 190, "w": 240, "h": 50,
           "text": "SUCTION 1",
-          "size": 36,
+          "size": 24,
           "color": "E7696D",
           "align": "center",
           "bold": true
@@ -140,7 +140,7 @@
           "type": "text",
           "x": 409, "y": 274, "w": 240, "h": 50,
           "text": "SUCTION 2",
-          "size": 36,
+          "size": 24,
           "color": "E7696D",
           "align": "center",
           "bold": true
@@ -159,9 +159,9 @@
         {
           "name": "Btn_Cancel_Label",
           "type": "text",
-          "x": 157, "y": 383, "w": 175, "h": 50,
+          "x": 157, "y": 376, "w": 175, "h": 50,
           "text": "CANCEL",
-          "size": 34,
+          "size": 28,
           "color": "FFFFFF",
           "align": "center",
           "bold": true
@@ -175,9 +175,9 @@
         {
           "name": "Btn_Apply_Label",
           "type": "text",
-          "x": 453, "y": 383, "w": 175, "h": 50,
+          "x": 453, "y": 376, "w": 175, "h": 50,
           "text": "APPLY",
-          "size": 34,
+          "size": 28,
           "color": "FFFFFF",
           "align": "center",
           "bold": true

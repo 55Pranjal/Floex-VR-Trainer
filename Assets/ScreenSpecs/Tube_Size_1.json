@@ -147,8 +147,8 @@
         },
         {
           "name": "Btn_Cancel_Label", "type": "text",
-          "x": 167, "y": 423, "w": 175, "h": 50,
-          "text": "CANCEL", "size": 34, "color": "FFFFFF",
+          "x": 167, "y": 416, "w": 175, "h": 50,
+          "text": "CANCEL", "size": 28, "color": "FFFFFF",
           "align": "center", "bold": true
         },
         {
@@ -158,8 +158,8 @@
         },
         {
           "name": "Btn_Apply_Label", "type": "text",
-          "x": 424, "y": 423, "w": 175, "h": 50,
-          "text": "APPLY", "size": 34, "color": "FFFFFF",
+          "x": 424, "y": 416, "w": 175, "h": 50,
+          "text": "APPLY", "size": 28, "color": "FFFFFF",
           "align": "center", "bold": true
         }
       ]

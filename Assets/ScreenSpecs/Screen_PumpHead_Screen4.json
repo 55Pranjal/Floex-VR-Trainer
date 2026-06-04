@@ -1,0 +1,85 @@
+{
+  "screenName": "Screen_PumpHead_Screen4",
+  "canvasWidth": 800,
+  "canvasHeight": 480,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Img_Bg", "type": "image", "x": 0, "y": 0, "w": 800, "h": 480, "color": "000000", "stretch": true }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Txt_Logo", "type": "text", "x": 10, "y": 4, "w": 173, "h": 48, "text": "FloEx 3.0", "color": "E7696D", "size": 48, "align": "left" },
+        { "name": "Txt_Title", "type": "text", "x": 198, "y": 0, "w": 500, "h": 55, "text": "FINE CALIBRATION", "color": "E7696D", "size": 28, "align": "center" }
+      ]
+    },
+    {
+      "name": "ToggleRow",
+      "elements": [
+        { "name": "Txt_ToggleLabel", "type": "text", "x": 66, "y": 80, "w": 276, "h": 48, "text": "FINE CALIBRATION ON", "color": "EDDFDF", "size": 28, "align": "left" },
+        { "name": "Img_ToggleFC", "type": "image", "x": 388, "y": 78, "w": 138, "h": 50, "sprite": "toggle_off" }
+      ]
+    },
+    {
+      "name": "FineCalibrationRow",
+      "elements": [
+        { "name": "Txt_LabelFC", "type": "text", "x": 66, "y": 166, "w": 251, "h": 49, "text": "FINE CALIBRATION", "color": "EDDFDF", "size": 28, "align": "left" },
+        { "name": "Img_BtnUpFC", "type": "image", "x": 388, "y": 156, "w": 60, "h": 60, "color": "2ECC9B" },
+        { "name": "Img_UpArrowFC", "type": "image", "x": 388, "y": 156, "w": 60, "h": 60, "sprite": "arrow_up_green" },
+        { "name": "Txt_CounterFC", "type": "text", "x": 448, "y": 166, "w": 125, "h": 42, "text": "0", "color": "FFFFFF", "size": 30, "align": "center" },
+        { "name": "Img_BtnDownFC", "type": "image", "x": 573, "y": 156, "w": 60, "h": 60, "color": "27C0F5" },
+        { "name": "Img_DownArrowFC", "type": "image", "x": 573, "y": 156, "w": 60, "h": 60, "sprite": "arrow_down_cyan" }
+      ]
+    },
+    {
+      "name": "Tube1Row",
+      "elements": [
+        { "name": "Txt_LabelTube1_L1", "type": "text", "x": 66, "y": 236, "w": 219, "h": 36, "text": "TUBE SIZE FREELY", "color": "EDDFDF", "size": 28, "align": "left" },
+        { "name": "Txt_LabelTube1_L2", "type": "text", "x": 66, "y": 272, "w": 219, "h": 36, "text": "CALIBRATABLE 1", "color": "EDDFDF", "size": 28, "align": "left" },
+        { "name": "Img_BtnUpTube1", "type": "image", "x": 388, "y": 242, "w": 60, "h": 60, "color": "2ECC9B" },
+        { "name": "Img_UpArrowTube1", "type": "image", "x": 388, "y": 242, "w": 60, "h": 60, "sprite": "arrow_up_green" },
+        { "name": "Txt_CounterTube1", "type": "text", "x": 448, "y": 252, "w": 125, "h": 42, "text": "0", "color": "FFFFFF", "size": 30, "align": "center" },
+        { "name": "Img_BtnDownTube1", "type": "image", "x": 573, "y": 242, "w": 60, "h": 60, "color": "27C0F5" },
+        { "name": "Img_DownArrowTube1", "type": "image", "x": 573, "y": 242, "w": 60, "h": 60, "sprite": "arrow_down_cyan" }
+      ]
+    },
+    {
+      "name": "Tube2Row",
+      "elements": [
+        { "name": "Txt_LabelTube2_L1", "type": "text", "x": 66, "y": 322, "w": 219, "h": 36, "text": "TUBE SIZE FREELY", "color": "EDDFDF", "size": 28, "align": "left" },
+        { "name": "Txt_LabelTube2_L2", "type": "text", "x": 66, "y": 358, "w": 219, "h": 36, "text": "CALIBRATABLE 2", "color": "EDDFDF", "size": 28, "align": "left" },
+        { "name": "Img_BtnUpTube2", "type": "image", "x": 388, "y": 328, "w": 60, "h": 60, "color": "2ECC9B" },
+        { "name": "Img_UpArrowTube2", "type": "image", "x": 388, "y": 328, "w": 60, "h": 60, "sprite": "arrow_up_green" },
+        { "name": "Txt_CounterTube2", "type": "text", "x": 448, "y": 338, "w": 125, "h": 42, "text": "0", "color": "FFFFFF", "size": 30, "align": "center" },
+        { "name": "Img_BtnDownTube2", "type": "image", "x": 573, "y": 328, "w": 60, "h": 60, "color": "27C0F5" },
+        { "name": "Img_DownArrowTube2", "type": "image", "x": 573, "y": 328, "w": 60, "h": 60, "sprite": "arrow_down_cyan" }
+      ]
+    },
+    {
+      "name": "ActionButtons",
+      "elements": [
+        { "name": "Img_BtnCancel", "type": "image", "x": 342, "y": 424, "w": 175, "h": 50, "sprite": "button_rounded_small" },
+        { "name": "Txt_Cancel", "type": "text", "x": 342, "y": 418, "w": 175, "h": 50, "text": "CANCEL", "color": "FFFFFF", "size": 34, "align": "center" },
+        { "name": "Img_BtnApply", "type": "image", "x": 557, "y": 424, "w": 175, "h": 50, "sprite": "button_rounded_small" },
+        { "name": "Txt_Apply", "type": "text", "x": 557, "y": 418, "w": 175, "h": 50, "text": "APPLY", "color": "FFFFFF", "size": 34, "align": "center" }
+      ]
+    },
+    {
+      "name": "NavStrip",
+      "elements": [
+        { "name": "Box_NavStripBg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 337, "color": "0B1529" },
+        { "name": "Btn_P2_Bg", "type": "image", "x": 730, "y": 72, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P2_Text", "type": "text", "x": 730, "y": 72, "w": 70, "h": 82, "text": "P2", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P3_Bg", "type": "image", "x": 730, "y": 156, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P3_Text", "type": "text", "x": 730, "y": 156, "w": 70, "h": 82, "text": "P3", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P1_Bg", "type": "image", "x": 730, "y": 240, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P1_Text", "type": "text", "x": 730, "y": 240, "w": 70, "h": 82, "text": "P1", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P5_Bg", "type": "image", "x": 730, "y": 324, "w": 70, "h": 82, "color": "1A2540" },
+        { "name": "Btn_P5_Text", "type": "text", "x": 730, "y": 324, "w": 70, "h": 82, "text": "P5", "color": "FFFFFF", "size": 38, "align": "center" }
+      ]
+    }
+  ]
+}
