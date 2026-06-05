@@ -83,13 +83,14 @@ public class Screen1Controller : MonoBehaviour
         Transform bypass = FindDeep(transform, "Img_BypassToggle");
         if (bypass != null) HookButton(bypass.gameObject, OnBypassTapped);
     }
-void OnStart()
-{
-    if (state == null) return;
-    Debug.Log($"[Screen1] START tapped on canvas: {transform.root.name}");
-    state.running = true;
-    UpdateReadouts();
-}
+
+    void OnStart()
+    {
+        if (state == null) return;
+        Debug.Log($"[Screen1] START tapped on canvas: {transform.root.name}, state instance: {state.GetInstanceID()}");
+        state.running = true;
+        UpdateReadouts();
+    }
 
     void OnStop()
     {
