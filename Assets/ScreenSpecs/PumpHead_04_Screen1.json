@@ -1,0 +1,96 @@
+{
+  "screenName": "Screen_PumpHead04_Screen1",
+  "canvasWidth": 800,
+  "canvasHeight": 480,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Img_Bg", "type": "image", "x": 0, "y": 0, "w": 800, "h": 480, "color": "000000", "stretch": true }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Box_Header", "type": "image", "x": 0, "y": 0, "w": 800, "h": 60, "color": "2B1D1D" },
+        { "name": "Txt_Logo", "type": "text", "x": 10, "y": 4, "w": 200, "h": 48, "text": "FloEx 3.0", "color": "E7696D", "size": 40, "align": "left" },
+        { "name": "Txt_Cardioplegia", "type": "text", "x": 480, "y": 14, "w": 240, "h": 40, "text": "CARDIOPLEGIA", "color": "FFFFFF", "size": 28, "align": "right" }
+      ]
+    },
+    {
+      "name": "PumpA_Readouts",
+      "elements": [
+        { "name": "Txt_PumpA_Lpm",     "type": "text", "x": 20,  "y": 70,  "w": 240, "h": 100, "text": "0.00", "color": "FFFFFF", "size": 90, "align": "right" },
+        { "name": "Txt_PumpA_LpmUnit", "type": "text", "x": 270, "y": 130, "w": 80,  "h": 40,  "text": "L/PM", "color": "FFFFFF", "size": 28, "align": "left" },
+        { "name": "Txt_PumpA_Rpm",     "type": "text", "x": 20,  "y": 185, "w": 200, "h": 80,  "text": "000",  "color": "FFFFFF", "size": 64, "align": "right" },
+        { "name": "Txt_PumpA_RpmUnit", "type": "text", "x": 230, "y": 220, "w": 80,  "h": 40,  "text": "RPM",  "color": "FFFFFF", "size": 24, "align": "left" }
+      ]
+    },
+    {
+      "name": "PumpB_Readouts",
+      "elements": [
+        { "name": "Txt_PumpB_Lpm",     "type": "text", "x": 370, "y": 70,  "w": 240, "h": 100, "text": "0.00", "color": "FFFFFF", "size": 90, "align": "right" },
+        { "name": "Txt_PumpB_LpmUnit", "type": "text", "x": 620, "y": 130, "w": 80,  "h": 40,  "text": "L/PM", "color": "FFFFFF", "size": 28, "align": "left" },
+        { "name": "Txt_PumpB_Rpm",     "type": "text", "x": 370, "y": 185, "w": 200, "h": 80,  "text": "000",  "color": "FFFFFF", "size": 64, "align": "right" },
+        { "name": "Txt_PumpB_RpmUnit", "type": "text", "x": 580, "y": 220, "w": 80,  "h": 40,  "text": "RPM",  "color": "FFFFFF", "size": 24, "align": "left" }
+      ]
+    },
+    {
+      "name": "StopButtons",
+      "elements": [
+        { "name": "Img_PumpA_Stop", "type": "image", "x": 80,  "y": 275, "w": 200, "h": 64, "color": "E63946" },
+        { "name": "Txt_PumpA_Stop", "type": "text",  "x": 80,  "y": 275, "w": 200, "h": 64, "text": "STOP", "color": "FFFFFF", "size": 40, "align": "center" },
+        { "name": "Img_PumpB_Stop", "type": "image", "x": 440, "y": 275, "w": 200, "h": 64, "color": "E63946" },
+        { "name": "Txt_PumpB_Stop", "type": "text",  "x": 440, "y": 275, "w": 200, "h": 64, "text": "STOP", "color": "FFFFFF", "size": 40, "align": "center" }
+      ]
+    },
+    {
+      "name": "RatioStripBg",
+      "elements": [
+        { "name": "Box_RatioStrip", "type": "image", "x": 0, "y": 383, "w": 730, "h": 47, "color": "10151F" }
+      ]
+    },
+    {
+      "name": "RatioRow",
+      "elements": [
+        { "name": "Txt_RatioLabel",   "type": "text",  "x": 300, "y": 362, "w": 130, "h": 22, "text": "Ratio", "color": "FFFFFF", "size": 18, "align": "center" },
+        { "name": "Img_PumpA_Tube_Bg","type": "image", "x": 20,  "y": 388, "w": 100, "h": 42, "color": "0B1E3D" },
+        { "name": "Txt_PumpA_Tube",   "type": "text",  "x": 20,  "y": 388, "w": 100, "h": 42, "text": "1/4", "color": "FFFFFF", "size": 26, "align": "center" },
+        { "name": "Img_PumpA_Dir_Bg", "type": "image", "x": 135, "y": 388, "w": 100, "h": 42, "color": "0B1E3D" },
+        { "name": "Txt_PumpA_Dir",    "type": "text",  "x": 135, "y": 388, "w": 100, "h": 42, "text": "CW", "color": "FFFFFF", "size": 26, "align": "center" },
+        { "name": "Img_Ratio_Bg",     "type": "image", "x": 285, "y": 388, "w": 160, "h": 42, "color": "0B1E3D" },
+        { "name": "Txt_Ratio",        "type": "text",  "x": 285, "y": 388, "w": 160, "h": 42, "text": "Nil", "color": "FFFFFF", "size": 26, "align": "center" },
+        { "name": "Img_PumpB_Tube_Bg","type": "image", "x": 495, "y": 388, "w": 100, "h": 42, "color": "0B1E3D" },
+        { "name": "Txt_PumpB_Tube",   "type": "text",  "x": 495, "y": 388, "w": 100, "h": 42, "text": "1/4", "color": "FFFFFF", "size": 26, "align": "center" },
+        { "name": "Img_PumpB_Dir_Bg", "type": "image", "x": 610, "y": 388, "w": 100, "h": 42, "color": "0B1E3D" },
+        { "name": "Txt_PumpB_Dir",    "type": "text",  "x": 610, "y": 388, "w": 100, "h": 42, "text": "CW", "color": "FFFFFF", "size": 26, "align": "center" }
+      ]
+    },
+    {
+      "name": "Footer",
+      "elements": [
+        { "name": "Box_Footer",       "type": "image", "x": 0,   "y": 430, "w": 800, "h": 50, "color": "0B1529" },
+        { "name": "Img_PlayIcon",     "type": "image", "x": 10,  "y": 435, "w": 44,  "h": 44, "sprite": "play", "color": "E8F6FB" },
+        { "name": "Txt_Timer",        "type": "text",  "x": 90,  "y": 440, "w": 130, "h": 36, "text": "00:00:00", "color": "FFFCFC", "size": 28, "align": "center" },
+        { "name": "Img_HistoryIcon",  "type": "image", "x": 270, "y": 435, "w": 44,  "h": 44, "sprite": "history", "color": "E8F6FB" },
+        { "name": "Txt_Ci",           "type": "text",  "x": 370, "y": 440, "w": 100, "h": 36, "text": "CI 2.2", "color": "FFFFFF", "size": 26, "align": "left" },
+        { "name": "Txt_PcBypass",     "type": "text",  "x": 500, "y": 440, "w": 160, "h": 36, "text": "PC ByPass", "color": "FFFFFF", "size": 24, "align": "left" },
+        { "name": "Img_BypassToggle", "type": "image", "x": 670, "y": 438, "w": 138, "h": 42, "sprite": "toggle_off" }
+      ]
+    },
+    {
+      "name": "NavStrip",
+      "elements": [
+        { "name": "Box_NavStripBg", "type": "image", "x": 730, "y": 60, "w": 70, "h": 370, "color": "0B1529" },
+        { "name": "Btn_P2_Bg",   "type": "image", "x": 730, "y": 60,  "w": 70, "h": 95, "color": "1A2540" },
+        { "name": "Btn_P2_Text", "type": "text",  "x": 730, "y": 63,  "w": 70, "h": 82, "text": "P2", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P3_Bg",   "type": "image", "x": 730, "y": 158, "w": 70, "h": 95, "color": "1A2540" },
+        { "name": "Btn_P3_Text", "type": "text",  "x": 730, "y": 164, "w": 70, "h": 82, "text": "P3", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P4_Bg",   "type": "image", "x": 730, "y": 257, "w": 70, "h": 95, "color": "1A2540" },
+        { "name": "Btn_P4_Text", "type": "text",  "x": 730, "y": 260, "w": 70, "h": 82, "text": "P4", "color": "FFFFFF", "size": 38, "align": "center" },
+        { "name": "Btn_P5_Bg",   "type": "image", "x": 730, "y": 355, "w": 70, "h": 75, "color": "1A2540" },
+        { "name": "Btn_P5_Text", "type": "text",  "x": 730, "y": 350, "w": 70, "h": 82, "text": "P5", "color": "FFFFFF", "size": 38, "align": "center" }
+      ]
+    }
+  ]
+}
