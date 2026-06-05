@@ -34,6 +34,9 @@ public class CanvasClickBypass : MonoBehaviour
     [Header("Debug")]
     public bool logClicks = false;
 
+    readonly Dictionary<GameObject, float> lastClickTime = new Dictionary<GameObject, float>();
+const float ClickCooldownSeconds = 0.3f;
+
     Canvas canvas;
     GraphicRaycaster raycaster;
     EventSystem eventSystem;
@@ -138,13 +141,26 @@ public class CanvasClickBypass : MonoBehaviour
         }
 
         // --- Click dispatch ---
-        if (clickEdge && hit != null)
-        {
-            if (logClicks) Debug.Log($"[CanvasClickBypass:{name}] Click on {hit.name}");
-            ExecuteEvents.ExecuteHierarchy(hit, ped, ExecuteEvents.pointerDownHandler);
-            ExecuteEvents.ExecuteHierarchy(hit, ped, ExecuteEvents.pointerClickHandler);
-            ExecuteEvents.ExecuteHierarchy(hit, ped, ExecuteEvents.pointerUpHandler);
-        }
+        // --- Click dispatch ---
+// --- Click dispatch (with per-target cooldown to suppress state flicker re-fires) ---
+if (clickEdge && hit != null)
+{
+    float now = Time.unscaledTime;
+    float lastTime;
+    lastClickTime.TryGetValue(hit, out lastTime);
+    if (now - lastTime >= ClickCooldownSeconds)
+    {
+        if (logClicks) Debug.Log($"[CanvasClickBypass:{name}] Click on {hit.name}");
+        ExecuteEvents.ExecuteHierarchy(hit, ped, ExecuteEvents.pointerDownHandler);
+        ExecuteEvents.ExecuteHierarchy(hit, ped, ExecuteEvents.pointerClickHandler);
+        ExecuteEvents.ExecuteHierarchy(hit, ped, ExecuteEvents.pointerUpHandler);
+        lastClickTime[hit] = now;
+    }
+    else if (logClicks)
+    {
+        Debug.Log($"[CanvasClickBypass:{name}] Click on {hit.name} suppressed (cooldown)");
+    }
+}
     }
 
     void ClearHover(RayInteractor interactor)

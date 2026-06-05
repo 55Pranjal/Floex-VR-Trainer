@@ -17,6 +17,12 @@ public class PumpHeadNavigator : MonoBehaviour
     [Tooltip("Default screen shown on launch and when returning from a picker.")]
     public string homeScreen = "Screen_PumpHead_Screen1";
 
+    [Tooltip("Set true on double pump canvases where this navigator only exists to satisfy controller dependencies. Skips screen collection and auto-wiring.")]
+public bool skipAutoWiring = false;
+
+[Tooltip("When skipAutoWiring is true, ShowScreen() calls forward to this navigator instead.")]
+public MonoBehaviour delegateNavigator;  // Will be DoublePumpHeadNavigator at runtime
+
     [Tooltip("Tint applied to a button on hover/press.")]
     public Color highlightColor = new Color(0.906f, 0.412f, 0.427f);
 
@@ -55,12 +61,14 @@ public class PumpHeadNavigator : MonoBehaviour
 
     readonly List<GameObject> screens = new List<GameObject>();
 
-    void Awake()
-    {
-        // Collect managed direct-child screens
-        foreach (Transform child in transform)
-            if (ManagedScreens.Contains(child.name))
-                screens.Add(child.gameObject);
+   void Awake()
+{
+    // Skip auto-wiring if this navigator is a secondary on a double-pump canvas.
+    if (skipAutoWiring) return;
+
+    foreach (Transform child in transform)
+        if (ManagedScreens.Contains(child.name))
+            screens.Add(child.gameObject);
 
         // Home (Screen1): blanket-disable raycast, then re-enable specific buttons
         WireHomeScreen();
@@ -137,8 +145,16 @@ public class PumpHeadNavigator : MonoBehaviour
 
     /// <summary>Activates one screen, deactivates the rest. Refreshes Screen1
     /// labels when returning home (picker apply path).</summary>
-    public void ShowScreen(string screenName)
+   public void ShowScreen(string screenName)
+{
+    if (skipAutoWiring && delegateNavigator != null)
     {
+        // Map single-pump screen names to double-pump equivalents
+        string mapped = MapScreenName(screenName);
+        var dpNav = delegateNavigator as DoublePumpHeadNavigator;
+        if (dpNav != null) dpNav.ShowScreen(mapped);
+        return;
+    }
         bool found = false;
         foreach (GameObject screen in screens)
         {
@@ -155,6 +171,12 @@ public class PumpHeadNavigator : MonoBehaviour
 
         if (screenName == homeScreen) RefreshHomeLabels();
     }
+
+    string MapScreenName(string n)
+{
+    if (n == "Screen_PumpHead_Screen1") return "Screen_PumpHead04_Screen1";
+    return n;  // 2_1/3/4/5 names match exactly across both
+}
 
     void RefreshHomeLabels()
     {
