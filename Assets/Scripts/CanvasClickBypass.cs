@@ -44,11 +44,16 @@ const float ClickCooldownSeconds = 0.3f;
     readonly Dictionary<RayInteractor, GameObject> currentHover = new Dictionary<RayInteractor, GameObject>();
 
     void Awake()
-    {
-        canvas = GetComponent<Canvas>();
-        raycaster = GetComponent<GraphicRaycaster>();
-        if (raycaster == null) raycaster = gameObject.AddComponent<GraphicRaycaster>();
-    }
+{
+    canvas = GetComponent<Canvas>();
+    raycaster = GetComponent<GraphicRaycaster>();
+    if (raycaster == null) raycaster = gameObject.AddComponent<GraphicRaycaster>();
+
+    // Disable Meta's PointableCanvas on this canvas so it doesn't compete with us.
+    // We own all click dispatch for this canvas; PCM still serves other canvases.
+    var pc = GetComponent<Oculus.Interaction.PointableCanvas>();
+    if (pc != null) pc.enabled = false;
+}
 
     void Start()
     {
