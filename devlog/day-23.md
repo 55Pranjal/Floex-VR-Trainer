@@ -52,4 +52,4 @@ Morning: fix the slot 2 poke setup that failed at end of Day 22, propagate direc
 - `Assets/Scenes/OR_Environment.unity` — `ISDK_PokeInteraction` setups completed/fixed on PumpHead_02/03/04_Canvas; new `ISDK_PokeInteraction` (1280x800 bounds) under ConsoleMount's Canvas; `disablePointableCanvas` unchecked on slots 2/3/4; Missing script component removed from EventSystem
 - `devlog/day-23.md` — new
 
-*(Devlog to be extended after the afternoon knob session.)*
+Couldn't have the afternoon session as tokens finished, only studied the proposed plan for tomorrow.
