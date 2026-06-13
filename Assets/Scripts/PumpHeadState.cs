@@ -15,6 +15,9 @@ public class PumpHeadState : MonoBehaviour
     [Header("Direction picker (Direction)")]
     public bool directionForward = true;
 
+    [Header("RPM setpoint (Screen1 knob)")]
+    public int rpmSetpoint = 0;     // 0..250 (pump head RPM, set via physical knob)
+
     [Header("Master-Slave config (Screen2_1)")]
     public int masterIndex = 0;     // 0=Nil, 1=Arterial, 2=Cardio, 3=Vent, 4=Suct1, 5=Suct2
     public int flowPercent = 0;     // 0..200

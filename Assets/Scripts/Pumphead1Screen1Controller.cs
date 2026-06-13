@@ -7,6 +7,7 @@ using TMPro;
 /// Screen1 (home) controller. Owns START/STOP buttons (running-state readout swap),
 /// session timer play/reset, and bypass toggle. PumpHeadNavigator owns the nav strip
 /// and picker entries (PUMP SELECT / Txt_Tube / Txt_Direction).
+/// RPM readout is knob-driven (reads state.rpmSetpoint live), independent of running state.
 /// PRODUCT A: two-state static readouts. No interpolation, no physics.
 /// </summary>
 public class Screen1Controller : MonoBehaviour
@@ -28,13 +29,11 @@ public class Screen1Controller : MonoBehaviour
 
     [Header("Running readouts (Stopped always shows zero values)")]
     public string runningLpm     = "4.50";
-    public string runningRpm     = "180";
     public string runningCurrent = "I:0.50A";
     public string runningTorque  = "TQ:0.04Nm";
     public string runningVoltage = "V:1.50V";
 
     const string StoppedLpm     = "0.00";
-    const string StoppedRpm     = "000";
     const string StoppedCurrent = "I:0.00A";
     const string StoppedTorque  = "TQ:0.00Nm";
     const string StoppedVoltage = "V:0.00V";
@@ -51,6 +50,7 @@ public class Screen1Controller : MonoBehaviour
     {
         // Refresh display each time Screen1 becomes visible.
         UpdateReadouts();
+        UpdateRpmDisplay();
         UpdateTimerDisplay();
         UpdateBypassSprite();
         UpdatePlayPauseSprite();
@@ -58,8 +58,9 @@ public class Screen1Controller : MonoBehaviour
 
     void Update()
     {
-        // Tick the timer display while Screen1 is visible. PumpHeadNavigator
-        // increments state.timerSeconds, this just renders it.
+        // RPM tracks the knob setpoint live; timer renders state.timerSeconds
+        // (PumpHeadNavigator increments it).
+        UpdateRpmDisplay();
         UpdateTimerDisplay();
     }
 
@@ -124,10 +125,15 @@ public class Screen1Controller : MonoBehaviour
     {
         bool running = state != null && state.running;
         SetText("Txt_LpmValue", running ? runningLpm     : StoppedLpm);
-        SetText("Txt_RpmValue", running ? runningRpm     : StoppedRpm);
         SetText("Txt_Current",  running ? runningCurrent : StoppedCurrent);
         SetText("Txt_Torque",   running ? runningTorque  : StoppedTorque);
         SetText("Txt_Voltage",  running ? runningVoltage : StoppedVoltage);
+    }
+
+    void UpdateRpmDisplay()
+    {
+        if (state == null) return;
+        SetText("Txt_RpmValue", state.rpmSetpoint.ToString("000"));
     }
 
     void UpdateTimerDisplay()
