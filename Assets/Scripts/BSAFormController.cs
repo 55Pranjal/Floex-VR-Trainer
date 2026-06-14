@@ -8,8 +8,15 @@ using TMPro;
 ///
 /// Writes realistic patient defaults to the 9 Txt_X elements on screen open
 /// so the screen looks fully populated as it would in a real OR setting.
-/// Calculate computes BSA from the displayed weight and height; Cancel
-/// clears the computed-field outputs.
+/// Calculate computes BSA from the displayed weight and height; Cancel/Exit
+/// clear the computed-field outputs.
+///
+/// Button behaviour:
+///   Calculate  -> compute BSA from weight + height
+///   OK         -> keep values, navigate home (= Save &amp; Exit)
+///   EXIT       -> clear computed fields, navigate home (= Cancel)
+///   Save&amp;Exit -> navigate home (wired by ScreenNavigator)
+///   Cancel     -> clear computed (here) + navigate home (ScreenNavigator)
 ///
 /// VR keyboard text-entry was attempted on Days 15-16. The combination of
 /// Meta XR SDK v74, TMP_InputField (and legacy UI.InputField), and Meta's
@@ -55,17 +62,28 @@ public class BSAFormController : MonoBehaviour
     [Tooltip("Hover/press tint on Calculate button.")]
     public Color highlightColor = new Color(0.906f, 0.412f, 0.427f); // FloEx coral
 
+    [Tooltip("Screen to return to on OK / EXIT. Must match a ScreenNavigator screen name.")]
+    public string homeScreen = "Screen_CDM";
+
     const string CalculateBoxName = "Box_Calculate";
     const string CancelBoxName    = "Box_Cancel";
+    const string OKBoxName        = "Box_OK";
+    const string ExitBoxName      = "Box_Exit";
 
     readonly Dictionary<string, TMP_Text> displays = new Dictionary<string, TMP_Text>();
     readonly Dictionary<string, TMP_Text> readOnly = new Dictionary<string, TMP_Text>();
 
+    ScreenNavigator _navigator;
+
     void Start()
     {
         // ScreenNavigator runs in Awake and turns off raycast on everything.
-        // In display-only mode we only re-enable raycast on Box_Calculate -
-        // the field boxes intentionally stay non-interactive.
+        // In display-only mode we re-enable raycast only on the buttons we wire
+        // (Calculate, OK, EXIT) - the field boxes intentionally stay non-interactive.
+
+        _navigator = GetComponentInParent<ScreenNavigator>();
+        if (_navigator == null)
+            Debug.LogWarning("[BSAFormController] ScreenNavigator not found in parents - OK/EXIT navigation disabled.");
 
         foreach (Field f in editableFields)
         {
@@ -105,6 +123,8 @@ public class BSAFormController : MonoBehaviour
 
         WireCalculate();
         WireCancel();
+        WireOK();
+        WireExit();
     }
 
     void WireCalculate()
@@ -141,6 +161,49 @@ public class BSAFormController : MonoBehaviour
         if (btn != null) btn.onClick.AddListener(ClearComputed);
     }
 
+    void WireOK()
+    {
+        // OK = Save & Exit: keep current values, navigate home. ScreenNavigator
+        // does not wire Box_OK, so we set it up fully here.
+        HookNavButton(OKBoxName, GoHome);
+    }
+
+    void WireExit()
+    {
+        // EXIT = Cancel: clear computed fields, then navigate home.
+        HookNavButton(ExitBoxName, () => { ClearComputed(); GoHome(); });
+    }
+
+    void HookNavButton(string boxName, UnityEngine.Events.UnityAction onClick)
+    {
+        Transform t = FindDeep(transform, boxName);
+        if (t == null) { Debug.LogWarning($"[BSAFormController] {boxName} not found - button skipped."); return; }
+
+        Image g = t.GetComponent<Image>();
+        if (g != null) g.raycastTarget = true;   // ScreenNavigator turned this off
+
+        Button btn = t.GetComponent<Button>();
+        if (btn == null) btn = t.gameObject.AddComponent<Button>();
+        btn.targetGraphic = g;
+
+        ColorBlock cb = btn.colors;
+        cb.normalColor      = Color.white;
+        cb.highlightedColor = highlightColor;
+        cb.pressedColor     = highlightColor;
+        cb.selectedColor    = Color.white;
+        cb.fadeDuration     = 0.05f;
+        btn.colors = cb;
+        btn.transition = Selectable.Transition.ColorTint;
+
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(onClick);
+    }
+
+    void GoHome()
+    {
+        if (_navigator != null) _navigator.ShowScreen(homeScreen);
+    }
+
     void Calculate()
     {
         float weight = ParseFloat("Weight");
@@ -162,7 +225,7 @@ public class BSAFormController : MonoBehaviour
         return float.TryParse(t.text, out float v) ? v : 0f;
     }
 
-    /// <summary>Clear all computed-field outputs. Hooked to Cancel.</summary>
+    /// <summary>Clear all computed-field outputs. Hooked to Cancel and Exit.</summary>
     public void ClearComputed()
     {
         foreach (var kv in readOnly)
