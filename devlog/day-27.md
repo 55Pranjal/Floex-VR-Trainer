@@ -24,7 +24,9 @@ The controller grabs the ScreenNavigator via `GetComponentInParent` and calls it
 
 ## What broke and how I fixed it
 
-Nothing broke — both were additive. The main thing to watch was Unity execution order, already handled the same way the rest of the screen controllers do it: ScreenNavigator disables raycast on every graphic in `Awake`, and these controllers re-enable raycast on the specific elements they wire in `Start` (which always runs after Awake), so the re-enable can't be clobbered. OK/EXIT and the timer buttons follow that proven pattern.
+**CDM timers swapped the sprite but didn't count — stale serialized array.** After replacing the script, the component's field layout changed (old: `toggles` + `resets`; new: `timers` + `toggles`). Unity kept the old serialized data, so the **Toggles array still held 5 entries** — the four timer play buttons (`Img_LeftPlay`, `Img_Timer1/2/3Play`) plus the speaker. That meant each timer play button was wired twice: once correctly as a Timer (sets `running = true`), and once as a leftover plain SpriteToggle. The two listeners fought, the run-state never stuck, so the sprite changed but the clock stayed at 00:00:00. Fix: right-click the component → **Reset** to wipe stale fields to code defaults (Timers = 4 correct entries, Toggles = just `Img_Speaker`), then re-drag the play/pause sprites on the 4 timers and the speaker sprites on the toggle. Lesson: when a serialized field's name/type changes between script versions, Reset the component rather than trusting Unity to migrate — stale arrays cause silent double-wiring.
+
+Otherwise both changes were additive. Execution order was handled the same way the rest of the screen controllers do it: ScreenNavigator disables raycast on every graphic in `Awake`, and these controllers re-enable raycast on the specific elements they wire in `Start` (which always runs after Awake), so the re-enable can't be clobbered. OK/EXIT and the timer buttons follow that proven pattern.
 
 ## Decisions
 
@@ -42,8 +44,8 @@ Nothing broke — both were additive. The main thing to watch was Unity executio
 ## Demo-readiness checklist (for Shiv's trip)
 
 - [x] APK builds and runs standalone on Quest 3 (Pranjal verified)
-- [ ] CDM timer sprites assigned in Inspector (all 4)
-- [ ] OK/EXIT verified responsive in VR
+- [x] CDM timer sprites assigned in Inspector (all 4) — done after Reset fix; timers now count
+- [x] OK/EXIT verified responsive in VR
 - [ ] Final regression: all 5 canvases poke + ray, pump heads START/STOP, screen navigation
 
 ## Time spent
