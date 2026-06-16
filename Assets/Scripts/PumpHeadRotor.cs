@@ -21,12 +21,17 @@ public class PumpHeadRotor : MonoBehaviour
     [Tooltip("Local axis the rotor spins around. Default Y (vertical).")]
     public Vector3 rotationAxis = Vector3.up;
 
+   [Header("Rotation settings")]
+    [Tooltip("Degrees per second per 1 RPM. 6 = physically accurate (360deg/60s).")]
+    public float degreesPerSecondPerRpm = 6f;
+
     void Update()
     {
         if (rotor == null || state == null) return;
-        if (!state.running) return;
+        if (!state.running || state.rpmSetpoint <= 0) return;
 
+        float degPerSec = state.rpmSetpoint * degreesPerSecondPerRpm;
         float direction = state.directionForward ? 1f : -1f;
-        rotor.Rotate(rotationAxis, rotationSpeed * direction * Time.deltaTime, Space.Self);
+        rotor.Rotate(rotationAxis, degPerSec * direction * Time.deltaTime, Space.Self);
     }
 }
