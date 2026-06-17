@@ -2,8 +2,9 @@ using UnityEngine;
 
 /// <summary>
 /// Spins both rotors of the double pump head independently.
-/// Each rotor follows its own pump's run state and direction.
-/// Visual-only — no physiology coupling. Speed is fixed.
+/// Each rotor follows its own pump's run state, direction, AND RPM setpoint.
+/// Rotor speed tracks RPM as of Day 29 (Shiv-approved physiology coupling) —
+/// 6 deg/s per RPM is physically accurate (1 RPM = 360deg/60s).
 /// </summary>
 public class DoublePumpHeadRotor : MonoBehaviour
 {
@@ -18,8 +19,8 @@ public class DoublePumpHeadRotor : MonoBehaviour
     public DoublePumpHeadState state;
 
     [Header("Rotation settings")]
-    [Tooltip("Rotation speed in degrees per second. 600 = ~100 RPM visual.")]
-    public float rotationSpeed = 600f;
+    [Tooltip("Degrees per second per 1 RPM. 6 = physically accurate (360deg/60s).")]
+    public float degreesPerSecondPerRpm = 6f;
 
     [Tooltip("Local axis the rotor spins around. Default Y.")]
     public Vector3 rotationAxis = Vector3.up;
@@ -28,16 +29,18 @@ public class DoublePumpHeadRotor : MonoBehaviour
     {
         if (state == null) return;
 
-        if (rotorA != null && state.pumpA_Running)
+        if (rotorA != null && state.pumpA_Running && state.pumpA_RpmSetpoint > 0)
         {
+            float degPerSec = state.pumpA_RpmSetpoint * degreesPerSecondPerRpm;
             float dirA = state.pumpA_Direction == "CW" ? 1f : -1f;
-            rotorA.Rotate(rotationAxis, rotationSpeed * dirA * Time.deltaTime, Space.Self);
+            rotorA.Rotate(rotationAxis, degPerSec * dirA * Time.deltaTime, Space.Self);
         }
 
-        if (rotorB != null && state.pumpB_Running)
+        if (rotorB != null && state.pumpB_Running && state.pumpB_RpmSetpoint > 0)
         {
+            float degPerSec = state.pumpB_RpmSetpoint * degreesPerSecondPerRpm;
             float dirB = state.pumpB_Direction == "CW" ? 1f : -1f;
-            rotorB.Rotate(rotationAxis, rotationSpeed * dirB * Time.deltaTime, Space.Self);
+            rotorB.Rotate(rotationAxis, degPerSec * dirB * Time.deltaTime, Space.Self);
         }
     }
 }

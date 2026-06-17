@@ -8,7 +8,8 @@ using TMPro;
 /// Owns two independent STOP/START buttons (per-pump readout swap), timer
 /// play/reset, and PC bypass toggle. Picker entry buttons (PumpA/PumpB tube/dir,
 /// Ratio) and nav strip are owned by DoublePumpHeadNavigator.
-/// PRODUCT A: two-state static readouts per pump. No physics, no interpolation.
+/// RPM readouts are knob-driven (read pumpA/pumpB_RpmSetpoint live), independent
+/// of running state. LPM stays two-state. No physics, no interpolation.
 /// </summary>
 public class DoublePumpScreen1Controller : MonoBehaviour
 {
@@ -29,10 +30,8 @@ public class DoublePumpScreen1Controller : MonoBehaviour
 
     [Header("Running readouts (Stopped always shows zero values)")]
     public string runningLpm = "4.50";
-    public string runningRpm = "180";
 
     const string StoppedLpm = "0.00";
-    const string StoppedRpm = "000";
 
     void Start()
     {
@@ -43,6 +42,7 @@ public class DoublePumpScreen1Controller : MonoBehaviour
     void OnEnable()
     {
         UpdateReadouts();
+        UpdateRpmDisplay();
         UpdateStopButtonLabels();
         UpdateTimerDisplay();
         UpdateBypassSprite();
@@ -51,8 +51,9 @@ public class DoublePumpScreen1Controller : MonoBehaviour
 
     void Update()
     {
-        // Tick the timer display while Screen1 is visible.
-        // DoublePumpHeadNavigator increments state.timerSeconds, this just renders it.
+        // RPM tracks the knob setpoints live; timer renders state.timerSeconds
+        // (DoublePumpHeadNavigator increments it).
+        UpdateRpmDisplay();
         UpdateTimerDisplay();
     }
 
@@ -120,9 +121,14 @@ public class DoublePumpScreen1Controller : MonoBehaviour
     {
         if (state == null) return;
         SetText("Txt_PumpA_Lpm", state.pumpA_Running ? runningLpm : StoppedLpm);
-        SetText("Txt_PumpA_Rpm", state.pumpA_Running ? runningRpm : StoppedRpm);
         SetText("Txt_PumpB_Lpm", state.pumpB_Running ? runningLpm : StoppedLpm);
-        SetText("Txt_PumpB_Rpm", state.pumpB_Running ? runningRpm : StoppedRpm);
+    }
+
+    void UpdateRpmDisplay()
+    {
+        if (state == null) return;
+        SetText("Txt_PumpA_Rpm", state.pumpA_RpmSetpoint.ToString("000"));
+        SetText("Txt_PumpB_Rpm", state.pumpB_RpmSetpoint.ToString("000"));
     }
 
     void UpdateStopButtonLabels()
