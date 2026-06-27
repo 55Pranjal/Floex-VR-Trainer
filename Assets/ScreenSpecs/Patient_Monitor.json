@@ -1,0 +1,534 @@
+{
+  "screenName": "Patient_Monitor",
+  "canvasWidth": 720,
+  "canvasHeight": 720,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        {
+          "name": "Img_Bg",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 720,
+          "h": 720,
+          "color": "06090F",
+          "stretch": true
+        }
+      ]
+    },
+    {
+      "name": "TopBar",
+      "elements": [
+        {
+          "name": "Box_TopBar",
+          "type": "image",
+          "x": 0,
+          "y": 0,
+          "w": 720,
+          "h": 44,
+          "color": "10141C"
+        },
+        {
+          "name": "Txt_Title",
+          "type": "text",
+          "x": 20,
+          "y": 9,
+          "w": 420,
+          "h": 26,
+          "text": "FloEx Trainer  —  Patient Monitor",
+          "color": "E2E8F0",
+          "size": 18,
+          "align": "left"
+        },
+        {
+          "name": "Box_ScenarioPill",
+          "type": "image",
+          "x": 288,
+          "y": 11,
+          "w": 170,
+          "h": 24,
+          "color": "161B26"
+        },
+        {
+          "name": "Txt_Scenario",
+          "type": "text",
+          "x": 288,
+          "y": 11,
+          "w": 170,
+          "h": 24,
+          "text": "Scenario: —",
+          "color": "8B94A3",
+          "size": 13,
+          "align": "center"
+        },
+        {
+          "name": "Txt_Clock",
+          "type": "text",
+          "x": 520,
+          "y": 9,
+          "w": 180,
+          "h": 26,
+          "text": "00:00:00",
+          "color": "CBD5E1",
+          "size": 16,
+          "align": "right"
+        }
+      ]
+    },
+    {
+      "name": "Waveform",
+      "elements": [
+        {
+          "name": "Box_Waveform",
+          "type": "image",
+          "x": 24,
+          "y": 58,
+          "w": 672,
+          "h": 62,
+          "color": "0B0F17"
+        },
+        {
+          "name": "Txt_WaveformNote",
+          "type": "text",
+          "x": 38,
+          "y": 64,
+          "w": 500,
+          "h": 18,
+          "text": "ECG / arterial waveforms — later (polish)",
+          "color": "475569",
+          "size": 12,
+          "align": "left"
+        }
+      ]
+    },
+    {
+      "name": "Vitals",
+      "elements": [
+        {
+          "name": "Box_HR_Card",
+          "type": "image",
+          "x": 24,
+          "y": 140,
+          "w": 330,
+          "h": 145,
+          "color": "0D1119"
+        },
+        {
+          "name": "Box_HR_Accent",
+          "type": "image",
+          "x": 24,
+          "y": 140,
+          "w": 330,
+          "h": 4,
+          "color": "34D399"
+        },
+        {
+          "name": "Txt_HR_Label",
+          "type": "text",
+          "x": 38,
+          "y": 152,
+          "w": 150,
+          "h": 26,
+          "text": "HR",
+          "color": "34D399",
+          "size": 22,
+          "align": "left"
+        },
+        {
+          "name": "Txt_HR_Unit",
+          "type": "text",
+          "x": 214,
+          "y": 152,
+          "w": 126,
+          "h": 26,
+          "text": "bpm",
+          "color": "5A7D6B",
+          "size": 16,
+          "align": "right"
+        },
+        {
+          "name": "Txt_HR_Value",
+          "type": "text",
+          "x": 24,
+          "y": 178,
+          "w": 330,
+          "h": 92,
+          "text": "70",
+          "color": "34D399",
+          "size": 80,
+          "align": "center"
+        },
+        {
+          "name": "Box_BP_Card",
+          "type": "image",
+          "x": 366,
+          "y": 140,
+          "w": 330,
+          "h": 145,
+          "color": "0D1119"
+        },
+        {
+          "name": "Box_BP_Accent",
+          "type": "image",
+          "x": 366,
+          "y": 140,
+          "w": 330,
+          "h": 4,
+          "color": "F87171"
+        },
+        {
+          "name": "Txt_BP_Label",
+          "type": "text",
+          "x": 380,
+          "y": 152,
+          "w": 150,
+          "h": 26,
+          "text": "ABP",
+          "color": "F87171",
+          "size": 22,
+          "align": "left"
+        },
+        {
+          "name": "Txt_BP_Unit",
+          "type": "text",
+          "x": 556,
+          "y": 152,
+          "w": 126,
+          "h": 26,
+          "text": "mmHg",
+          "color": "9A5D5D",
+          "size": 16,
+          "align": "right"
+        },
+        {
+          "name": "Txt_BP_Value",
+          "type": "text",
+          "x": 366,
+          "y": 178,
+          "w": 330,
+          "h": 92,
+          "text": "80",
+          "color": "F87171",
+          "size": 80,
+          "align": "center"
+        },
+        {
+          "name": "Txt_BP_Sub",
+          "type": "text",
+          "x": 366,
+          "y": 258,
+          "w": 330,
+          "h": 22,
+          "text": "MAP",
+          "color": "9A5D5D",
+          "size": 14,
+          "align": "center"
+        },
+        {
+          "name": "Box_SvO2_Card",
+          "type": "image",
+          "x": 24,
+          "y": 297,
+          "w": 330,
+          "h": 145,
+          "color": "0D1119"
+        },
+        {
+          "name": "Box_SvO2_Accent",
+          "type": "image",
+          "x": 24,
+          "y": 297,
+          "w": 330,
+          "h": 4,
+          "color": "22D3D3"
+        },
+        {
+          "name": "Txt_SvO2_Label",
+          "type": "text",
+          "x": 38,
+          "y": 309,
+          "w": 150,
+          "h": 26,
+          "text": "SvO2",
+          "color": "22D3D3",
+          "size": 22,
+          "align": "left"
+        },
+        {
+          "name": "Txt_SvO2_Unit",
+          "type": "text",
+          "x": 214,
+          "y": 309,
+          "w": 126,
+          "h": 26,
+          "text": "%",
+          "color": "4F8A8A",
+          "size": 16,
+          "align": "right"
+        },
+        {
+          "name": "Txt_SvO2_Value",
+          "type": "text",
+          "x": 24,
+          "y": 335,
+          "w": 330,
+          "h": 92,
+          "text": "75",
+          "color": "22D3D3",
+          "size": 80,
+          "align": "center"
+        },
+        {
+          "name": "Box_Temp_Card",
+          "type": "image",
+          "x": 366,
+          "y": 297,
+          "w": 330,
+          "h": 145,
+          "color": "0D1119"
+        },
+        {
+          "name": "Box_Temp_Accent",
+          "type": "image",
+          "x": 366,
+          "y": 297,
+          "w": 330,
+          "h": 4,
+          "color": "FBBF24"
+        },
+        {
+          "name": "Txt_Temp_Label",
+          "type": "text",
+          "x": 380,
+          "y": 309,
+          "w": 150,
+          "h": 26,
+          "text": "Temp",
+          "color": "FBBF24",
+          "size": 22,
+          "align": "left"
+        },
+        {
+          "name": "Txt_Temp_Unit",
+          "type": "text",
+          "x": 556,
+          "y": 309,
+          "w": 126,
+          "h": 26,
+          "text": "°C",
+          "color": "9C7C33",
+          "size": 16,
+          "align": "right"
+        },
+        {
+          "name": "Txt_Temp_Value",
+          "type": "text",
+          "x": 366,
+          "y": 335,
+          "w": 330,
+          "h": 92,
+          "text": "37.0",
+          "color": "FBBF24",
+          "size": 80,
+          "align": "center"
+        },
+        {
+          "name": "Box_PaO2_Card",
+          "type": "image",
+          "x": 24,
+          "y": 454,
+          "w": 330,
+          "h": 145,
+          "color": "0D1119"
+        },
+        {
+          "name": "Box_PaO2_Accent",
+          "type": "image",
+          "x": 24,
+          "y": 454,
+          "w": 330,
+          "h": 4,
+          "color": "60A5FA"
+        },
+        {
+          "name": "Txt_PaO2_Label",
+          "type": "text",
+          "x": 38,
+          "y": 466,
+          "w": 150,
+          "h": 26,
+          "text": "PaO2",
+          "color": "60A5FA",
+          "size": 22,
+          "align": "left"
+        },
+        {
+          "name": "Txt_PaO2_Unit",
+          "type": "text",
+          "x": 214,
+          "y": 466,
+          "w": 126,
+          "h": 26,
+          "text": "mmHg",
+          "color": "5A72A0",
+          "size": 16,
+          "align": "right"
+        },
+        {
+          "name": "Txt_PaO2_Value",
+          "type": "text",
+          "x": 24,
+          "y": 492,
+          "w": 330,
+          "h": 92,
+          "text": "100",
+          "color": "60A5FA",
+          "size": 80,
+          "align": "center"
+        },
+        {
+          "name": "Box_PaCO2_Card",
+          "type": "image",
+          "x": 366,
+          "y": 454,
+          "w": 330,
+          "h": 145,
+          "color": "0D1119"
+        },
+        {
+          "name": "Box_PaCO2_Accent",
+          "type": "image",
+          "x": 366,
+          "y": 454,
+          "w": 330,
+          "h": 4,
+          "color": "E2E8F0"
+        },
+        {
+          "name": "Txt_PaCO2_Label",
+          "type": "text",
+          "x": 380,
+          "y": 466,
+          "w": 150,
+          "h": 26,
+          "text": "PaCO2",
+          "color": "E2E8F0",
+          "size": 22,
+          "align": "left"
+        },
+        {
+          "name": "Txt_PaCO2_Unit",
+          "type": "text",
+          "x": 556,
+          "y": 466,
+          "w": 126,
+          "h": 26,
+          "text": "mmHg",
+          "color": "8B94A3",
+          "size": 16,
+          "align": "right"
+        },
+        {
+          "name": "Txt_PaCO2_Value",
+          "type": "text",
+          "x": 366,
+          "y": 492,
+          "w": 330,
+          "h": 92,
+          "text": "40",
+          "color": "E2E8F0",
+          "size": 80,
+          "align": "center"
+        }
+      ]
+    },
+    {
+      "name": "Footer",
+      "elements": [
+        {
+          "name": "Box_Footer",
+          "type": "image",
+          "x": 24,
+          "y": 612,
+          "w": 672,
+          "h": 84,
+          "color": "0B0F17"
+        },
+        {
+          "name": "Txt_BE_Label",
+          "type": "text",
+          "x": 40,
+          "y": 624,
+          "w": 160,
+          "h": 20,
+          "text": "Base excess",
+          "color": "8B94A3",
+          "size": 14,
+          "align": "left"
+        },
+        {
+          "name": "Txt_BE_Value",
+          "type": "text",
+          "x": 40,
+          "y": 648,
+          "w": 180,
+          "h": 26,
+          "text": "0.0 mEq/L",
+          "color": "CBD5E1",
+          "size": 18,
+          "align": "left"
+        },
+        {
+          "name": "Txt_Hct_Label",
+          "type": "text",
+          "x": 262,
+          "y": 624,
+          "w": 160,
+          "h": 20,
+          "text": "Hematocrit",
+          "color": "8B94A3",
+          "size": 14,
+          "align": "left"
+        },
+        {
+          "name": "Txt_Hct_Value",
+          "type": "text",
+          "x": 262,
+          "y": 648,
+          "w": 180,
+          "h": 26,
+          "text": "40 %",
+          "color": "CBD5E1",
+          "size": 18,
+          "align": "left"
+        },
+        {
+          "name": "Txt_Bypass_Label",
+          "type": "text",
+          "x": 472,
+          "y": 624,
+          "w": 200,
+          "h": 20,
+          "text": "Time on bypass",
+          "color": "8B94A3",
+          "size": 14,
+          "align": "left"
+        },
+        {
+          "name": "Txt_Bypass_Value",
+          "type": "text",
+          "x": 472,
+          "y": 648,
+          "w": 200,
+          "h": 26,
+          "text": "00:00",
+          "color": "CBD5E1",
+          "size": 18,
+          "align": "left"
+        }
+      ]
+    }
+  ]
+}

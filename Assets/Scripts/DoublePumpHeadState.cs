@@ -22,6 +22,9 @@ public class DoublePumpHeadState : MonoBehaviour
     public bool pumpB_Running = false;
     public bool bypassOn = false;
 
+    [Header("Power (button beside knob)")]
+    public bool powered = false;
+
     [Header("Master-Slave Configuration (Screen 2_1)")]
     public int masterIndex = 0;     // 0=Nil, 1=Arterial, 2=Cardio, 3=Vent, 4=Suct1, 5=Suct2
     public int flowPercent = 0;     // 0..200

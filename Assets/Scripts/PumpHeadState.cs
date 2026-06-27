@@ -38,6 +38,9 @@ public class PumpHeadState : MonoBehaviour
     [Header("Running state (Screen1 START/STOP)")]
     public bool running = false;
 
+    [Header("Power (button beside knob)")]
+    public bool powered = false;
+
     [Header("Session timer (Screen1 play/history)")]
     public bool timerRunning = false;
     public float timerSeconds = 0f;
