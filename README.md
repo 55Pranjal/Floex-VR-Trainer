@@ -3,19 +3,34 @@
 A virtual-reality training simulator for perfusionists, built for the **Floex 3.0
 Heart-Lung Machine (HLM)** by [Floaid MedTech](https://floaid.com/).
 
-The trainer reproduces the Floex 3.0 console and operating-room workflow in an
-immersive VR environment, letting operators build familiarity and procedural skill
-without consuming scarce hardware or clinical time during early training.
+The trainer immerses operators in a virtual operating theatre with a faithful Floex 3.0
+console, letting them learn the machine's controls and workflow — and practise the core
+perfusion decision (setting pump flow correctly for a given patient) — without needing
+scarce hardware or clinical time during early training.
 
----
+## What it does
+
+- **Faithful Floex 3.0 console** in VR — five interactive pump-head screens plus the
+  main pole console, navigable by direct touch (poke) and ray, with working pump
+  controls (power, start/stop, RPM knobs, tube/direction pickers).
+- **Physical pump behaviour** — rotors spin at a speed proportional to RPM, with
+  realistic momentum on direction reversal; spatial audio whose pitch tracks pump speed.
+- **Patient setup** — enter patient height, weight and cardiac index on the BSA screen
+  (via the Quest system keyboard) to compute body surface area and the **target blood
+  flow** for that patient.
+- **Live flow** — each pump computes its actual blood flow (L/min) from its RPM and
+  tubing size, using calibration data taken from the real Floex 3.0 machine.
+- **Patient monitor** — a hospital-style vitals monitor (on the OR's patient monitor,
+  as in a real theatre) displaying patient state.
+
+The training goal is the perfusionist's core skill: given a patient, set the pump up so
+that **actual flow meets the patient's target flow.**
 
 ## Overview
 
-The Floex 3.0 is a heart-lung machine used to take over the function of the heart and
-lungs during cardiopulmonary bypass (CPB). Operating one safely demands extensive
-hands-on practice that is difficult to schedule on real, in-service equipment. This
-project delivers that practice in VR: a faithful interactive replica of the console,
-its pump heads, and the surrounding OR, running standalone on a consumer headset.
+- **Headset:** Meta Quest 3 (and 3S)
+- **Engine:** Unity 2022.3 LTS (URP)
+- **VR stack:** Meta XR Core + Interaction SDK (v74), OpenXR
 
 The project has grown from an initial familiarisation trainer into a clinical
 simulator. Development now targets a full physiology-backed CPB simulator, built in
@@ -23,15 +38,25 @@ phases against a 28-week roadmap. The console, interaction model, and RPM-couple
 motor behaviour are complete; a decoupled, unit-tested patient-physiology model is
 now in progress.
 
-## Platform & technology
+Active development — core simulation loop working.
 
-| Area            | Choice                                                   |
-| --------------- | -------------------------------------------------------- |
-| Headset         | Meta Quest 3 / 3S (standalone, Android, ARM64, IL2CPP)   |
-| Engine          | Unity 2022.3.62f3 LTS                                     |
-| Render pipeline | URP, Single Pass Instanced                               |
-| VR stack        | Meta XR Core SDK + Meta XR Interaction SDK v74.0.0, OpenXR |
-| Package         | `com.floaid.floexvr`                                     |
+- [x] Build pipeline to Quest 3
+- [x] CAD-to-mesh asset pipeline (STEP → FreeCAD → Blender → FBX)
+- [x] Floex 3.0 model imported, OR environment built
+- [x] Interactive console — all pump screens, navigation, pickers
+- [x] Pump controls — power, start/stop, RPM knobs, rotor + spatial audio
+- [x] Patient input (BSA screen) + target-flow calculation
+- [x] Actual flow from RPM + tubing (real machine calibration)
+- [x] Patient monitor display
+- [ ] Scenario engine — predefined patients + correct-operation assessment
+- [ ] Flow evaluation / trainee feedback
+
+## Approach
+
+The trainer is being built as a **scenario-based assessment tool**: it presents a
+predefined patient and evaluates whether the trainee operates the HLM correctly for that
+patient, rather than running a full real-time physiology engine. Clinical correctness
+lives in scenario definitions reviewed by clinical advisors.
 
 > Version pins are deliberate and validated against known SDK/Gradle compatibility
 > issues. See [`CLAUDE.md`](CLAUDE.md) for the full environment specification and the
@@ -92,35 +117,8 @@ git lfs install
 git clone https://github.com/55Pranjal/Floex-VR-Trainer.git
 ```
 
-Open the project in **Unity 2022.3.62f3**. The main scene is
-`Assets/Scenes/OR_Environment.unity`.
-
-For Quest deployment, the build target is Android / ARM64 / IL2CPP with OpenXR, the
-Oculus Touch Controller Profile, and Meta Quest Support enabled. For in-editor
-testing over Quest Link, OpenXR and the Touch profile must also be enabled on the
-Windows (desktop) tab of XR Plug-in Management.
-
-See [`CLAUDE.md`](CLAUDE.md) for the complete environment specification, build
-settings, asset-pipeline conventions, and hard-won setup notes.
-
-## Repository layout
-
-| Path                    | Contents                                            |
-| ----------------------- | --------------------------------------------------- |
-| `Assets/Scripts/`       | Runtime logic (state, navigators, controllers, rotors) |
-| `Assets/ScreenSpecs/`   | JSON screen specifications (source of truth for UI) |
-| `Assets/Editor/`        | `ScreenBuilder.cs` and editor tooling               |
-| `Assets/Models/`        | 3D assets (pump heads, knobs, trainer, hospital)    |
-| `Assets/Scenes/`        | `OR_Environment.unity` main scene                   |
-| `devlog/`               | Daily development logs                              |
-| `docs/`                 | Roadmaps and planning documents                     |
-
-## Development workflow
-
-Progress is recorded as a daily devlog in `devlog/day-NN.md`. Screen specifications
-are edited in JSON and regenerated through `ScreenBuilder`; values are not adjusted
-directly in the Unity Inspector except during final polish. Large binaries are tracked
-through Git LFS.
+Open with **Unity 2022.3.62f3**. See `CLAUDE.md` for the full environment specification,
+version pins, architecture, and hard-won development notes.
 
 ## About Floaid MedTech
 
@@ -129,6 +127,5 @@ Floex 3.0 Heart-Lung Machine and related cardiopulmonary technologies.
 
 ---
 
-_This project is under active development and is not a certified medical device. It is
-intended for training and familiarisation, not for clinical decision-making or patient
-care._
+_This project is under active development and not yet ready for production use._
+_The simulator is a training aid and is not a certified medical device._

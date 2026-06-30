@@ -54,13 +54,13 @@ public class Screen1Controller : MonoBehaviour
         UpdateTimerDisplay();
         UpdateBypassSprite();
         UpdatePlayPauseSprite();
+        UpdateLpmDisplay();
     }
 
     void Update()
     {
-        // RPM tracks the knob setpoint live; timer renders state.timerSeconds
-        // (PumpHeadNavigator increments it).
         UpdateRpmDisplay();
+        UpdateLpmDisplay();
         UpdateTimerDisplay();
     }
 
@@ -124,10 +124,18 @@ public class Screen1Controller : MonoBehaviour
     void UpdateReadouts()
     {
         bool running = state != null && state.running;
-        SetText("Txt_LpmValue", running ? runningLpm     : StoppedLpm);
+        // L/PM is now computed flow (tube coefficient × RPM), gated on powered + running.
         SetText("Txt_Current",  running ? runningCurrent : StoppedCurrent);
         SetText("Txt_Torque",   running ? runningTorque  : StoppedTorque);
         SetText("Txt_Voltage",  running ? runningVoltage : StoppedVoltage);
+    }
+
+    void UpdateLpmDisplay()
+    {
+        if (state == null) return;
+        bool live = state.running && state.powered && state.rpmSetpoint > 0;
+        float flow = live ? state.GetFlowLpm() : 0f;
+        SetText("Txt_LpmValue", flow.ToString("0.00"));
     }
 
     void UpdateRpmDisplay()
@@ -135,6 +143,7 @@ public class Screen1Controller : MonoBehaviour
         if (state == null) return;
         SetText("Txt_RpmValue", state.rpmSetpoint.ToString("000"));
     }
+
 
     void UpdateTimerDisplay()
     {
