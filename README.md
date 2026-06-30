@@ -26,17 +26,13 @@ scarce hardware or clinical time during early training.
 The training goal is the perfusionist's core skill: given a patient, set the pump up so
 that **actual flow meets the patient's target flow.**
 
-## Overview
+## Platform
 
 - **Headset:** Meta Quest 3 (and 3S)
 - **Engine:** Unity 2022.3 LTS (URP)
 - **VR stack:** Meta XR Core + Interaction SDK (v74), OpenXR
 
-The project has grown from an initial familiarisation trainer into a clinical
-simulator. Development now targets a full physiology-backed CPB simulator, built in
-phases against a 28-week roadmap. The console, interaction model, and RPM-coupled
-motor behaviour are complete; a decoupled, unit-tested patient-physiology model is
-now in progress.
+## Status
 
 Active development — core simulation loop working.
 
@@ -57,6 +53,30 @@ The trainer is being built as a **scenario-based assessment tool**: it presents 
 predefined patient and evaluates whether the trainee operates the HLM correctly for that
 patient, rather than running a full real-time physiology engine. Clinical correctness
 lives in scenario definitions reviewed by clinical advisors.
+
+## Overview
+
+The Floex 3.0 is a heart-lung machine used to take over the function of the heart and
+lungs during cardiopulmonary bypass (CPB). Operating one safely demands extensive
+hands-on practice that is difficult to schedule on real, in-service equipment. This
+project delivers that practice in VR: a faithful interactive replica of the console,
+its pump heads, and the surrounding OR, running standalone on a consumer headset.
+
+The project has grown from an initial familiarisation trainer into a clinical
+simulator. Development now targets a full physiology-backed CPB simulator, built in
+phases against a 28-week roadmap. The console, interaction model, and RPM-coupled
+motor behaviour are complete; a decoupled, unit-tested patient-physiology model is
+now in progress.
+
+## Platform & technology
+
+| Area            | Choice                                                   |
+| --------------- | -------------------------------------------------------- |
+| Headset         | Meta Quest 3 / 3S (standalone, Android, ARM64, IL2CPP)   |
+| Engine          | Unity 2022.3.62f3 LTS                                     |
+| Render pipeline | URP, Single Pass Instanced                               |
+| VR stack        | Meta XR Core SDK + Meta XR Interaction SDK v74.0.0, OpenXR |
+| Package         | `com.floaid.floexvr`                                     |
 
 > Version pins are deliberate and validated against known SDK/Gradle compatibility
 > issues. See [`CLAUDE.md`](CLAUDE.md) for the full environment specification and the
