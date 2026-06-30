@@ -13,7 +13,7 @@ Repo: github.com/55Pranjal/Floex-VR-Trainer
 
 Claude's standing instruction under this delegation: do NOT block or demand re-approval for physiology work — the build call is Pranjal's. Claude should still briefly *flag* (one line, non-blocking) when a step (a) introduces a genuinely new class of physiology behavior, or (b) touches clinical correctness/accuracy (KRB's domain), so it's visible in the log and chosen knowingly. Flagging != gating. Overall scope direction (e.g. committing to a whole new phase or product) still belongs to Shiv.
 
-Roadmap state: `Floex_VR_Option3_Roadmap.docx` is the active plan (28 weeks, full physiology + 3 CPB scenarios). Phase 3A (geometry + motor rotation) is met and overshot. Currently working through the **Phase 3A polish list** before the Phase 3A exit demo to Shiv.
+Roadmap state: Floex_VR_Option3_Roadmap.docx is the reference plan, but the product has been reframed (Shiv, ~Day 38) as a scenario-based trainer: present a predefined patient (height/weight/CI/condition) and assess whether the trainee operates the HLM correctly for that patient — NOT a continuous real-time physiology engine. Clinical knowledge lives in scenario definitions + correct-answer ranges (KRB-authorable), not validated differential equations. Phase 3A cleared (exit demo passed, Day 35). Now building the physiology/scenario foundation: patient input (BSA screen), target flow, actual flow.
 
 ## Working style (Pranjal's preferences)
 
@@ -108,28 +108,38 @@ URP render settings note: Intermediate Texture Mode set to "Auto" (was "Always" 
 ### Unity execution order
 - Button wiring goes in `Start`, not `OnEnable` — `PumpHeadNavigator.Awake` blanket-disables home-screen raycasts, which would undo wiring done in OnEnable.
 
-## Current state (as of Day 35)
+### VR text input / system keyboard
+TMP_InputField does NOT receive focus through Meta's pointable-canvas pipeline on v74 — the system keyboard never opens via focus. Don't fight it.
+Solution: catch the poke with a normal Button onClick, call TouchScreenKeyboard.Open() directly, write the returned string into a plain TMP label yourself (SystemKeyboardField.cs). No InputField needed.
+THE system keyboard overlay only renders in an ON-DEVICE BUILD — never over Quest Link / editor Play. Testing the keyboard over Link shows nothing and looks broken (cost 2 days, Days 15-16). Always test keyboard on-device.
+Requires Require System Keyboard checked on OVRManager (Quest Features).
+Fields on the pole canvas (ScreenNavigator) need their raycast re-enabled in Start (navigator blanket-disables in Awake) — SystemKeyboardField does this itself.
 
-**Product A complete; Option 3 Phase 3A met and overshot. In the Phase 3A polish pass. Physiology build greenlit, dev-seat authority.**
+## Current state (as of Day 43)
+
+Phase 3A cleared (exit demo passed Day 35). Building the scenario/physiology foundation. Core target-vs-actual flow loop working.
 
 Built and working:
-- All 5 canvases fully interactive; all screen navigation + pickers
-- All 4 pump heads with independent state (double pump = pump A + B + shared flow ratio)
-- Direct touch (Poke) + Ray on all 5 canvases; click-hold bug resolved
-- All 4 pump heads with rotors as separate sub-meshes, RPM-coupled spin (6 deg/s per RPM)
-- RPM knob caps complete across all 4 heads (5 pumps); knob drives RPM + rotor speed; double pump A/B independent
-- Cleanup: Intermediate Texture Mode -> Auto; `Floaid.lnk` + Burst DoNotShip untracked
 
-Phase 3A polish — REMAINING before exit demo:
-- Spatial audio <- IN PROGRESS (Day 35). Using Unity built-in 3D audio (Spatial Blend 1.0), NOT Meta XR Audio SDK — avoids a new pinned-version package dependency; convincing enough for 3A, can add HRTF later. Both clips self-generated (Audacity), Force-To-Mono, in `Assets/Audio/`. Pump loop AudioSources placed on pump heads (Loop, no Play On Awake). Pump hum pitch-coupled to RPM (Shiv-approved). Alarm beep AudioSource on the main pole/HLM body. `PumpAudio.cs` drives play/stop + pitch.
-- Bypass toggle visible reaction (beyond sprite flip)
-- Alarm light blink on state changes
-- Stable 72fps on-device (OVR Metrics Tool; disable Dynamic Resolution while profiling)
-- Full VR regression sweep (5 canvases poke+ray, START/STOP, nav, knobs all 4 heads)
-- Recorded walkthrough
-- Phase 3A exit demo to Shiv
 
-Polish backlog status: `tube_circle_3.png` white-not-green, duplicate `medical_instrument_tray`, "Removed" component cruft, slot-4 dome/vent artifacts — reported DONE or not-needed (confirm with Pranjal). VR scale verification vs real HLM still open.
+All 5 canvases interactive; navigation + pickers; all 4 pump heads independent state
+Poke + Ray on all 5 canvases; RPM-coupled rotor spin (now with momentum ramp on direction reversal — eases through zero, not instant flip); knob caps all 4 heads
+Spatial audio (Unity built-in 3D, Spatial Blend 1.0; pump hum pitch-coupled to RPM; clips self-generated, mono). Audio gated on running && rpm>0 && powered.
+72fps on-device baseline confirmed (constant 72, Day 35)
+Power button per pump head (all heads). Real powered state on PumpHeadState/DoublePumpHeadState (default false). Poke button (Route A: tiny transparent button canvas over the physical button mesh, reusing the proven canvas-poke pipeline) toggles powered → shows/hides the console canvas. Screen starts OFF. Rotor + audio gated on powered. A black backing canvas (Screen_Backing_NN, always-on, behind the screen canvas) makes OFF read as a dark screen instead of bare metal.
+Patient monitor on the ECG/hospital monitor asset (square 720x720 canvas). PatientMonitorController reads PatientStateDriver.State → 9 vitals (display-only, no thresholds). Patient data shows on the hospital monitor, NOT the HLM (per Shiv — matches real OR).
+Physiology foundation: PatientState (pure C#, Floex.Physiology asmdef, 12 vars + 50ms tick), PatientStateDriver (20Hz fixed-step), 8 passing NUnit EditMode tests.
+BSA screen text entry SOLVED. System keyboard overlay via SystemKeyboardField.cs — poke a field → TouchScreenKeyboard.Open() (NumbersAndPunctuation for numeric) → writes result into the TMP label. NO TMP_InputField (Meta pointable pipeline won't focus it). CRITICAL: the system keyboard ONLY appears in an on-device BUILD, never over Link — that's what cost 2 days previously. All editable BSA fields working.
+Target flow: BSAFormController.Calculate() → BSA = sqrt(h*w/3600) (Mosteller); target flow = CI × BSA, CI entered on screen (Cardiac field, moved to editableFields) or default 2.5. Temperature modifier out for v1. Written to Txt_Target. (Real machine derives CI from flow sensors; entered CI is a TARGET-CI trainer simplification — KRB to confirm.)
+Actual flow: PumpHeadState.GetFlowLpm() = LpmPerRpm[tubeIndex] × rpmSetpoint. Coefficients from the real Floex tables (roller pump = linear; verified vs machine tables): 1/4 = 0.00602, 3/8 = 0.02598, 1/2 = 0.04498 LPM/RPM. Tubes 5/16, F1, F2 = 0 (not provided; Shiv said skip for now). Screen1Controller shows it live on Txt_LpmValue, gated on running && powered && rpm>0.
+
+
+Open clinical questions (gate the next step — evaluation layer):
+
+
+Which pump's flow is compared to the BSA target — arterial only? (Flow calc itself is mode-independent mechanics — correct for all pumps. But evaluation against the patient target is arterial-pump-only.)
+Pump-mode assignment (arterial selectable on any single head; double head = suction + vent per Shiv) — Shiv resolving with HLM team.
+Do cardioplegia/suction/vent pumps have their own correctness criteria, or pass/fail on setup?
 
 ## Next / on the horizon
 
@@ -150,7 +160,7 @@ Polish backlog status: `tube_circle_3.png` white-not-green, duplicate `medical_i
 ## Key file/folder locations
 
 - Repo root: `C:\Floaid\Floex HLM VR\`
-- Scripts: `Assets/Scripts/` (note actual filenames: `Knobrpmdial.cs`, `Doubleknobrpmdial.cs`, `Pumphead1Screen1Controller.cs`)
+- Scripts: `Assets/Scripts/` (note actual filenames: `Knobrpmdial.cs`, `Doubleknobrpmdial.cs`, `Pumphead1Screen1Controller.cs`, `SystemKeyboardField.cs`, `PumpPowerButton.cs`, `PatientMonitorController.cs`, `PatientStateDriver.cs`, `Physiology/PatientState.cs`)
 - Screen JSON: `Assets/ScreenSpecs/`
 - ScreenBuilder: `Assets/Editor/ScreenBuilder.cs`
 - Models: `Assets/Models/` (SinglePumpHead.fbx, DoublePumpHead.fbx, KnobEncoder.fbx, Floex_Trainer.fbx, Hospital/)

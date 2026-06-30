@@ -36,7 +36,7 @@ public class PumpAudio : MonoBehaviour
     {
         if (state == null) return;
 
-        if (state.running && state.rpmSetpoint > 0)
+        if (state.running && state.rpmSetpoint > 0 && state.powered)
         {
             if (!_src.isPlaying) _src.Play();
 

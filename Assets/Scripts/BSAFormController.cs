@@ -50,14 +50,15 @@ public class BSAFormController : MonoBehaviour
         new Field { name = "Age",       initialValue = "45",         charLimit = 3,  contentType = TMP_InputField.ContentType.IntegerNumber },
         new Field { name = "Blood",     initialValue = "O+",         charLimit = 4,  contentType = TMP_InputField.ContentType.Standard },
         new Field { name = "Weight",    initialValue = "75",         charLimit = 6,  contentType = TMP_InputField.ContentType.DecimalNumber },
-        new Field { name = "Hight",     initialValue = "180",        charLimit = 3,  contentType = TMP_InputField.ContentType.IntegerNumber },
+        new Field { name = "Height",     initialValue = "180",        charLimit = 3,  contentType = TMP_InputField.ContentType.IntegerNumber },
         new Field { name = "Surgeon",   initialValue = "Dr. Sharma", charLimit = 30, contentType = TMP_InputField.ContentType.Standard },
         new Field { name = "Anesth",    initialValue = "Dr. Patel",  charLimit = 30, contentType = TMP_InputField.ContentType.Standard },
         new Field { name = "Perfusion", initialValue = "Dr. Kumar",  charLimit = 30, contentType = TMP_InputField.ContentType.Standard },
+        new Field { name = "Cardiac",   initialValue = "",           charLimit = 4,  contentType = TMP_InputField.ContentType.DecimalNumber },
     };
 
     [Tooltip("Read-only computed fields - Txt_{name} is written by Calculate.")]
-    public string[] computedFields = new string[] { "Cardiac", "BSA", "Target" };
+    public string[] computedFields = new string[] { "BSA", "Target" };
 
     [Tooltip("Hover/press tint on Calculate button.")]
     public Color highlightColor = new Color(0.906f, 0.412f, 0.427f); // FloEx coral
@@ -204,19 +205,25 @@ public class BSAFormController : MonoBehaviour
         if (_navigator != null) _navigator.ShowScreen(homeScreen);
     }
 
-    void Calculate()
+   void Calculate()
     {
         float weight = ParseFloat("Weight");
-        float height = ParseFloat("Hight");
+        float height = ParseFloat("Height");
         if (weight <= 0f || height <= 0f) return;
 
         float bsa = Mathf.Sqrt((height * weight) / 3600f);
         if (readOnly.TryGetValue("BSA", out TMP_Text bsaTxt))
             bsaTxt.text = bsa.ToString("F2");
 
-        // Cardiac Index and Target Flow intentionally left empty.
-        // Firmware computes CI = cardioplegia1_Out / BSA, which depends on
-        // physiology data the trainer does not simulate (Product A scope-lock).
+        // Target flow = cardiac index x BSA. CI entered on screen; default 2.5 if blank.
+        // (Real machine derives CI from flow sensors; here the entered value is a TARGET
+        // CI used to compute target flow — trainer simplification, KRB to confirm.)
+        float ci = ParseFloat("Cardiac");
+        if (ci <= 0f) ci = 2.5f;
+
+        float targetFlow = ci * bsa;
+        if (readOnly.TryGetValue("Target", out TMP_Text targetTxt))
+            targetTxt.text = targetFlow.ToString("F2");
     }
 
     float ParseFloat(string fieldName)

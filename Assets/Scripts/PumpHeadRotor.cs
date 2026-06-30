@@ -40,7 +40,7 @@ public class PumpHeadRotor : MonoBehaviour
 
         // Target speed: 0 unless running with RPM > 0. Sign from direction.
         float target = 0f;
-        if (state.running && state.rpmSetpoint > 0)
+        if (state.running && state.rpmSetpoint > 0 && state.powered)
         {
             float dir = state.directionForward ? 1f : -1f;
             target = state.rpmSetpoint * degreesPerSecondPerRpm * dir;
