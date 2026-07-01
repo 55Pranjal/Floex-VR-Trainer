@@ -6,9 +6,9 @@ using TMPro;
 
 /// <summary>
 /// Per-canvas navigation for the double pump head (slot 4). Manages:
-///  - Screen1 picker entry buttons: PumpA tube/dir, PumpB tube/dir, shared Ratio
+///  - Screen1 picker entry buttons: PumpA/PumpB pump-select, PumpA/PumpB dir, shared Ratio
 ///  - 4-button nav strip on Screen1/2_1/3/4/5 (slot-swap pattern)
-///  - Tracks which pump (A or B) opened the active tube/direction picker
+///  - Tracks which pump (A or B) opened the active picker
 ///  - Screen lifecycle (ShowScreen activates one, deactivates rest)
 ///  - Label refresh on return home (state mirrors)
 /// Click pipeline: PointableCanvas -> GraphicRaycaster -> Unity Button.onClick.
@@ -24,9 +24,9 @@ public class DoublePumpHeadNavigator : MonoBehaviour
     [Tooltip("Double pump head state - refreshed labels on Screen1 read from this.")]
     public DoublePumpHeadState state;
 
-    // Screen1 picker entry buttons. Tube + Direction entries also set activePicker
-    // (A or B) before opening, so the shared Tube_Size_1/Direction picker knows which
-    // pump's state to update on APPLY.
+    // Screen1 picker entry buttons. Pump + Direction entries also set activePicker
+    // (A or B) before opening, so the shared DPH_Pump_Select/Direction picker knows
+    // which pump's state to update on APPLY.
     struct PickerEntry
     {
         public string target;
@@ -36,9 +36,9 @@ public class DoublePumpHeadNavigator : MonoBehaviour
 
     static readonly Dictionary<string, PickerEntry> Screen1PickerEntries = new Dictionary<string, PickerEntry>
     {
-        { "Txt_PumpA_Tube", new PickerEntry("Tube_Size_1", DoublePumpHeadState.ActivePump.A) },
+        { "Txt_PumpA_Pump", new PickerEntry("DPH_Pump_Select", DoublePumpHeadState.ActivePump.A) },
+        { "Txt_PumpB_Pump", new PickerEntry("DPH_Pump_Select", DoublePumpHeadState.ActivePump.B) },
         { "Txt_PumpA_Dir",  new PickerEntry("Direction",   DoublePumpHeadState.ActivePump.A) },
-        { "Txt_PumpB_Tube", new PickerEntry("Tube_Size_2", DoublePumpHeadState.ActivePump.B) },
         { "Txt_PumpB_Dir",  new PickerEntry("Direction_2", DoublePumpHeadState.ActivePump.B) },
         { "Txt_Ratio",      new PickerEntry("Screen_PumpHead04_FlowRatio", DoublePumpHeadState.ActivePump.None) },
     };
@@ -61,7 +61,7 @@ public class DoublePumpHeadNavigator : MonoBehaviour
         "Screen_PumpHead_Screen4",
         "Screen_PumpHead_Screen5",
         "Screen_PumpHead04_FlowRatio",
-        "Tube_Size_1", "Tube_Size_2",
+        "DPH_Pump_Select",
         "Direction", "Direction_2",
     };
 
@@ -107,13 +107,13 @@ public class DoublePumpHeadNavigator : MonoBehaviour
         }
 
         Transform play = FindDeep(home, "Img_PlayIcon");
-if (play != null)
-{
-    HookButton(play.gameObject, () =>
-    {
-        if (state != null) state.timerRunning = !state.timerRunning;
-    });
-}
+        if (play != null)
+        {
+            HookButton(play.gameObject, () =>
+            {
+                if (state != null) state.timerRunning = !state.timerRunning;
+            });
+        }
     }
 
     void WireNavStripOnly(string screenName)
@@ -163,18 +163,20 @@ if (play != null)
     }
 
     void RefreshHomeLabels()
-{
-    if (state == null) return;
-    Transform home = transform.Find(homeScreen);
-    if (home == null) return;
+    {
+        if (state == null) return;
+        Transform home = transform.Find(homeScreen);
+        if (home == null) return;
 
-    SetText(home, "Txt_PumpA_Tube", state.pumpA_TubeSize);
-    SetText(home, "Txt_PumpA_Dir",  state.pumpA_Direction);
-    SetText(home, "Txt_PumpB_Tube", state.pumpB_TubeSize);
-    SetText(home, "Txt_PumpB_Dir",  state.pumpB_Direction);
-    SetText(home, "Txt_Ratio",      state.flowRatio);
-    UpdateTimerLabel();
-}
+        SetText(home, "Txt_PumpA_Pump", state.GetPumpNameA());
+        SetText(home, "Txt_PumpB_Pump", state.GetPumpNameB());
+        SetText(home, "Txt_PumpA_Tube", state.pumpA_TubeSize);
+        SetText(home, "Txt_PumpA_Dir",  state.pumpA_Direction);
+        SetText(home, "Txt_PumpB_Tube", state.pumpB_TubeSize);
+        SetText(home, "Txt_PumpB_Dir",  state.pumpB_Direction);
+        SetText(home, "Txt_Ratio",      state.flowRatio);
+        UpdateTimerLabel();
+    }
 
     void HookButton(GameObject go, UnityAction onClick)
     {
@@ -207,23 +209,23 @@ if (play != null)
     }
 
     void Update()
-{
-    if (state == null || !state.timerRunning) return;
-    state.timerSeconds += Time.deltaTime;
-    UpdateTimerLabel();
-}
+    {
+        if (state == null || !state.timerRunning) return;
+        state.timerSeconds += Time.deltaTime;
+        UpdateTimerLabel();
+    }
 
-void UpdateTimerLabel()
-{
-    Transform home = transform.Find(homeScreen);
-    if (home == null || !home.gameObject.activeSelf) return;
+    void UpdateTimerLabel()
+    {
+        Transform home = transform.Find(homeScreen);
+        if (home == null || !home.gameObject.activeSelf) return;
 
-    int total = Mathf.FloorToInt(state.timerSeconds);
-    int h = total / 3600;
-    int m = (total % 3600) / 60;
-    int s = total % 60;
-    SetText(home, "Txt_Timer", $"{h:00}:{m:00}:{s:00}");
-}
+        int total = Mathf.FloorToInt(state.timerSeconds);
+        int h = total / 3600;
+        int m = (total % 3600) / 60;
+        int s = total % 60;
+        SetText(home, "Txt_Timer", $"{h:00}:{m:00}:{s:00}");
+    }
 
     static Transform FindDeep(Transform root, string name)
     {

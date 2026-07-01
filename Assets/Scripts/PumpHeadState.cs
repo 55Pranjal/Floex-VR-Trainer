@@ -7,7 +7,7 @@ using UnityEngine;
 public class PumpHeadState : MonoBehaviour
 {
     [Header("Pump picker (Pump_Select_1)")]
-    public int pumpIndex = 0;       // 0=Arterial, 1=Cardio, 2=Vent, 3=Suct1, 4=Suct2
+public int pumpIndex = 0;       // 0=Nil, 1=Arterial, 2=Cardio, 3=Vent, 4=Suct1, 5=Suct2
 
     [Header("Tube picker (Tube_Size_1)")]
     public int tubeIndex = 0;       // 0=1/4, 1=3/8, 2=1/2, 3=5/16, 4=F1, 5=F2
@@ -48,7 +48,7 @@ public class PumpHeadState : MonoBehaviour
     [Header("Bypass toggle (Screen1 footer)")]
     public bool bypassOn = false;
 
-    static readonly string[] PumpNames = { "Arterial", "Cardio", "Vent", "Suct 1", "Suct 2" };
+    static readonly string[] PumpNames = { "PUMP SELECT", "Arterial", "Cardio", "Vent", "Suct 1", "Suct 2" };
     static readonly string[] TubeNames = { "1/4", "3/8", "1/2", "5/16", "F1", "F2" };
 
     public string GetPumpName()       => PumpNames[Mathf.Clamp(pumpIndex, 0, PumpNames.Length - 1)];

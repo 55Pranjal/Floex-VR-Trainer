@@ -14,7 +14,10 @@
       "elements": [
         { "name": "Box_Header", "type": "image", "x": 0, "y": 0, "w": 800, "h": 60, "color": "2B1D1D" },
         { "name": "Txt_Logo", "type": "text", "x": 10, "y": 4, "w": 200, "h": 48, "text": "FloEx 3.0", "color": "E7696D", "size": 40, "align": "left" },
-        { "name": "Txt_Cardioplegia", "type": "text", "x": 480, "y": 14, "w": 240, "h": 40, "text": "CARDIOPLEGIA", "color": "FFFFFF", "size": 28, "align": "right" }
+        { "name": "Img_PumpA_Pump_Bg", "type": "image", "x": 240, "y": 12, "w": 230, "h": 40, "color": "2B1D1D" },
+        { "name": "Txt_PumpA_Pump",    "type": "text",  "x": 240, "y": 14, "w": 230, "h": 36, "text": "PUMP SELECT", "color": "FFFFFF", "size": 22, "align": "center" },
+        { "name": "Img_PumpB_Pump_Bg", "type": "image", "x": 490, "y": 12, "w": 230, "h": 40, "color": "2B1D1D" },
+        { "name": "Txt_PumpB_Pump",    "type": "text",  "x": 490, "y": 14, "w": 230, "h": 36, "text": "PUMP SELECT", "color": "FFFFFF", "size": 22, "align": "center" }
       ]
     },
     {

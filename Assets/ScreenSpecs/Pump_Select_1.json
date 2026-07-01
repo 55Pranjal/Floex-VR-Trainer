@@ -130,6 +130,22 @@
       "name": "Buttons_Bottom",
       "elements": [
         {
+          "name": "Btn_Nil_Bg",
+          "type": "image",
+          "x": 128, "y": 274, "w": 240, "h": 50,
+          "sprite": "button_rounded_medium"
+        },
+        {
+          "name": "Btn_Nil_Label",
+          "type": "text",
+          "x": 128, "y": 274, "w": 240, "h": 50,
+          "text": "NIL",
+          "size": 24,
+          "color": "FFFFFF",
+          "align": "center",
+          "bold": true
+        },
+        {
           "name": "Btn_Suction2_Bg",
           "type": "image",
           "x": 409, "y": 274, "w": 240, "h": 50,

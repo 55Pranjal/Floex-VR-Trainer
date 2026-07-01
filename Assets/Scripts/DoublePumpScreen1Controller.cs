@@ -29,7 +29,7 @@ public class DoublePumpScreen1Controller : MonoBehaviour
     public Sprite pauseSprite;
 
     [Header("Running readouts (Stopped always shows zero values)")]
-    public string runningLpm = "4.50";
+  
 
     const string StoppedLpm = "0.00";
 
@@ -49,13 +49,12 @@ public class DoublePumpScreen1Controller : MonoBehaviour
         UpdatePlayPauseSprite();
     }
 
-    void Update()
-    {
-        // RPM tracks the knob setpoints live; timer renders state.timerSeconds
-        // (DoublePumpHeadNavigator increments it).
-        UpdateRpmDisplay();
-        UpdateTimerDisplay();
-    }
+   void Update()
+{
+    UpdateRpmDisplay();
+    UpdateReadouts();
+    UpdateTimerDisplay();
+}
 
     void WireStopButtons()
     {
@@ -118,11 +117,17 @@ public class DoublePumpScreen1Controller : MonoBehaviour
     }
 
     void UpdateReadouts()
-    {
-        if (state == null) return;
-        SetText("Txt_PumpA_Lpm", state.pumpA_Running ? runningLpm : StoppedLpm);
-        SetText("Txt_PumpB_Lpm", state.pumpB_Running ? runningLpm : StoppedLpm);
-    }
+{
+    if (state == null) return;
+    SetText("Txt_PumpA_Lpm", FlowText(state.pumpA_Running, state.pumpA_RpmSetpoint, state.GetFlowLpmA()));
+    SetText("Txt_PumpB_Lpm", FlowText(state.pumpB_Running, state.pumpB_RpmSetpoint, state.GetFlowLpmB()));
+}
+
+string FlowText(bool running, int rpm, float lpm)
+{
+    bool live = running && state.powered && rpm > 0;
+    return live ? lpm.ToString("0.00") : StoppedLpm;
+}
 
     void UpdateRpmDisplay()
     {

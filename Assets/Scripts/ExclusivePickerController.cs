@@ -13,6 +13,11 @@ using TMPro;
 ///   onCancelClicked    -> revert temp to state, nav back to home
 ///   onHomePressed      -> same as cancel (revert, nav back)
 /// Highlight = alpha 255 on selected, alpha 100 on rest (matches firmware).
+///
+/// Arterial exclusivity: Pump kind consults ArterialRegistry. At most one head
+/// may hold Arterial (index 0) machine-wide. On open, if another head owns it,
+/// the Arterial option is dimmed + de-interacted (silent block). On Apply,
+/// claim when landing on Arterial, release when moving off it.
 /// </summary>
 public class ExclusivePickerController : MonoBehaviour
 {
@@ -24,6 +29,8 @@ public class ExclusivePickerController : MonoBehaviour
     public PumpHeadNavigator navigator;
     [Tooltip("Screen name to return to on Apply/Cancel/Home.")]
     public string returnScreen = "Screen_PumpHead_Screen1";
+
+    const int ArterialIndex = 1;
 
     int tempSelected;
     bool changed;
@@ -39,6 +46,7 @@ public class ExclusivePickerController : MonoBehaviour
         WireHomeButton();
         LoadFromState();
         Highlight(tempSelected);
+        ApplyArterialGate();
     }
 
     void WireOptions()
@@ -74,7 +82,7 @@ public class ExclusivePickerController : MonoBehaviour
         switch (kind)
         {
             case PickerKind.Pump:
-                return new[] { "Btn_Arterial_Bg", "Btn_Cardioplegia_Bg", "Btn_Vent_Bg", "Btn_Suction1_Bg", "Btn_Suction2_Bg" };
+                return new[] { "Btn_Nil_Bg", "Btn_Arterial_Bg", "Btn_Cardioplegia_Bg", "Btn_Vent_Bg", "Btn_Suction1_Bg", "Btn_Suction2_Bg" };
             case PickerKind.Tube:
                 return new[] { "Btn_Tube0_Outline", "Btn_Tube1_Outline", "Btn_Tube2_Outline", "Btn_Tube3_Outline", "Btn_Tube4_Outline", "Btn_Tube5_Outline" };
             case PickerKind.Direction:
@@ -108,7 +116,24 @@ public class ExclusivePickerController : MonoBehaviour
         {
             switch (kind)
             {
-                case PickerKind.Pump:      state.pumpIndex = tempSelected; break;
+                case PickerKind.Pump:
+                    // Registry is source of truth for arterial exclusivity.
+                    if (tempSelected == ArterialIndex)
+                    {
+                        // Landing on Arterial — claim. Option was interactable so it
+                        // should be free, but guard against a race.
+                        if (ArterialRegistry.Instance != null &&
+                            !ArterialRegistry.Instance.TryClaim(state))
+                            break; // claim lost; leave state unchanged
+                    }
+                    else if (state.pumpIndex == ArterialIndex)
+                    {
+                        // Moving OFF arterial to something else — release.
+                        if (ArterialRegistry.Instance != null)
+                            ArterialRegistry.Instance.Release(state);
+                    }
+                    state.pumpIndex = tempSelected;
+                    break;
                 case PickerKind.Tube:      state.tubeIndex = tempSelected; break;
                 case PickerKind.Direction: state.directionForward = (tempSelected == 0); break;
             }
@@ -141,6 +166,37 @@ public class ExclusivePickerController : MonoBehaviour
             Color c = img.color;
             c.a = (i == selected) ? 1.0f : 0.4f;
             img.color = c;
+        }
+    }
+
+    /// <summary>
+    /// Pump kind only: if another head owns Arterial, dim + de-interact the
+    /// Arterial option (silent disabled-button block). Runs after Highlight so
+    /// the dim alpha wins. Re-evaluated on every OnEnable — self-correcting once
+    /// the other head releases.
+    /// </summary>
+    void ApplyArterialGate()
+    {
+        if (kind != PickerKind.Pump || state == null || ArterialRegistry.Instance == null) return;
+
+        bool locked = !ArterialRegistry.Instance.IsFree(state);
+        if (!locked) return;
+
+        Transform t = FindDeep(transform, "Btn_Arterial_Bg");
+        if (t == null) return;
+
+        // Strip the Button so poke/ray do nothing and no hover/press tint fires,
+        // drop raycast, dim to a clearly-disabled alpha.
+        Button btn = t.GetComponent<Button>();
+        if (btn != null) Destroy(btn);
+
+        Graphic g = t.GetComponent<Graphic>();
+        if (g != null)
+        {
+            g.raycastTarget = false;
+            Color c = g.color;
+            c.a = 0.15f;
+            g.color = c;
         }
     }
 
