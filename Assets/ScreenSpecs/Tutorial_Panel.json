@@ -1,0 +1,42 @@
+{
+  "screenName": "Tutorial_Panel",
+  "comment": "Standalone floating familiarization tutorial panel. Driven by TutorialController. One panel, text swaps per step. 720x600.",
+  "canvasWidth": 720,
+  "canvasHeight": 600,
+  "groups": [
+    {
+      "name": "Background",
+      "elements": [
+        { "name": "Img_Bg", "type": "image", "x": 0, "y": 0, "w": 720, "h": 600, "color": "0B1529", "stretch": true },
+        { "name": "Box_Header", "type": "image", "x": 0, "y": 0, "w": 720, "h": 64, "color": "2B1D1D" }
+      ]
+    },
+    {
+      "name": "Header",
+      "elements": [
+        { "name": "Txt_Title", "type": "text", "x": 20, "y": 12, "w": 680, "h": 40, "text": "FAMILIARIZATION TRAINER", "size": 30, "color": "E7696D", "align": "center", "bold": true }
+      ]
+    },
+    {
+      "name": "Body",
+      "elements": [
+        { "name": "Txt_Body", "type": "text", "x": 44, "y": 90, "w": 632, "h": 330, "text": "", "size": 26, "color": "FFFFFF", "align": "left" }
+      ]
+    },
+    {
+      "name": "Clue",
+      "elements": [
+        { "name": "Txt_Clue", "type": "text", "x": 44, "y": 432, "w": 632, "h": 88, "text": "", "size": 22, "color": "E7696D", "align": "center" }
+      ]
+    },
+    {
+      "name": "Action",
+      "elements": [
+        { "name": "Btn_Action_Bg",    "type": "image", "x": 230, "y": 528, "w": 260, "h": 56, "sprite": "button_rounded_small" },
+        { "name": "Btn_Action_Label", "type": "text",  "x": 230, "y": 528, "w": 260, "h": 56, "text": "START TUTORIAL", "size": 24, "color": "FFFFFF", "align": "center", "bold": true },
+        { "name": "Btn_Back_Bg",    "type": "image", "x": 40, "y": 528, "w": 140, "h": 56, "sprite": "button_rounded_small" },
+        { "name": "Btn_Back_Label", "type": "text",  "x": 40, "y": 515, "w": 140, "h": 56, "text": "BACK", "size": 22, "color": "FFFFFF", "align": "center", "bold": true }
+    ]
+    }
+  ]
+}

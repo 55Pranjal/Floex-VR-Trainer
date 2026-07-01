@@ -42,6 +42,10 @@ public class BSAFormController : MonoBehaviour
         public TMP_InputField.ContentType contentType = TMP_InputField.ContentType.Standard;
     }
 
+    [Header("Computed (read by tutorial validator)")]
+    public float TargetFlowLpm = 0f;   // last computed target flow; 0 = not yet calculated
+    public bool HasTarget = false;     // true once Calculate produced a value
+
     [Tooltip("One entry per displayed field on this screen. Display target is Txt_{name}.")]
     public Field[] editableFields = new Field[]
     {
@@ -222,6 +226,8 @@ public class BSAFormController : MonoBehaviour
         if (ci <= 0f) ci = 2.5f;
 
         float targetFlow = ci * bsa;
+        TargetFlowLpm = targetFlow;   // stash for validator
+        HasTarget = true;
         if (readOnly.TryGetValue("Target", out TMP_Text targetTxt))
             targetTxt.text = targetFlow.ToString("F2");
     }
@@ -237,6 +243,8 @@ public class BSAFormController : MonoBehaviour
     {
         foreach (var kv in readOnly)
             kv.Value.text = "";
+        TargetFlowLpm = 0f;
+        HasTarget = false;
     }
 
     static Transform FindDeep(Transform root, string n)

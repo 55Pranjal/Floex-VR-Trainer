@@ -24,6 +24,17 @@ using Oculus.Interaction;
 ///      through this script's bypass path; the two pipelines don't conflict because each
 ///      handles a different interactor source.
 ///
+/// Edge-state fix (intermittent ray wedge):
+///   The click edge is now latched ONLY while the ray is over a UI element on THIS
+///   canvas. Whenever the ray leaves this canvas (misses the plane, falls outside the
+///   rect, or hits no graphic) the interactor's latched select state is reset. This
+///   prevents a select that begins elsewhere — e.g. grabbing/rotating the knob, or a
+///   selection consumed by another canvas as the ray drifts across boundaries — from
+///   poisoning this canvas's edge detection and wedging its ray clicks until the
+///   interactor fully releases. Previously the edge was computed from the global
+///   interactor.State BEFORE hit-testing, so an off-canvas select could leave
+///   wasSelecting[interactor] = true forever and no further click edge would fire.
+///
 /// Notes:
 ///   - This dispatches "click" only for Ray. Hover/drag/scroll are not bypassed.
 ///   - The visible laser still comes from Meta's interactor; we just listen to its state.
@@ -102,12 +113,7 @@ public class CanvasClickBypass : MonoBehaviour
 
     void ProcessInteractor(RayInteractor interactor)
     {
-        // Edge-detect on the interactor's selection state (button press).
         bool isSelecting = interactor.State == InteractorState.Select;
-        bool wasSel;
-        wasSelecting.TryGetValue(interactor, out wasSel);
-        wasSelecting[interactor] = isSelecting;
-        bool clickEdge = isSelecting && !wasSel;
 
         Vector3 origin = interactor.Origin;
         Vector3 direction = interactor.Forward;
@@ -115,23 +121,31 @@ public class CanvasClickBypass : MonoBehaviour
         Vector3 planeNormal = -transform.forward;
         Vector3 planePoint = transform.position;
 
+        // Ray parallel to plane -> not on this canvas. Reset latch so a later
+        // on-canvas select is a clean edge.
         float denom = Vector3.Dot(direction, planeNormal);
-        if (Mathf.Abs(denom) < 1e-6f) { ClearHover(interactor); return; }
+        if (Mathf.Abs(denom) < 1e-6f) { ResetSelect(interactor); ClearHover(interactor); return; }
 
+        // Plane is behind the ray origin -> not on this canvas.
         float t = Vector3.Dot(planePoint - origin, planeNormal) / denom;
-        if (t < 0f) { ClearHover(interactor); return; }
+        if (t < 0f) { ResetSelect(interactor); ClearHover(interactor); return; }
 
         Vector3 worldHit = origin + direction * t;
 
         RectTransform rt = transform as RectTransform;
         Vector2 localHit = rt.InverseTransformPoint(worldHit);
         Rect rect = rt.rect;
-        if (!rect.Contains(localHit)) { ClearHover(interactor); return; }
+        // Hit point outside this canvas's rect -> not on this canvas.
+        if (!rect.Contains(localHit)) { ResetSelect(interactor); ClearHover(interactor); return; }
 
         if (canvas.worldCamera == null)
         {
             canvas.worldCamera = Camera.main;
-            if (canvas.worldCamera == null) return;
+            if (canvas.worldCamera == null)
+            {
+                if (logClicks) Debug.LogWarning($"[CanvasClickBypass:{name}] no camera this frame");
+                return;
+            }
         }
 
         Vector2 screenPos = canvas.worldCamera.WorldToScreenPoint(worldHit);
@@ -160,8 +174,20 @@ public class CanvasClickBypass : MonoBehaviour
             currentHover[interactor] = hit;
         }
 
-        // --- Click dispatch (with per-target cooldown to suppress state flicker re-fires) ---
-        if (clickEdge && hit != null)
+        // No UI graphic under the ray -> nothing to click. Reset latch so a select
+        // that started off-canvas (knob grab, another canvas) can't wedge us, and so
+        // the next genuine on-element select reads as a fresh edge.
+        if (hit == null) { ResetSelect(interactor); return; }
+
+        // Edge-detect is computed ONLY now that we know the ray is on a UI element
+        // of this canvas.
+        bool wasSel;
+        wasSelecting.TryGetValue(interactor, out wasSel);
+        wasSelecting[interactor] = isSelecting;
+        bool clickEdge = isSelecting && !wasSel;
+
+        // --- Click dispatch (per-target cooldown suppresses state-flicker re-fires) ---
+        if (clickEdge)
         {
             float now = Time.unscaledTime;
             float lastTime;
@@ -179,6 +205,16 @@ public class CanvasClickBypass : MonoBehaviour
                 Debug.Log($"[CanvasClickBypass:{name}] Click on {hit.name} suppressed (cooldown)");
             }
         }
+    }
+
+    /// <summary>
+    /// Clear the latched select state for this interactor so the next genuine
+    /// on-canvas select registers as a fresh click edge. Called whenever the ray
+    /// is not over a UI element of this canvas.
+    /// </summary>
+    void ResetSelect(RayInteractor interactor)
+    {
+        wasSelecting[interactor] = false;
     }
 
     void ClearHover(RayInteractor interactor)

@@ -2,7 +2,8 @@ using UnityEngine;
 
 /// <summary>
 /// State container for a double pump head canvas (slot 4).
-/// Tracks two independent cardioplegia pumps (A and B) plus the shared flow ratio.
+/// Tracks two independent pump lanes (A and B) plus the shared flow ratio.
+/// Each lane has its own pump role (per-lane, DPH is a free extra head).
 /// RPM setpoints drive both the readout and (as of Day 29, Shiv-approved) the rotor speed.
 /// </summary>
 public class DoublePumpHeadState : MonoBehaviour
@@ -11,11 +12,13 @@ public class DoublePumpHeadState : MonoBehaviour
     public string pumpA_TubeSize = "1/4";
     public string pumpA_Direction = "CW";
     public int pumpA_RpmSetpoint = 0;   // 0..250 (set via Pump A knob cap)
+    public int pumpA_PumpIndex = 0;     // 0=Nil,1=Arterial,2=Cardio,3=Vent,4=Suct1,5=Suct2
 
     [Header("Pump B")]
     public string pumpB_TubeSize = "1/4";
     public string pumpB_Direction = "CW";
     public int pumpB_RpmSetpoint = 0;   // 0..250 (set via Pump B knob cap)
+    public int pumpB_PumpIndex = 0;     // 0=Nil,1=Arterial,2=Cardio,3=Vent,4=Suct1,5=Suct2
 
     [Header("Running State")]
     public bool pumpA_Running = false;
@@ -52,9 +55,29 @@ public class DoublePumpHeadState : MonoBehaviour
     public bool timerRunning = false;
     public float timerSeconds = 0f;
 
+    // Floex HLM flow calibration: 1/4 tube only (DPH is fixed 1/4). LPM per RPM.
+    const float LpmPerRpm_Quarter = 0.00602f;
+
+    /// <summary>Pump A flow (L/min) = 1/4 coefficient × RPM. Roller pump = linear.</summary>
+    public float GetFlowLpmA() => LpmPerRpm_Quarter * pumpA_RpmSetpoint;
+
+    /// <summary>Pump B flow (L/min) = 1/4 coefficient × RPM.</summary>
+    public float GetFlowLpmB() => LpmPerRpm_Quarter * pumpB_RpmSetpoint;
+
+    // Unique per-lane claimant handles for ArterialRegistry. Not serialized;
+    // field initializers hold the reference. One head = two claimable lanes,
+    // so each lane needs its own key (can't use `this`).
+    [System.NonSerialized] public readonly object laneKeyA = new object();
+    [System.NonSerialized] public readonly object laneKeyB = new object();
+
+    static readonly string[] PumpNames = { "PUMP SELECT", "Arterial", "Cardio", "Vent", "Suct 1", "Suct 2" };
+
+    public string GetPumpNameA() => PumpNames[Mathf.Clamp(pumpA_PumpIndex, 0, PumpNames.Length - 1)];
+    public string GetPumpNameB() => PumpNames[Mathf.Clamp(pumpB_PumpIndex, 0, PumpNames.Length - 1)];
+
     /// <summary>
     /// Tracks which pump (A or B) the currently-open picker belongs to.
-    /// Set by the home-screen button handler before opening Tube_Size or Direction picker.
+    /// Set by the home-screen button handler before opening a picker.
     /// Read by the picker's APPLY handler to know which pump to update.
     /// </summary>
     public enum ActivePump { None, A, B }
