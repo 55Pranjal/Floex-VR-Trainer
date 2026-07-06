@@ -305,10 +305,10 @@ void SetActive(string name, bool on)
                 return "Step 5 of 6\n\n" +
                        "Press the green START button to run the pump.";
             case 6:
-                return "Step 6 of 6\n\n" +
-                       "Rotate the knob until the L/MIN reading is within 10 of your target flow.\n\n" +
-                       "If the knob maxes out and flow is still too low, switch to a bigger tube.\n\n" +
-                       "When ready, press DONE.";
+    return "Step 6 of 6\n\n" +
+           $"Rotate the knob until the L/MIN reading is within {flowToleranceLpm:0.0#} of your target flow.\n\n" +
+           "If the knob maxes out and flow is still too low, switch to a bigger tube.\n\n" +
+           "When ready, press DONE.";
             case 7:
                 return "MISSION PASSED\n\n" +
                        "Your arterial pump is running at the patient's target flow. Well done.";

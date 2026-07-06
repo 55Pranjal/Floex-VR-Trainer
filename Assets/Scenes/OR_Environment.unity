@@ -42171,7 +42171,7 @@ MonoBehaviour:
   - {fileID: 848921695}
   doubleHead: {fileID: 1313843315}
   bsaForm: {fileID: 1536857409}
-  flowToleranceLpm: 10
+  flowToleranceLpm: 0.1
   rpmCeiling: 250
   highlightColor: {r: 0.906, g: 0.412, b: 0.427, a: 1}
 --- !u!1 &848774313
