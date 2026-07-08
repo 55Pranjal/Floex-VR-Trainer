@@ -18,14 +18,17 @@ using TMPro;
 ///   6  match target flow   "DONE" -> Validate()
 ///   7  passed             "RESTART" -> 0
 ///
-/// Validation (step 6): passes if ANY checkable unit is Arterial + (Forward
-/// where the model expresses direction) + powered + running + flow within
-/// target +/- 10 L/min. On fail, reports the first meaningful problem as a clue.
+/// Validation (step 6): passes if ANY checkable unit is Arterial + correct
+/// direction (where the model expresses direction) + powered + running + flow
+/// within target +/- tolerance. On fail, reports the first meaningful problem.
 ///
-/// Direction note: SPH exposes a clean Forward/Reverse (directionForward), so
-/// direction is enforced there. DPH lanes use CW/CCW whose physical push mapping
-/// is unconfirmed (CAD/Hashir), so direction is NOT graded on DPH — a DPH lane
-/// can pass on arterial + flow alone. The tutorial text guides to a single head.
+/// Direction: the HLM lead confirmed the correct arterial rotation is CCW =
+/// Reverse. SPH exposes a clean Forward/Reverse (directionForward), so the
+/// correct arterial setting there is directionForward == false (Reverse), and
+/// that is graded. DPH lanes use CW/CCW strings whose physical push mapping was
+/// only partially confirmed for this build, so DPH direction is NOT graded — a
+/// DPH lane can pass on arterial + flow alone. The tutorial text guides to a
+/// single head.
 /// </summary>
 public class TutorialController : MonoBehaviour
 {
@@ -59,34 +62,34 @@ public class TutorialController : MonoBehaviour
     // ── Action button ─────────────────────────────────────────────
 
     float lastInputTime = -999f;
-const float InputDebounce = 0.4f;
+    const float InputDebounce = 0.4f;
 
-bool Debounced()
-{
-    if (Time.unscaledTime - lastInputTime < InputDebounce) return true;
-    lastInputTime = Time.unscaledTime;
-    return false;
-}
+    bool Debounced()
+    {
+        if (Time.unscaledTime - lastInputTime < InputDebounce) return true;
+        lastInputTime = Time.unscaledTime;
+        return false;
+    }
 
-void OnActionPressed()
-{
-    if (Debounced()) return;
+    void OnActionPressed()
+    {
+        if (Debounced()) return;
 
-    if (stepIndex == 0)              stepIndex = 1;
-    else if (stepIndex >= 1 && stepIndex <= 5) stepIndex++;
-    else if (stepIndex == 6)         { Validate(); return; }
-    else if (stepIndex == 7)         stepIndex = 0;
-    Refresh();
-}
+        if (stepIndex == 0)              stepIndex = 1;
+        else if (stepIndex >= 1 && stepIndex <= 5) stepIndex++;
+        else if (stepIndex == 6)         { Validate(); return; }
+        else if (stepIndex == 7)         stepIndex = 0;
+        Refresh();
+    }
 
-void OnBackPressed()
-{
-    if (Debounced()) return;
+    void OnBackPressed()
+    {
+        if (Debounced()) return;
 
-    if (stepIndex >= 1 && stepIndex <= 6) stepIndex--;
-    else if (stepIndex == 7) stepIndex = 6;
-    Refresh();
-}
+        if (stepIndex >= 1 && stepIndex <= 6) stepIndex--;
+        else if (stepIndex == 7) stepIndex = 6;
+        Refresh();
+    }
 
     void Validate()
     {
@@ -146,7 +149,7 @@ void OnBackPressed()
             {
                 label = doubleHead.gameObject.name + " A",
                 role  = doubleHead.pumpA_PumpIndex,
-                dirForward = false, hasCleanDir = false,   // CW/CCW mapping unconfirmed
+                dirForward = false, hasCleanDir = false,   // DPH direction not graded
                 powered = doubleHead.powered,
                 running = doubleHead.pumpA_Running,
                 flow = doubleHead.GetFlowLpmA(),
@@ -165,6 +168,13 @@ void OnBackPressed()
         }
 
         return list;
+    }
+
+    // Correct arterial direction is Reverse (CCW), per HLM lead. On SPH that is
+    // directionForward == false. For heads without a clean direction (DPH), pass.
+    static bool DirectionOk(Unit u)
+    {
+        return !u.hasCleanDir || !u.dirForward;
     }
 
     /// <summary>True if any head fully satisfies the task. Otherwise clue = first problem.</summary>
@@ -188,7 +198,7 @@ void OnBackPressed()
         foreach (var u in units)
         {
             bool roleOk = u.role == ArterialRole;
-            bool dirOk  = !u.hasCleanDir || u.dirForward;
+            bool dirOk  = DirectionOk(u);
             bool liveOk = u.powered && u.running;
             bool flowOk = u.flow >= lo && u.flow <= hi;
             if (roleOk && dirOk && liveOk && flowOk) return true;
@@ -209,21 +219,21 @@ void OnBackPressed()
             return false;
         }
 
-        var forward = live.FindAll(u => !u.hasCleanDir || u.dirForward);
-        if (forward.Count == 0)
+        var correctDir = live.FindAll(DirectionOk);
+        if (correctDir.Count == 0)
         {
-            clue = "Arterial direction is Reverse — set it to Forward.";
+            clue = "Arterial direction is Forward — set it to Reverse.";
             return false;
         }
 
         // Direction/role/live are fine on at least one head — it's a flow problem.
         // Pick the arterial head closest to the range for the most useful hint.
-        Unit best = forward[0];
+        Unit best = correctDir[0];
         float bestDist = FlowDistance(best.flow, lo, hi);
-        for (int i = 1; i < forward.Count; i++)
+        for (int i = 1; i < correctDir.Count; i++)
         {
-            float d = FlowDistance(forward[i].flow, lo, hi);
-            if (d < bestDist) { best = forward[i]; bestDist = d; }
+            float d = FlowDistance(correctDir[i].flow, lo, hi);
+            if (d < bestDist) { best = correctDir[i]; bestDist = d; }
         }
 
         string flowStr = best.flow.ToString("0.0");
@@ -253,18 +263,18 @@ void OnBackPressed()
     // ── Panel refresh ─────────────────────────────────────────────
 
     void Refresh(string clue = "")
-{
-    SetText("Txt_Body", BuildBody(stepIndex));
-    SetText("Btn_Action_Label", BuildLabel(stepIndex));
-    SetText("Txt_Clue", clue);
-    SetActive("Btn_Back_Bg", stepIndex >= 1);   // hidden on step 0
-}
+    {
+        SetText("Txt_Body", BuildBody(stepIndex));
+        SetText("Btn_Action_Label", BuildLabel(stepIndex));
+        SetText("Txt_Clue", clue);
+        SetActive("Btn_Back_Bg", stepIndex >= 1);   // hidden on step 0
+    }
 
-void SetActive(string name, bool on)
-{
-    Transform t = FindDeep(transform, name);
-    if (t != null) t.gameObject.SetActive(on);
-}
+    void SetActive(string name, bool on)
+    {
+        Transform t = FindDeep(transform, name);
+        if (t != null) t.gameObject.SetActive(on);
+    }
 
     string BuildLabel(int s)
     {
@@ -298,17 +308,17 @@ void SetActive(string name, bool on)
                 return "Step 4 of 6\n\n" +
                        "On that head, set:\n" +
                        "   PUMP  =  Arterial\n" +
-                       "   DIRECTION  =  Forward\n" +
+                       "   DIRECTION  =  Reverse\n" +
                        "   TUBE  =  your choice\n\n" +
                        "Bigger tube = more flow per turn. Pick a tube whose range can reach the target.";
             case 5:
                 return "Step 5 of 6\n\n" +
                        "Press the green START button to run the pump.";
             case 6:
-    return "Step 6 of 6\n\n" +
-           $"Rotate the knob until the L/MIN reading is within {flowToleranceLpm:0.0#} of your target flow.\n\n" +
-           "If the knob maxes out and flow is still too low, switch to a bigger tube.\n\n" +
-           "When ready, press DONE.";
+                return "Step 6 of 6\n\n" +
+                       $"Rotate the knob until the L/MIN reading is within {flowToleranceLpm:0.0#} of your target flow.\n\n" +
+                       "If the knob maxes out and flow is still too low, switch to a bigger tube.\n\n" +
+                       "When ready, press DONE.";
             case 7:
                 return "MISSION PASSED\n\n" +
                        "Your arterial pump is running at the patient's target flow. Well done.";
@@ -325,19 +335,18 @@ void SetActive(string name, bool on)
         HookButton(t.gameObject, OnActionPressed);
 
         // Label sits over the Bg — must be click-transparent or it eats the poke.
-         Transform lbl = FindDeep(transform, "Btn_Action_Label");
-         if (lbl != null)
+        Transform lbl = FindDeep(transform, "Btn_Action_Label");
+        if (lbl != null)
         {
-             Graphic g = lbl.GetComponent<Graphic>();
-             if (g != null) g.raycastTarget = false;
+            Graphic g = lbl.GetComponent<Graphic>();
+            if (g != null) g.raycastTarget = false;
         }
-         Transform back = FindDeep(transform, "Btn_Back_Bg");
-         if (back != null) HookButton(back.gameObject, OnBackPressed);
-         Transform backLbl = FindDeep(transform, "Btn_Back_Label");
-         if (backLbl != null) { var g = backLbl.GetComponent<Graphic>(); if (g != null) g.raycastTarget = false; }
+        Transform back = FindDeep(transform, "Btn_Back_Bg");
+        if (back != null) HookButton(back.gameObject, OnBackPressed);
+        Transform backLbl = FindDeep(transform, "Btn_Back_Label");
+        if (backLbl != null) { var g = backLbl.GetComponent<Graphic>(); if (g != null) g.raycastTarget = false; }
     }
 
-    
     void HookButton(GameObject go, UnityAction onClick)
     {
         Graphic graphic = go.GetComponent<Graphic>();
@@ -361,13 +370,12 @@ void SetActive(string name, bool on)
     }
 
     void SetText(string name, string value)
-{
-    Transform t = FindDeep(transform, name);
-    if (t == null) { Debug.Log($"[Tutorial] SetText MISS: {name}"); return; }
-    TMP_Text tmp = t.GetComponent<TMP_Text>();
-    if (tmp == null) { Debug.Log($"[Tutorial] SetText no TMP on: {name}"); return; }
-    tmp.text = value;
-}
+    {
+        Transform t = FindDeep(transform, name);
+        if (t == null) return;
+        TMP_Text tmp = t.GetComponent<TMP_Text>();
+        if (tmp != null) tmp.text = value;
+    }
 
     static Transform FindDeep(Transform root, string name)
     {

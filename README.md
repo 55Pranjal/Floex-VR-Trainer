@@ -1,82 +1,50 @@
 # Floex HLM VR Trainer
 
-A virtual-reality training simulator for perfusionists, built for the **Floex 3.0
-Heart-Lung Machine (HLM)** by [Floaid MedTech](https://floaid.com/).
+A virtual-reality familiarization trainer for perfusionists, built for the
+**Floex 3.0 Heart-Lung Machine (HLM)** by [Floaid MedTech](https://floaid.com/).
 
-The trainer immerses operators in a virtual operating theatre with a faithful Floex 3.0
-console, letting them learn the machine's controls and workflow — and practise the core
-perfusion decision (setting pump flow correctly for a given patient) — without needing
-scarce hardware or clinical time during early training.
+The trainer places an operator inside a virtual operating theatre with a faithful
+Floex 3.0 console and lets them learn the machine's controls and workflow — and
+practise the core perfusion setup task (setting a pump to a patient's target blood
+flow) — without needing scarce hardware or clinical time during early training.
 
 ## What it does
 
-- **Faithful Floex 3.0 console** in VR — five interactive pump-head screens plus the
-  main pole console, navigable by direct touch (poke) and ray, with working pump
-  controls (power, start/stop, RPM knobs, tube/direction pickers).
-- **Physical pump behaviour** — rotors spin at a speed proportional to RPM, with
-  realistic momentum on direction reversal; spatial audio whose pitch tracks pump speed.
-- **Patient setup** — enter patient height, weight and cardiac index on the BSA screen
-  (via the Quest system keyboard) to compute body surface area and the **target blood
-  flow** for that patient.
+- **Faithful Floex 3.0 console in VR** — five interactive displays (three single
+  pump heads, one double pump head, and the main pole console), navigable by direct
+  touch (poke) and by ray, with working pump controls: power, start/stop, RPM knobs,
+  and pump-type / tube-size / direction pickers.
+- **Physical pump behaviour** — rotors spin at a speed proportional to RPM with
+  realistic momentum on direction reversal, and spatial audio whose pitch tracks pump
+  speed.
+- **Patient setup** — enter patient height, weight and cardiac index on the BSA
+  screen (via the Quest system keyboard) to compute body surface area and the
+  **target blood flow** for that patient.
 - **Live flow** — each pump computes its actual blood flow (L/min) from its RPM and
-  tubing size, using calibration data taken from the real Floex 3.0 machine.
+  tubing size, using calibration data from the real Floex 3.0 machine.
+- **Machine-wide arterial exclusivity** — only one pump head may be assigned the
+  arterial role at a time, enforced across every head and lane, mirroring real
+  machine setup.
 - **Patient monitor** — a hospital-style vitals monitor (on the OR's patient monitor,
-  as in a real theatre) displaying patient state.
+  as in a real theatre) driven by a decoupled patient-state model.
+- **Guided familiarization tutorial** — a floating in-world panel walks the trainee
+  through the full setup: open the patient screen, calculate the target flow, power a
+  pump head, assign it as arterial in the correct direction, and rotate the knob until
+  actual flow matches the target. The tutorial validates the trainee's setup and gives
+  specific, corrective feedback when something is wrong.
 
-The training goal is the perfusionist's core skill: given a patient, set the pump up so
-that **actual flow meets the patient's target flow.**
-
-## Platform
-
-- **Headset:** Meta Quest 3 (and 3S)
-- **Engine:** Unity 2022.3 LTS (URP)
-- **VR stack:** Meta XR Core + Interaction SDK (v74), OpenXR
-
-## Status
-
-Active development — core simulation loop working.
-
-- [x] Build pipeline to Quest 3
-- [x] CAD-to-mesh asset pipeline (STEP → FreeCAD → Blender → FBX)
-- [x] Floex 3.0 model imported, OR environment built
-- [x] Interactive console — all pump screens, navigation, pickers
-- [x] Pump controls — power, start/stop, RPM knobs, rotor + spatial audio
-- [x] Patient input (BSA screen) + target-flow calculation
-- [x] Actual flow from RPM + tubing (real machine calibration)
-- [x] Patient monitor display
-- [ ] Scenario engine — predefined patients + correct-operation assessment
-- [ ] Flow evaluation / trainee feedback
-
-## Approach
-
-The trainer is being built as a **scenario-based assessment tool**: it presents a
-predefined patient and evaluates whether the trainee operates the HLM correctly for that
-patient, rather than running a full real-time physiology engine. Clinical correctness
-lives in scenario definitions reviewed by clinical advisors.
-
-## Overview
-
-The Floex 3.0 is a heart-lung machine used to take over the function of the heart and
-lungs during cardiopulmonary bypass (CPB). Operating one safely demands extensive
-hands-on practice that is difficult to schedule on real, in-service equipment. This
-project delivers that practice in VR: a faithful interactive replica of the console,
-its pump heads, and the surrounding OR, running standalone on a consumer headset.
-
-The project has grown from an initial familiarisation trainer into a clinical
-simulator. Development now targets a full physiology-backed CPB simulator, built in
-phases against a 28-week roadmap. The console, interaction model, and RPM-coupled
-motor behaviour are complete; a decoupled, unit-tested patient-physiology model is
-now in progress.
+The training goal is the perfusionist's core setup skill: given a patient, configure
+the pump so that **actual flow meets the patient's target flow.**
 
 ## Platform & technology
 
-| Area            | Choice                                                   |
-| --------------- | -------------------------------------------------------- |
-| Headset         | Meta Quest 3 / 3S (standalone, Android, ARM64, IL2CPP)   |
-| Engine          | Unity 2022.3.62f3 LTS                                     |
-| Render pipeline | URP, Single Pass Instanced                               |
+| Area            | Choice                                                     |
+| --------------- | ---------------------------------------------------------- |
+| Headset         | Meta Quest 3 / 3S (standalone, Android, ARM64, IL2CPP)     |
+| Engine          | Unity 2022.3.62f3 LTS                                      |
+| Render pipeline | URP, Single Pass Instanced                                 |
 | VR stack        | Meta XR Core SDK + Meta XR Interaction SDK v74.0.0, OpenXR |
-| Package         | `com.floaid.floexvr`                                     |
+| Package         | `com.floaid.floexvr`                                       |
 
 > Version pins are deliberate and validated against known SDK/Gradle compatibility
 > issues. See [`CLAUDE.md`](CLAUDE.md) for the full environment specification and the
@@ -87,7 +55,7 @@ now in progress.
 The console is organised around a **per-canvas pattern**: each pump-head display is a
 self-contained interactive unit that owns its own state, screen navigation, and
 interaction routing. The simulator comprises five canvases — three single pump heads,
-one double pump head, and the main pole canvas.
+one double pump head, and the main pole console.
 
 Key design principles:
 
@@ -105,27 +73,33 @@ Key design principles:
 - **Physically grounded motor model.** Rotor spin speed is coupled to the RPM setpoint
   at 6°/s per RPM (1 RPM = one revolution per minute), with direction control per pump.
 
-## Project status
-
-The interactive console is feature-complete and the first physiology work has begun.
-
-**Complete**
+## Features (complete)
 
 - [x] Standalone build pipeline to Quest 3
 - [x] CAD-to-mesh asset pipeline (STEP → FreeCAD → Blender → FBX → Unity)
 - [x] Floex 3.0 model imported, OR environment built
 - [x] All five canvases fully interactive — screen navigation and pickers
-- [x] Four pump heads with independent state (double pump: A + B + shared flow ratio)
+- [x] Four pump heads with independent state (double pump: A + B lanes + shared ratio)
 - [x] Direct touch (Poke) and ray interaction on all canvases
-- [x] RPM-coupled rotor rotation across all pump heads
+- [x] RPM-coupled rotor rotation with momentum on direction reversal
 - [x] Interactive RPM knobs driving setpoint and rotor speed
 - [x] Spatial audio — pump hum pitch-coupled to RPM
+- [x] Power control per pump head
+- [x] Patient setup (BSA screen) with on-device keyboard entry + target-flow calculation
+- [x] Live actual-flow from RPM + tubing (real machine calibration)
+- [x] Machine-wide arterial-role exclusivity
+- [x] Patient vitals monitor
+- [x] Guided familiarization tutorial with setup validation and corrective feedback
+- [x] Sustained 72 fps on-device
 
-**In progress**
+## Overview
 
-- [ ] Phase 3A polish pass (alarm/light feedback, sustained 72 fps, regression sweep)
-- [ ] `PatientState` physiology model — pure C#, 50 ms ticker, unit-tested
-- [ ] Full CPB scenarios
+The Floex 3.0 is a heart-lung machine used to take over the function of the heart and
+lungs during cardiopulmonary bypass. Operating one safely demands hands-on practice
+that is difficult to schedule on real, in-service equipment. This project delivers that
+practice in VR: a faithful interactive replica of the console, its pump heads, and the
+surrounding OR, running standalone on a consumer headset, with a guided walkthrough of
+the core patient-setup task.
 
 ## Getting started
 
@@ -138,7 +112,7 @@ git clone https://github.com/55Pranjal/Floex-VR-Trainer.git
 ```
 
 Open with **Unity 2022.3.62f3**. See `CLAUDE.md` for the full environment specification,
-version pins, architecture, and hard-won development notes.
+version pins, architecture, and development notes.
 
 ## About Floaid MedTech
 
@@ -147,5 +121,4 @@ Floex 3.0 Heart-Lung Machine and related cardiopulmonary technologies.
 
 ---
 
-_This project is under active development and not yet ready for production use._
 _The simulator is a training aid and is not a certified medical device._
